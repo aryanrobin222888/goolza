@@ -29,7 +29,7 @@ export default function MatchRow({
       }
 
       if (!isNaN(start.getTime())) {
-         const duration = 180; // default duration in minutes
+         const duration = 120; // default duration in minutes
          const end = new Date(start.getTime() + duration * 60 * 1000);
          
          if (now >= start && now <= end) {

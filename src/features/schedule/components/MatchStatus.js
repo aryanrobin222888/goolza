@@ -7,7 +7,7 @@ export default function MatchStatus({
   startTime,
   matchTime,
   matchDate,
-  duration = 180,
+  duration = 120,
   status,
 }) {
   const [timeLeft, setTimeLeft] = useState("");

@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import Footer from "@/features/schedule/components/Footer";
-import { Tv, Mic2, Trophy, CalendarClock, ArrowRight } from "lucide-react";
+import { Tv, Mic2, Trophy, CalendarClock, ArrowRight, ArrowLeft } from "lucide-react";
 import { extractIdFromSlug } from "@/lib/matchSlug";
 
 export const dynamic = "force-dynamic";
@@ -55,8 +55,8 @@ export async function generateMetadata({ params }) {
   const ogDescription = `شاهد الآن ${home} و ${away} لايف. موقع كوولزا - أسرع بث مباشر للمباريات.`;
 
   const images = [];
-  if (match.home?.logo) images.push({ url: match.home.logo, alt: `شعار ${home}` });
-  if (match.away?.logo) images.push({ url: match.away.logo, alt: `شعار ${away}` });
+  if (match.home?.logo) images.push({ url: match.home.logo, alt: `شعار ${home} - بث مباشر مباراة اليوم عبر موقع جولزا Goolza` });
+  if (match.away?.logo) images.push({ url: match.away.logo, alt: `شعار ${away} - بث مباشر مباراة اليوم عبر موقع جولزا Goolza` });
   if (images.length === 0)
     images.push({ url: "/og-image.jpg", width: 1200, height: 630, alt: "كوولزا - بث مباشر" });
 
@@ -113,8 +113,29 @@ export default async function MatchPage({ params }) {
     match.league ||
     "البطولة";
 
-  const isLive = match.status === "LIVE";
-  const isFinished = match.status === "ENDED" || match.status === "finished";
+  let isLive = match.status === "LIVE";
+  let isFinished = ["ENDED", "finished", "FT", "AET", "PEN", "Match Finished"].includes(match.status) || match.status?.toLowerCase() === "ended";
+
+  if (!isLive && !isFinished && (match.startTime || match.time)) {
+    const now = new Date();
+    let start = new Date(match.startTime);
+
+    if (isNaN(start.getTime()) && match.time) {
+      const dateStr = now.toISOString().split("T")[0];
+      start = new Date(`${dateStr}T${match.time}:00`);
+    }
+
+    if (!isNaN(start.getTime())) {
+      const duration = 120; // default duration in minutes
+      const end = new Date(start.getTime() + duration * 60 * 1000);
+
+      if (now >= start && now <= end) {
+        isLive = true;
+      } else if (now > end) {
+        isFinished = true;
+      }
+    }
+  }
 
   // ── JSON-LD SportsEvent Schema ──
   const jsonLd = {
@@ -124,6 +145,11 @@ export default async function MatchPage({ params }) {
     sport: "Football",
     url: `https://goolza.com/match/${slug}`,
     startDate: match.startTime || new Date().toISOString(),
+    organizer: {
+      "@type": "Organization",
+      name: "goolza",
+      url: "https://goolza.com"
+    },
     homeTeam: { "@type": "SportsTeam", name: home },
     awayTeam: { "@type": "SportsTeam", name: away },
     location: { "@type": "Place", name: comp },
@@ -189,7 +215,7 @@ export default async function MatchPage({ params }) {
             className="flex items-center gap-1.5 text-sm text-slate-500 hover:text-[#5c2d91] transition-colors font-medium"
           >
             الجدول الكامل
-            <ArrowRight className="w-4 h-4" />
+            <ArrowLeft className="w-4 h-4" />
           </Link>
         </div>
       </header>
@@ -242,7 +268,7 @@ export default async function MatchPage({ params }) {
                 {match.home?.logo ? (
                   <Image
                     src={match.home.logo}
-                    alt={`شعار ${home}`}
+                    alt={`شعار ${home} - بث مباشر مباراة اليوم عبر موقع جولزا Goolza`}
                     fill
                     className="object-contain"
                     sizes="(max-width: 768px) 64px, 80px"
@@ -274,7 +300,7 @@ export default async function MatchPage({ params }) {
                 {match.away?.logo ? (
                   <Image
                     src={match.away.logo}
-                    alt={`شعار ${away}`}
+                    alt={`شعار ${away} - بث مباشر مباراة اليوم عبر موقع جولزا Goolza`}
                     fill
                     className="object-contain"
                     sizes="(max-width: 768px) 64px, 80px"
@@ -310,22 +336,15 @@ export default async function MatchPage({ params }) {
               )}
 
               {/* Main button */}
-              <div className="flex flex-col items-center gap-3">
-                <div className="w-20 h-20 rounded-full bg-white/10 border border-white/20 flex items-center justify-center transition-transform duration-300 group-hover:scale-110 group-hover:bg-white/20 shadow-2xl">
-                  <Tv className="w-9 h-9 text-white" />
-                </div>
-                <p className="text-white text-xl md:text-2xl font-black tracking-tight">
-                  {isFinished ? "شاهد ملخص المباراة" : "شاهد المباراة الآن"}
-                </p>
-                <p className="text-purple-300 text-sm font-medium">
-                  {isLive ? "البث مباشر متاح الآن · HD بدون تقطيع" : isFinished ? "شاهد ملخص المباراة" : `ينطلق البث عند الساعة ${match.time || ""}`}
-                </p>
-              </div>
-
-              {/* Arrow indicator */}
-              <div className="flex items-center gap-2 text-purple-400 text-sm font-medium transition-all duration-300 group-hover:text-white group-hover:gap-3">
-                <span>انقر للمشاهدة</span>
-                <ArrowRight className="w-4 h-4 rotate-180" />
+              <div className="flex flex-col items-center justify-center">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                  className="w-24 h-24 md:w-32 md:h-32 text-white transition-transform duration-300 group-hover:scale-110 drop-shadow-2xl"
+                >
+                  <path fillRule="evenodd" d="M4.5 5.653c0-1.427 1.529-2.33 2.779-1.643l11.54 6.347c1.295.712 1.295 2.573 0 3.286L7.28 19.99c-1.25.687-2.779-.217-2.779-1.643V5.653Z" clipRule="evenodd" />
+                </svg>
               </div>
             </div>
           </a>
@@ -336,7 +355,7 @@ export default async function MatchPage({ params }) {
             </div>
             <div>
               <p className="text-white font-bold text-lg mb-1">
-                {isFinished ? "شاهد ملخص المباراة" : "البث سيبدأ قريباً"}
+                {isFinished ? "انتهى البث" : "البث سيبدأ قريباً"}
               </p>
               <p className="text-purple-300 text-sm">
                 {isFinished
