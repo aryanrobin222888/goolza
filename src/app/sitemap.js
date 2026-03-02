@@ -1,5 +1,6 @@
 import connectDB from "@/lib/db";
 import LiveMatch from "@/models/LiveMatch";
+import { generateMatchSlug } from "@/lib/matchSlug";
 
 export const dynamic = "force-dynamic";
 
@@ -45,18 +46,18 @@ export default async function sitemap() {
     // Only fetch matches that are present in the LiveMatch documents
     const liveMatches = await LiveMatch.find({}).lean();
     
-    // Extract unique matches from all documents
-    const matchUrls = new Set();
+    // Extract unique match slugs from all documents
+    const matchSlugs = new Set();
     liveMatches.forEach(record => {
       record.matches.forEach(match => {
         if (match.id) {
-          matchUrls.add(match.id);
+          matchSlugs.add(generateMatchSlug(match));
         }
       });
     });
 
-    dynamicRoutes = Array.from(matchUrls).map(id => ({
-      url: `${baseUrl}/${id}`,
+    dynamicRoutes = Array.from(matchSlugs).map(slug => ({
+      url: `${baseUrl}/match/${slug}`,
       lastModified: new Date(),
       changeFrequency: 'daily',
       priority: 0.9,
