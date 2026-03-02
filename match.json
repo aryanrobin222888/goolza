@@ -1,0 +1,108 @@
+{
+  "id": "15538758",
+  "status": "ENDED",
+  "league": "الدوري الممتاز",
+  "time": "19:45",
+  "startTime": "2026-02-24T19:45:00.000Z",
+  "tournamentId": 36,
+  "channel": "غير محدد",
+  "commentator": "غير محدد",
+  "home": {
+    "name": "داندي يونيتيد",
+    "logo": "https://res.cloudinary.com/dmyp56aar/image/upload/v1771987093/koora-press/teams/2349.png",
+    "score": 0,
+    "id": 2349
+  },
+  "away": {
+    "name": "أبردين",
+    "logo": "https://res.cloudinary.com/dmyp56aar/image/upload/v1771987093/koora-press/teams/2355.png",
+    "score": 0,
+    "id": 2355
+  },
+  "tournament": {
+    "name": "Scottish Premiership",
+    "slug": "premiership",
+    "category": {
+      "name": "Scotland",
+      "slug": "scotland",
+      "sport": {
+        "name": "Football",
+        "slug": "football",
+        "id": 1
+      },
+      "country": {
+        "alpha2": "SX",
+        "alpha3": "SCO",
+        "name": "Scotland",
+        "slug": "scotland"
+      },
+      "id": 22,
+      "flag": "scotland",
+      "alpha2": "SX",
+      "fieldTranslations": {
+        "nameTranslation": {
+          "ar": "اسكتلندا",
+          "ru": "Шотландия"
+        },
+        "shortNameTranslation": {}
+      }
+    },
+    "uniqueTournament": {
+      "name": "Scottish Premiership",
+      "slug": "premiership",
+      "category": {
+        "name": "Scotland",
+        "slug": "scotland",
+        "sport": {
+          "name": "Football",
+          "slug": "football",
+          "id": 1
+        },
+        "country": {
+          "alpha2": "SX",
+          "alpha3": "SCO",
+          "name": "Scotland",
+          "slug": "scotland"
+        },
+        "id": 22,
+        "flag": "scotland",
+        "alpha2": "SX",
+        "fieldTranslations": {
+          "nameTranslation": {
+            "ar": "اسكتلندا",
+            "ru": "Шотландия"
+          },
+          "shortNameTranslation": {}
+        }
+      },
+      "userCount": 44786,
+      "hasPerformanceGraphFeature": false,
+      "country": {},
+      "id": 36,
+      "hasEventPlayerStatistics": true,
+      "displayInverseHomeAwayTeams": false,
+      "fieldTranslations": {
+        "nameTranslation": {
+          "ar": "الدوري الاسكتلندي الممتاز",
+          "bn": "স্কটিশ প্রিমিয়ারশিপ",
+          "hi": "स्कॉटिश प्रीमियरशिप"
+        },
+        "shortNameTranslation": {}
+      },
+      "logo": "https://res.cloudinary.com/dmyp56aar/image/upload/v1771987093/koora-press/competitions/36.png"
+    },
+    "priority": 0,
+    "id": 36
+  },
+  "roundInfo": {
+    "round": 26
+  },
+  "customId": "ZWsfX",
+  "season": {
+    "name": "Premiership 25/26",
+    "year": "25/26",
+    "editor": false,
+    "id": 77128
+  },
+  "slug": "aberdeen-dundee-united"
+}
