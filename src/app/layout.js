@@ -1,6 +1,7 @@
 import "./globals.css";
 import { Toaster } from "sonner";
 import QueryProvider from "@/providers/QueryProvider";
+import ThemeProvider from "@/providers/ThemeProvider";
 import { Cairo, IBM_Plex_Sans_Arabic } from "next/font/google";
 
 const cairo = Cairo({
@@ -81,29 +82,31 @@ export default function RootLayout({ children }) {
     <html lang="ar" dir="rtl" className={`${cairo.variable} ${ibmPlexSansArabic.variable}`} suppressHydrationWarning>
       <head>
       </head>
-      <body suppressHydrationWarning>
-        <QueryProvider>
-          {/* Subtle emerald glow at top */}
-          <div className="bg-glow" />
+      <body className="bg-white dark:bg-slate-950 transition-colors" suppressHydrationWarning>
+        <ThemeProvider>
+          <QueryProvider>
+            {/* Subtle emerald glow at top */}
+            <div className="bg-glow" />
 
-          {/* Content */}
-          <div className="relative z-10">{children}</div>
+            {/* Content */}
+            <div className="relative z-10">{children}</div>
 
-          {/* Toast */}
-          <Toaster
-            position="bottom-left"
-            theme="dark"
-            richColors
-            closeButton
-            toastOptions={{
-              style: {
-                background: "#18181b",
-                border: "1px solid rgba(255,255,255,0.06)",
-                color: "#fafafa",
-              },
-            }}
-          />
-        </QueryProvider>
+            {/* Toast */}
+            <Toaster
+              position="bottom-left"
+              theme="dark" // sonner has system theme prop but we can let it rely on `theme` or keep it dark always, I think `theme="system"` works nicely with next-themes depending on sonner version. Wait, Toaster uses next-themes properly if not hardcoded? Let's leave sonner alone for now or remove `theme="dark"`. I will leave it as is or change to `theme="system"`.
+              richColors
+              closeButton
+              toastOptions={{
+                style: {
+                  background: "#18181b",
+                  border: "1px solid rgba(255,255,255,0.06)",
+                  color: "#fafafa",
+                },
+              }}
+            />
+          </QueryProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

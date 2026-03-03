@@ -27,7 +27,7 @@ export default function ScheduleClient({ initialMatches }) {
     <motion.div 
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      className="min-h-screen bg-[#fafafa] text-slate-900 font-sans selection:bg-slate-200 flex flex-col"
+      className="min-h-screen bg-[#fafafa] dark:bg-slate-950 text-slate-900 dark:text-slate-200 font-sans selection:bg-slate-200 flex flex-col transition-colors duration-300"
     >
       
       {/* ═══ Header ═══ */}
@@ -35,27 +35,27 @@ export default function ScheduleClient({ initialMatches }) {
         initial={{ y: -20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.5, ease: "easeOut" }}
-        className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-slate-100"
+        className="sticky top-0 z-50 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-b border-slate-100 dark:border-slate-800 transition-colors duration-300"
       >
         <div className="max-w-4xl mx-auto px-6 h-16 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2 group">
             <div className="w-8 h-8 bg-[#5c2d91] rounded-lg flex items-center justify-center transition-transform group-hover:scale-105">
                 <Zap className="w-4 h-4 text-white" />
             </div>
-            <span className="text-lg font-bold tracking-tight text-[#5c2d91]">gool<span className="text-slate-400">za</span></span>
+            <span className="text-lg font-bold tracking-tight text-[#5c2d91]">gool<span className="text-white">za</span></span>
           </Link>
 
-          <nav className="flex items-center gap-4">
-               <a href="#" className="text-slate-400 hover:text-[#1877F2] transition-colors p-2 hover:bg-slate-50 rounded-full">
+          <nav className="flex items-center gap-1">
+               <a href="#" className="text-white hover:text-[#5c2d91] transition-colors duration-300 p-2 hover:bg-slate-800 rounded-full">
                   <FacebookIcon className="w-5 h-5" />
                </a>
-               <a href="#" className="text-slate-400 hover:text-[#229ED9] transition-colors p-2 hover:bg-slate-50 rounded-full">
+               <a href="#" className="text-white hover:text-[#5c2d91] transition-colors duration-300 p-2 hover:bg-slate-800 rounded-full">
                   <TelegramIcon className="w-5 h-5" />
                </a>
-               <a href="#" className="text-slate-400 hover:text-[#000000] transition-colors p-2 hover:bg-slate-50 rounded-full">
+               <a href="#" className="text-white hover:text-[#5c2d91] transition-colors duration-300 p-2 hover:bg-slate-800 rounded-full">
                   <TikTokIcon className="w-5 h-5" />
                </a>
-               <a href="#" className="text-slate-400 hover:text-[#000000] transition-colors p-2 hover:bg-slate-50 rounded-full">
+               <a href="#" className="text-white hover:text-[#5c2d91] transition-colors duration-300 p-2 hover:bg-slate-800 rounded-full">
                   <XIcon className="w-4 h-4" />
                </a>
           </nav>
@@ -72,7 +72,7 @@ export default function ScheduleClient({ initialMatches }) {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
-              className="text-3xl font-bold text-[#5c2d91]"
+              className="text-3xl font-bold text-[#5c2d91] dark:text-purple-400"
             >
               جدول المباريات
             </motion.h1>
@@ -80,7 +80,7 @@ export default function ScheduleClient({ initialMatches }) {
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.3 }}
-              className="flex bg-white p-1.5 rounded-full border border-slate-200 shadow-sm"
+              className="flex bg-white dark:bg-slate-900 p-1.5 rounded-full border border-slate-200 dark:border-slate-800 shadow-sm"
             >
                 {days.map((day) => {
                     const active = isActiveDay(day.date);
@@ -89,7 +89,7 @@ export default function ScheduleClient({ initialMatches }) {
                             key={day.label}
                             onClick={() => setSelectedDate(day.date)}
                             className={`relative px-6 py-2 text-sm font-medium rounded-full transition-all duration-200 ${
-                                active ? "text-white" : "text-slate-500 hover:text-slate-800"
+                                active ? "text-white" : "text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-slate-200"
                             }`}
                         >
                             {active && (
@@ -139,11 +139,11 @@ export default function ScheduleClient({ initialMatches }) {
               exit={{ opacity: 0 }}
               className="flex flex-col items-center justify-center py-20 text-center"
             >
-              <div className="w-16 h-16 bg-slate-50 rounded-full flex items-center justify-center mb-4 border border-slate-100">
-                   <Clock className="w-8 h-8 text-slate-300" />
+              <div className="w-16 h-16 bg-slate-50 dark:bg-slate-900 rounded-full flex items-center justify-center mb-4 border border-slate-100 dark:border-slate-800">
+                   <Clock className="w-8 h-8 text-slate-300 dark:text-slate-600" />
               </div>
-              <p className="text-slate-900 font-medium">لا توجد مباريات مجدولة</p>
-              <p className="text-slate-500 text-sm mt-1">تحقق مرة أخرى لاحقًا للمباريات القادمة.</p>
+              <p className="text-slate-900 dark:text-slate-200 font-medium">لا توجد مباريات مجدولة</p>
+              <p className="text-slate-500 dark:text-slate-400 text-sm mt-1">تحقق مرة أخرى لاحقًا للمباريات القادمة.</p>
             </motion.div>
           ) : (
             <motion.div

@@ -188,7 +188,7 @@ export default async function MatchPage({ params }) {
   };
 
   return (
-    <div className="min-h-screen bg-[#fafafa] text-slate-900 font-sans flex flex-col" dir="rtl">
+    <div className="min-h-screen bg-[#fafafa] dark:bg-slate-950 text-slate-900 dark:text-slate-200 font-sans flex flex-col transition-colors duration-300" dir="rtl">
       {/* ── JSON-LD Schemas ── */}
       <script
         type="application/ld+json"
@@ -200,19 +200,19 @@ export default async function MatchPage({ params }) {
       />
 
       {/* ── Header ── */}
-      <header className="bg-white/80 backdrop-blur-md border-b border-slate-100 sticky top-0 z-50">
+      <header className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-b border-slate-100 dark:border-slate-800 sticky top-0 z-50 transition-colors duration-300">
         <div className="max-w-4xl mx-auto px-6 h-16 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2 group">
             <div className="w-7 h-7 bg-[#5c2d91] rounded-lg flex items-center justify-center transition-transform group-hover:scale-105">
               <span className="text-white text-xs font-black">M</span>
             </div>
-            <span className="text-lg font-bold tracking-tight text-[#5c2d91]">
-              gool<span className="text-slate-400">za</span>
+            <span className="text-lg font-bold tracking-tight text-[#5c2d91] dark:text-purple-400">
+              gool<span className="text-white">za</span>
             </span>
           </Link>
           <Link
             href="/"
-            className="flex items-center gap-1.5 text-sm text-slate-500 hover:text-[#5c2d91] transition-colors font-medium"
+            className="flex items-center gap-1.5 text-sm text-slate-500 hover:text-[#5c2d91] dark:text-slate-400 dark:hover:text-purple-400 transition-colors font-medium"
           >
             الجدول الكامل
             <ArrowLeft className="w-4 h-4" />
@@ -224,35 +224,35 @@ export default async function MatchPage({ params }) {
       <main className="max-w-4xl mx-auto px-4 md:px-6 py-8 flex-1 w-full space-y-6">
 
         {/* ── Tournament breadcrumb ── */}
-        <div className="flex items-center gap-2 text-sm text-slate-400">
+        <div className="flex items-center gap-2 text-sm text-slate-300">
           <Trophy className="w-3.5 h-3.5" />
-          <span>{comp}</span>
+          <span className="font-semibold text-white">{comp}</span>
           {match.roundInfo?.round && (
             <>
               <span>·</span>
-              <span>الجولة {match.roundInfo.round}</span>
+              <span className="text-white">الجولة {match.roundInfo.round}</span>
             </>
           )}
         </div>
 
         {/* ── H1 + Status ── */}
         <div className="text-center space-y-2">
-          <h1 className="text-2xl md:text-3xl font-bold text-[#5c2d91]">
+          <h1 className="text-2xl md:text-3xl font-bold text-[#5c2d91] dark:text-purple-400">
             بث مباشر مباراة {home} و{away}
           </h1>
           {isLive && (
-            <span className="inline-flex items-center gap-1.5 bg-red-50 text-red-600 text-xs font-bold px-3 py-1 rounded-full border border-red-200 animate-pulse">
+            <span className="inline-flex items-center gap-1.5 bg-red-50 dark:bg-red-900/30 text-red-600 dark:text-red-400 text-xs font-bold px-3 py-1 rounded-full border border-red-200 dark:border-red-900/50 animate-pulse">
               <span className="w-1.5 h-1.5 bg-red-500 rounded-full" />
               مباشر الآن
             </span>
           )}
           {isFinished && (
-            <span className="inline-flex items-center gap-1.5 bg-slate-100 text-slate-500 text-xs font-bold px-3 py-1 rounded-full border border-slate-200">
+            <span className="inline-flex items-center gap-1.5 bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 text-xs font-bold px-3 py-1 rounded-full border border-slate-200 dark:border-slate-700">
               انتهت المباراة
             </span>
           )}
           {!isLive && !isFinished && match.time && (
-            <span className="inline-flex items-center gap-1.5 bg-purple-50 text-[#5c2d91] text-xs font-bold px-3 py-1 rounded-full border border-purple-200">
+            <span className="inline-flex items-center gap-1.5 bg-purple-50 dark:bg-purple-900/20 text-[#5c2d91] dark:text-purple-400 text-xs font-bold px-3 py-1 rounded-full border border-purple-200 dark:border-purple-800/30">
               <CalendarClock className="w-3.5 h-3.5" />
               {match.time}
             </span>
@@ -260,56 +260,56 @@ export default async function MatchPage({ params }) {
         </div>
 
         {/* ── Score Card ── */}
-        <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 md:p-8">
+        <div className="bg-[#1e293b] rounded-2xl border border-slate-800 shadow-sm p-6 md:p-8 transition-colors duration-300">
           <div className="flex items-center justify-between gap-4">
             {/* Home */}
             <div className="flex flex-col items-center gap-3 flex-1">
-              <div className="relative w-16 h-16 md:w-20 md:h-20">
+              <div className="relative w-16 h-16 md:w-20 md:h-20 bg-white dark:bg-slate-800 rounded-full border border-slate-100 dark:border-slate-700 p-2 shadow-sm">
                 {match.home?.logo ? (
                   <Image
                     src={match.home.logo}
                     alt={`شعار ${home} - بث مباشر مباراة اليوم عبر موقع جولزا Goolza`}
                     fill
-                    className="object-contain"
+                    className="object-contain p-2"
                     sizes="(max-width: 768px) 64px, 80px"
                   />
                 ) : (
-                  <div className="w-full h-full bg-slate-100 rounded-full flex items-center justify-center text-2xl">⚽</div>
+                  <div className="w-full h-full rounded-full flex items-center justify-center text-2xl">⚽</div>
                 )}
               </div>
-              <span className="font-bold text-sm md:text-base text-center text-slate-800">{home}</span>
+              <span className="font-bold text-sm md:text-base text-center text-white">{home}</span>
             </div>
 
             {/* Score / VS */}
             <div className="flex flex-col items-center gap-1 shrink-0">
               {isLive || isFinished ? (
                 <div className="flex items-center gap-3">
-                  <span className="text-4xl font-black text-[#5c2d91]">{match.home?.score ?? 0}</span>
-                  <span className="text-2xl text-slate-300">-</span>
-                  <span className="text-4xl font-black text-[#5c2d91]">{match.away?.score ?? 0}</span>
+                  <span className="text-4xl font-black text-white">{match.home?.score ?? 0}</span>
+                  <span className="text-2xl text-slate-400">-</span>
+                  <span className="text-4xl font-black text-white">{match.away?.score ?? 0}</span>
                 </div>
               ) : (
-                <span className="text-3xl font-black text-slate-200">VS</span>
+                <span className="text-3xl font-black text-white">VS</span>
               )}
-              <span className="text-xs text-slate-400 font-medium">{comp}</span>
+              <span className="text-xs text-slate-300 font-medium">{comp}</span>
             </div>
 
             {/* Away */}
             <div className="flex flex-col items-center gap-3 flex-1">
-              <div className="relative w-16 h-16 md:w-20 md:h-20">
+              <div className="relative w-16 h-16 md:w-20 md:h-20 bg-white dark:bg-slate-800 rounded-full border border-slate-100 dark:border-slate-700 p-2 shadow-sm">
                 {match.away?.logo ? (
                   <Image
                     src={match.away.logo}
                     alt={`شعار ${away} - بث مباشر مباراة اليوم عبر موقع جولزا Goolza`}
                     fill
-                    className="object-contain"
+                    className="object-contain p-2"
                     sizes="(max-width: 768px) 64px, 80px"
                   />
                 ) : (
-                  <div className="w-full h-full bg-slate-100 rounded-full flex items-center justify-center text-2xl">⚽</div>
+                  <div className="w-full h-full rounded-full flex items-center justify-center text-2xl">⚽</div>
                 )}
               </div>
-              <span className="font-bold text-sm md:text-base text-center text-slate-800">{away}</span>
+              <span className="font-bold text-sm md:text-base text-center text-white">{away}</span>
             </div>
           </div>
         </div>
@@ -394,15 +394,15 @@ export default async function MatchPage({ params }) {
           ].map((detail) => (
             <div
               key={detail.label}
-              className="bg-white rounded-xl border border-slate-200 p-4 flex flex-col gap-2 shadow-sm"
+              className="bg-[#1e293b] rounded-xl border border-slate-800 p-4 flex flex-col gap-2 transition-colors duration-300"
             >
-              <div className="flex items-center gap-2 text-[#5c2d91]">
+              <div className="flex items-center gap-2 text-[#5c2d91] dark:text-purple-400">
                 {detail.icon}
-                <span className="text-xs font-semibold text-slate-400 uppercase tracking-wide">
+                <span className="text-xs font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-wide">
                   {detail.label}
                 </span>
               </div>
-              <p className="text-sm font-bold text-slate-800 truncate">{detail.value}</p>
+              <p className="text-sm font-bold text-white truncate">{detail.value}</p>
             </div>
           ))}
         </div>
@@ -411,7 +411,7 @@ export default async function MatchPage({ params }) {
         <div className="text-center pt-2">
           <Link
             href="/"
-            className="inline-flex items-center gap-2 text-sm font-medium text-[#5c2d91] hover:underline"
+            className="inline-flex items-center gap-2 text-sm font-medium text-[#5c2d91] hover:underline dark:text-purple-400"
           >
             <ArrowRight className="w-4 h-4" />
             عودة إلى جدول المباريات

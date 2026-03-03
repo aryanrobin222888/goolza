@@ -44,7 +44,7 @@ export default function MatchRow({
     <div className="flex items-center justify-between gap-3 relative z-10 w-full">
         {/* Home */}
         <div className="flex flex-col md:flex-row items-center md:items-center justify-start gap-3 flex-1 min-w-0">
-          <div className="relative w-10 h-10 md:w-12 md:h-12 flex items-center justify-center p-1 bg-white rounded-full border border-slate-100 shadow-sm overflow-hidden">
+          <div className="relative w-10 h-10 md:w-12 md:h-12 flex items-center justify-center p-1 bg-white dark:bg-slate-800 rounded-full border border-slate-100 dark:border-slate-700 shadow-sm overflow-hidden">
             {match.home?.logo ? (
               <Image
                 src={match.home.logo}
@@ -62,7 +62,7 @@ export default function MatchRow({
               <span className="text-xs">⚽</span>
             )}
           </div>
-          <span className="text-slate-800 font-semibold text-sm truncate text-center md:text-left transition-colors group-hover:text-black">
+          <span className="text-white font-semibold text-sm truncate text-center md:text-left transition-colors">
             {match.home.name}
           </span>
         </div>
@@ -72,12 +72,12 @@ export default function MatchRow({
           <div className="mb-1">
             {isLive || isFinished ? ( // Use local isFinished to show score if available or just force score view layout
               <div className="flex items-center justify-center gap-3">
-                <span className="text-2xl font-bold text-[#5c2d91]">{match.home.score ?? 0}</span>
-                <span className="text-slate-300 text-lg mx-1">:</span>
-                <span className="text-2xl font-bold text-[#5c2d91]">{match.away.score ?? 0}</span>
+                <span className="text-2xl font-bold text-white">{match.home.score ?? 0}</span>
+                <span className="text-slate-400 text-lg mx-1">:</span>
+                <span className="text-2xl font-bold text-white">{match.away.score ?? 0}</span>
               </div>
             ) : (
-              <div className="text-lg font-bold text-slate-700 bg-slate-100 px-3 py-1 rounded-md group-hover:bg-slate-200 transition-colors">
+              <div className="text-lg font-bold text-white bg-slate-800 px-3 py-1 rounded-md group-hover:bg-slate-700 transition-colors">
                 {match.time}
               </div>
             )}
@@ -92,10 +92,10 @@ export default function MatchRow({
 
         {/* Away */}
         <div className="flex flex-col-reverse md:flex-row items-center md:items-center justify-end gap-3 flex-1 min-w-0">
-          <span className="text-slate-800 font-semibold text-sm truncate text-center md:text-right transition-colors group-hover:text-black">
+          <span className="text-white font-semibold text-sm truncate text-center md:text-right transition-colors">
             {match.away.name}
           </span>
-           <div className="relative w-10 h-10 md:w-12 md:h-12 flex items-center justify-center p-1 bg-white rounded-full border border-slate-100 shadow-sm overflow-hidden">
+           <div className="relative w-10 h-10 md:w-12 md:h-12 flex items-center justify-center p-1 bg-white dark:bg-slate-800 rounded-full border border-slate-100 dark:border-slate-700 shadow-sm overflow-hidden">
             {match.away?.logo ? (
               <Image
                 src={match.away.logo}
@@ -118,8 +118,8 @@ export default function MatchRow({
   );
 
   const classes = `relative p-4 rounded-xl border transition-all duration-300 group
-    bg-white
-    ${isSelected ? "border-[#5c2d91] ring-1 ring-[#5c2d91] shadow-md" : "border-slate-200 shadow-sm hover:shadow-lg hover:border-slate-300"}
+    bg-[#1e293b]
+    ${isSelected ? "border-purple-500 ring-1 ring-purple-500 shadow-md" : "border-slate-800 shadow-sm hover:border-slate-700"}
     cursor-pointer
   `;
 
@@ -131,7 +131,7 @@ export default function MatchRow({
 
   const interactiveProps = {
     variants: itemVariants,
-    whileHover: { scale: 1.02, backgroundColor: "rgba(255, 255, 255, 1)" },
+    whileHover: { scale: 1.02 }, // Removed fixed light background on hover to allow CSS transitions
     whileTap: { scale: 0.98 },
     className: classes,
     layout: true // Allow smooth layout transitions if list reorders
@@ -153,15 +153,15 @@ export default function MatchRow({
     >
       <motion.div {...interactiveProps} className={`${interactiveProps.className} overflow-hidden`}>
            {/* Minimal Meta Info Overlay - Top Left */}
-           <div className="absolute top-2 left-3 md:top-auto md:bottom-2 md:left-4 flex items-center gap-2 text-[10px] text-slate-400 z-10">
+           <div className="absolute top-2 left-3 md:top-auto md:bottom-2 md:left-4 flex items-center gap-2 text-[10px] text-white z-10">
                 {match.tournamentId && tournamentLogo ? (
-                    <div className="relative w-3 h-3">
+                    <div className="relative w-5 h-5 bg-white rounded-full flex items-center justify-center p-0.5 shadow-sm">
                       <Image 
                         src={tournamentLogo} 
                         alt="Tournament Logo" 
                         fill 
-                        className="object-contain opacity-60 grayscale group-hover:grayscale-0 transition-all" 
-                        sizes="12px"
+                        className="object-contain p-0.5" 
+                        sizes="20px"
                       />
                     </div>
                 ) : null}
@@ -170,8 +170,8 @@ export default function MatchRow({
            
            {/* Channel Info - Top Right */}
            {match.channel && (
-               <div className="absolute top-2 right-3 md:top-auto md:bottom-2 md:right-4 flex items-center gap-1 text-[10px] text-slate-400 z-10">
-                   <Tv className="w-3 h-3 group-hover:text-blue-500 transition-colors" /> {match.channel}
+               <div className="absolute top-2 right-3 md:top-auto md:bottom-2 md:right-4 flex items-center gap-1 text-[10px] text-slate-300 z-10">
+                   <Tv className="w-3 h-3 group-hover:text-blue-400 transition-colors" /> {match.channel}
                </div>
            )}
 

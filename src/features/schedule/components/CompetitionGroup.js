@@ -36,11 +36,11 @@ const TournamentLogo = ({ id, name, defaultLogo }) => {
   if (!imgSrc) return null;
 
   return (
-    <div className="w-8 h-8 rounded-full overflow-hidden bg-slate-100 flex items-center justify-center p-1 shadow-inner select-none">
+    <div className="w-8 h-8 rounded-full overflow-hidden bg-white flex items-center justify-center p-1 shadow-sm select-none shrink-0">
         <img
         src={imgSrc}
         alt={name}
-        className="w-full h-full object-contain mix-blend-multiply"
+        className="w-full h-full object-contain"
         onError={handleError}
         />
     </div>
@@ -98,10 +98,10 @@ export default function CompetitionGroup({ competition, index, selectedDate }) {
              />
           )}
           <div>
-              <h2 className="text-xl font-bold text-[#5c2d91] leading-tight">
+              <h2 className="text-xl font-bold text-white leading-tight">
                 {compName.split(/, Group|، المجموعة|، مجموعة/)[0]}
               </h2>
-              <p className="text-xs text-slate-400 font-medium uppercase tracking-wider">{categoryName}</p>
+              <p className="text-xs text-slate-300 font-medium uppercase tracking-wider">{categoryName}</p>
           </div>
       </motion.div>
 
