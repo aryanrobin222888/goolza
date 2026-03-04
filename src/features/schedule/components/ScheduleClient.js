@@ -2,13 +2,27 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import dynamic from "next/dynamic";
 import { format, addDays, subDays, startOfToday } from "date-fns";
 import { motion, AnimatePresence } from "framer-motion";
 import { Zap, AlertCircle, Clock } from "lucide-react";
-import CompetitionGroup from "@/features/schedule/components/CompetitionGroup";
 import Footer from "@/features/schedule/components/Footer";
 import { FacebookIcon, TelegramIcon, TikTokIcon, XIcon } from "@/features/schedule/components/SocialIcons";
 import { useMatches } from "@/features/schedule/api/useMatches";
+
+const CompetitionGroup = dynamic(
+  () => import("@/features/schedule/components/CompetitionGroup"),
+  {
+    loading: () => (
+      <div className="space-y-4 animate-pulse">
+        {[...Array(3)].map((_, i) => (
+          <div key={i} className="h-20 bg-slate-800/60 rounded-xl" />
+        ))}
+      </div>
+    ),
+    ssr: false,
+  }
+);
 
 export default function ScheduleClient({ initialMatches }) {
   const [selectedDate, setSelectedDate] = useState(startOfToday());
@@ -24,19 +38,10 @@ export default function ScheduleClient({ initialMatches }) {
     format(d, "yyyy-MM-dd") === format(selectedDate, "yyyy-MM-dd");
 
   return (
-    <motion.div 
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      className="min-h-screen bg-slate-950 text-slate-100 font-sans selection:bg-slate-700 flex flex-col"
-    >
+    <div className="min-h-screen bg-slate-950 text-slate-100 font-sans selection:bg-slate-700 flex flex-col">
       
       {/* ═══ Header ═══ */}
-      <motion.header 
-        initial={{ y: -20, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.5, ease: "easeOut" }}
-        className="sticky top-0 z-50 bg-slate-950/80 backdrop-blur-md border-b border-slate-800"
-      >
+      <header className="sticky top-0 z-50 bg-slate-950/80 backdrop-blur-md border-b border-slate-800">
         <div className="max-w-4xl mx-auto px-6 h-16 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2 group">
             <div className="w-8 h-8 bg-[#5c2d91] rounded-lg flex items-center justify-center transition-transform group-hover:scale-105">
@@ -60,7 +65,7 @@ export default function ScheduleClient({ initialMatches }) {
                </a>
           </nav>
         </div>
-      </motion.header>
+      </header>
 
       {/* ═══ Main ═══ */}
       <main className="max-w-4xl mx-auto px-6 py-10 flex-1 w-full">
@@ -68,18 +73,10 @@ export default function ScheduleClient({ initialMatches }) {
         {/* Date Selector */}
         <div className="flex flex-col-reverse md:flex-row justify-between items-center mb-12 w-full gap-4">
             
-            <motion.h1 
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 }}
-              className="text-3xl font-bold text-[#5c2d91] dark:text-purple-400"
-            >
+            <h1 className="text-3xl font-bold text-[#5c2d91]">
               جدول المباريات
-            </motion.h1>
+            </h1>
             <motion.div 
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.3 }}
               className="flex bg-slate-900 p-1.5 rounded-full border border-slate-700 shadow-sm"
             >
                 {days.map((day) => {
@@ -168,6 +165,6 @@ export default function ScheduleClient({ initialMatches }) {
 
       {/* ═══ Footer ═══ */}
       <Footer />
-    </motion.div>
+    </div>
   );
 }
