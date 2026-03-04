@@ -4,22 +4,22 @@ import { useState } from "react";
 import MatchRow from "./MatchRow";
 import { getArabicName, mapEventToMatch } from "@/features/schedule/utils/mappers";
 
+// Inject Cloudinary transformation params to serve a small WebP
+function cloudinaryOptimized(url, size = 32) {
+  if (!url || !url.includes('res.cloudinary.com')) return url;
+  return url.replace('/upload/', `/upload/w_${size},h_${size},c_fit,f_auto,q_auto/`);
+}
+
 // Internal Component for Logo Fallback
 const TournamentLogo = ({ id, name, defaultLogo }) => {
   const [imgSrc, setImgSrc] = useState(
-    defaultLogo || 
-    `https://res.cloudinary.com/dcssegtok/image/upload/koora-press/competitions/${id}.png`
+    cloudinaryOptimized(defaultLogo) ||
+    cloudinaryOptimized(`https://res.cloudinary.com/dcssegtok/image/upload/koora-press/competitions/${id}.png`)
   );
   
   const [attempt, setAttempt] = useState(0);
 
   const handleError = () => {
-      // Sequence: 
-      // 0. Cloudinary (custom bucket)
-      // 1. Sofascore API (direct)
-      // 2. Sofascore CDN (static)
-      // 3. Give up -> Hide
-      
       const strategies = [
           `https://api.sofascore.app/api/v1/unique-tournament/${id}/image`,
           `https://www.sofascore.com/static/images/unique-tournaments/${id}.png`
@@ -29,17 +29,19 @@ const TournamentLogo = ({ id, name, defaultLogo }) => {
           setImgSrc(strategies[attempt]);
           setAttempt(prev => prev + 1);
       } else {
-          setImgSrc(null); // Hide on final fail
+          setImgSrc(null);
       }
   };
 
   if (!imgSrc) return null;
 
   return (
-    <div className="w-8 h-8 rounded-full overflow-hidden bg-white flex items-center justify-center p-1 shadow-sm select-none shrink-0">
+    <div className="w-8 h-8 rounded-full overflow-hidden bg-slate-800 flex items-center justify-center p-1 shadow-sm select-none shrink-0">
         <img
         src={imgSrc}
         alt={name}
+        width={32}
+        height={32}
         className="w-full h-full object-contain"
         onError={handleError}
         />
