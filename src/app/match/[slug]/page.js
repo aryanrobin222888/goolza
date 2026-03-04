@@ -338,7 +338,7 @@ export default async function MatchPage({ params }) {
               <span className="absolute w-56 h-56 rounded-full border border-[#0aa674]/5 animate-ping" style={{ animationDuration: "3.2s", animationDelay: "0.4s" }} />
 
               {/* CTA Button */}
-              {match.streamPageUrl ? (
+              {match.streamPageUrl && !isFinished ? (
                 <a
                   href={match.streamPageUrl}
                   target="_blank"
@@ -357,11 +357,11 @@ export default async function MatchPage({ params }) {
                 <div className="flex flex-col items-center gap-4">
                   <div className="inline-flex items-center gap-3 bg-[#0aa674]/20 border border-[#0aa674]/30 text-[#0aa674] font-bold text-lg md:text-xl px-10 py-4 rounded-2xl cursor-default">
                     <Tv className="w-6 h-6 flex-shrink-0" />
-                    {isFinished ? "انتهى البث" : "البث سيبدأ قريباً"}
+                    {isFinished ? "انتهت المباراة" : "البث سيبدأ قريباً"}
                   </div>
                   <p className="text-[#0aa674]/70 text-sm text-center">
                     {isFinished
-                      ? "انتهت المباراة."
+                      ? "انتهى البث، شكراً على المتابعة."
                       : !isLive && match.time
                       ? `سيبدأ البث عند الساعة ${match.time}`
                       : "سيتم توفير رابط البث عند انطلاق المباراة."}
@@ -371,7 +371,7 @@ export default async function MatchPage({ params }) {
             </div>
 
             {/* Subtitle hint */}
-            {match.streamPageUrl && (
+            {match.streamPageUrl && !isFinished && (
               <p className="text-slate-400 text-sm text-center">
                 انقر للمشاهدة — بث مباشر بجودة عالية
               </p>

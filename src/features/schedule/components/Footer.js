@@ -39,16 +39,16 @@ export default function Footer() {
           </p>
           
           <div className="flex items-center gap-6">
-            <a href="#" className="text-white hover:text-[#0aa674] transition-colors duration-300" title="Facebook">
+            <a href="https://www.facebook.com/profile.php?id=61584373584701" target="_blank" rel="noopener noreferrer" className="text-white hover:text-[#0aa674] transition-colors duration-300" title="Facebook">
               <FacebookIcon className="w-5 h-5" />
             </a>
-            <a href="#" className="text-white hover:text-[#0aa674] transition-colors duration-300" title="Telegram">
+            <a href="https://t.me/+kDM7uK-Kq20wODlk" target="_blank" rel="noopener noreferrer" className="text-white hover:text-[#0aa674] transition-colors duration-300" title="Telegram">
               <TelegramIcon className="w-5 h-5" />
             </a>
-            <a href="#" className="text-white hover:text-[#0aa674] transition-colors duration-300" title="TikTok">
+            <a href="https://www.tiktok.com/@goolza.com" target="_blank" rel="noopener noreferrer" className="text-white hover:text-[#0aa674] transition-colors duration-300" title="TikTok">
               <TikTokIcon className="w-5 h-5" />
             </a>
-            <a href="#" className="text-white hover:text-[#0aa674] transition-colors duration-300" title="X (Twitter)">
+            <a href="https://x.com/six1398361" target="_blank" rel="noopener noreferrer" className="text-white hover:text-[#0aa674] transition-colors duration-300" title="X (Twitter)">
               <XIcon className="w-4 h-4" />
             </a>
           </div>

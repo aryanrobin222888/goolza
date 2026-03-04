@@ -51,16 +51,16 @@ export default function ScheduleClient({ initialMatches }) {
           </Link>
 
           <nav className="flex items-center gap-1">
-               <a href="#" className="text-white hover:text-[#0aa674] transition-colors duration-300 p-2 hover:bg-slate-800 rounded-full">
+               <a href="https://www.facebook.com/profile.php?id=61584373584701" target="_blank" rel="noopener noreferrer" className="text-white hover:text-[#0aa674] transition-colors duration-300 p-2 hover:bg-slate-800 rounded-full">
                   <FacebookIcon className="w-5 h-5" />
                </a>
-               <a href="#" className="text-white hover:text-[#0aa674] transition-colors duration-300 p-2 hover:bg-slate-800 rounded-full">
+               <a href="https://t.me/+kDM7uK-Kq20wODlk" target="_blank" rel="noopener noreferrer" className="text-white hover:text-[#0aa674] transition-colors duration-300 p-2 hover:bg-slate-800 rounded-full">
                   <TelegramIcon className="w-5 h-5" />
                </a>
-               <a href="#" className="text-white hover:text-[#0aa674] transition-colors duration-300 p-2 hover:bg-slate-800 rounded-full">
+               <a href="https://www.tiktok.com/@goolza.com" target="_blank" rel="noopener noreferrer" className="text-white hover:text-[#0aa674] transition-colors duration-300 p-2 hover:bg-slate-800 rounded-full">
                   <TikTokIcon className="w-5 h-5" />
                </a>
-               <a href="#" className="text-white hover:text-[#0aa674] transition-colors duration-300 p-2 hover:bg-slate-800 rounded-full">
+               <a href="https://x.com/six1398361" target="_blank" rel="noopener noreferrer" className="text-white hover:text-[#0aa674] transition-colors duration-300 p-2 hover:bg-slate-800 rounded-full">
                   <XIcon className="w-4 h-4" />
                </a>
           </nav>
