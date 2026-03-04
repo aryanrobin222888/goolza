@@ -81,7 +81,7 @@ export default function RootLayout({ children }) {
     <html lang="ar" dir="rtl" className={`${cairo.variable} ${ibmPlexSansArabic.variable}`} suppressHydrationWarning>
       <head>
       </head>
-      <body style={{ backgroundColor: "#e2e8f0" }} suppressHydrationWarning>
+      <body style={{ backgroundColor: "#020617", color: "#f8fafc" }} suppressHydrationWarning>
           <QueryProvider>
             {/* Content */}
             <div className="relative z-10">{children}</div>

@@ -30,8 +30,8 @@ html {
 }
 
 body {
-  background: #e2e8f0;
-  color: var(--text-1);
+  background: #020617;
+  color: #f8fafc;
   font-family: var(--font-cairo), var(--font-ibm), "Inter", system-ui, -apple-system, sans-serif;
   min-height: 100vh;
   overflow-x: hidden;

@@ -44,7 +44,7 @@ export default function MatchRow({
     <div className="flex items-center justify-between gap-3 relative z-10 w-full">
         {/* Home */}
         <div className="flex flex-col md:flex-row items-center md:items-center justify-start gap-3 flex-1 min-w-0">
-          <div className="relative w-10 h-10 md:w-12 md:h-12 flex items-center justify-center p-1 bg-white dark:bg-slate-800 rounded-full border border-slate-100 dark:border-slate-700 shadow-sm overflow-hidden">
+          <div className="relative w-10 h-10 md:w-12 md:h-12 flex items-center justify-center p-1 bg-slate-800 rounded-full border border-slate-700 shadow-sm overflow-hidden">
             {match.home?.logo ? (
               <Image
                 src={match.home.logo}
@@ -95,7 +95,7 @@ export default function MatchRow({
           <span className="text-white font-semibold text-sm truncate text-center md:text-right transition-colors">
             {match.away.name}
           </span>
-           <div className="relative w-10 h-10 md:w-12 md:h-12 flex items-center justify-center p-1 bg-white dark:bg-slate-800 rounded-full border border-slate-100 dark:border-slate-700 shadow-sm overflow-hidden">
+           <div className="relative w-10 h-10 md:w-12 md:h-12 flex items-center justify-center p-1 bg-slate-800 rounded-full border border-slate-700 shadow-sm overflow-hidden">
             {match.away?.logo ? (
               <Image
                 src={match.away.logo}
