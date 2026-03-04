@@ -44,23 +44,23 @@ export default function ScheduleClient({ initialMatches }) {
       <header className="sticky top-0 z-50 bg-slate-950/80 backdrop-blur-md border-b border-slate-800">
         <div className="max-w-4xl mx-auto px-6 h-16 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2 group">
-            <div className="w-8 h-8 bg-[#5c2d91] rounded-lg flex items-center justify-center transition-transform group-hover:scale-105">
+            <div className="w-8 h-8 bg-[#0aa674] rounded-lg flex items-center justify-center transition-transform group-hover:scale-105">
                 <Zap className="w-4 h-4 text-white" />
             </div>
-            <span className="text-lg font-bold tracking-tight text-[#5c2d91]">gool<span className="text-white">za</span></span>
+            <span className="text-lg font-bold tracking-tight text-[#0aa674]">gool<span className="text-white">za</span></span>
           </Link>
 
           <nav className="flex items-center gap-1">
-               <a href="#" className="text-white hover:text-[#5c2d91] transition-colors duration-300 p-2 hover:bg-slate-800 rounded-full">
+               <a href="#" className="text-white hover:text-[#0aa674] transition-colors duration-300 p-2 hover:bg-slate-800 rounded-full">
                   <FacebookIcon className="w-5 h-5" />
                </a>
-               <a href="#" className="text-white hover:text-[#5c2d91] transition-colors duration-300 p-2 hover:bg-slate-800 rounded-full">
+               <a href="#" className="text-white hover:text-[#0aa674] transition-colors duration-300 p-2 hover:bg-slate-800 rounded-full">
                   <TelegramIcon className="w-5 h-5" />
                </a>
-               <a href="#" className="text-white hover:text-[#5c2d91] transition-colors duration-300 p-2 hover:bg-slate-800 rounded-full">
+               <a href="#" className="text-white hover:text-[#0aa674] transition-colors duration-300 p-2 hover:bg-slate-800 rounded-full">
                   <TikTokIcon className="w-5 h-5" />
                </a>
-               <a href="#" className="text-white hover:text-[#5c2d91] transition-colors duration-300 p-2 hover:bg-slate-800 rounded-full">
+               <a href="#" className="text-white hover:text-[#0aa674] transition-colors duration-300 p-2 hover:bg-slate-800 rounded-full">
                   <XIcon className="w-4 h-4" />
                </a>
           </nav>
@@ -73,7 +73,7 @@ export default function ScheduleClient({ initialMatches }) {
         {/* Date Selector */}
         <div className="flex flex-col-reverse md:flex-row justify-between items-center mb-12 w-full gap-4">
             
-            <h1 className="text-3xl font-bold text-[#5c2d91]">
+            <h1 className="text-3xl font-bold text-[#0aa674]">
               جدول المباريات
             </h1>
             <motion.div 
@@ -92,7 +92,7 @@ export default function ScheduleClient({ initialMatches }) {
                             {active && (
                                 <motion.div 
                                     layoutId="activeTabV2"
-                                    className="absolute inset-0 bg-[#5c2d91] rounded-full shadow-lg shadow-[#5c2d91]/20"
+                                    className="absolute inset-0 bg-[#0aa674] rounded-full shadow-lg shadow-[#0aa674]/20"
                                     transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
                                 />
                             )}

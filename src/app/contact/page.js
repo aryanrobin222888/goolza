@@ -11,14 +11,14 @@ export default function ContactPage() {
       <div className="border-b border-slate-800 bg-slate-900/80 backdrop-blur-md sticky top-0 z-50 transition-colors duration-300">
         <div className="max-w-4xl mx-auto px-6 h-16 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2 group">
-            <div className="w-8 h-8 rounded-lg bg-[#5c2d91] flex items-center justify-center transition-transform group-hover:scale-105">
+            <div className="w-8 h-8 rounded-lg bg-[#0aa674] flex items-center justify-center transition-transform group-hover:scale-105">
               <Zap className="w-4 h-4 text-white" />
             </div>
-            <span className="text-lg font-bold tracking-tight text-[#5c2d91] dark:text-purple-400">
+            <span className="text-lg font-bold tracking-tight text-[#0aa674] dark:text-[#0aa674]">
               goolza
             </span>
           </Link>
-          <Link href="/" className="flex items-center gap-1.5 text-slate-300 hover:text-purple-400 text-sm transition-colors font-medium">
+          <Link href="/" className="flex items-center gap-1.5 text-slate-300 hover:text-[#0aa674] text-sm transition-colors font-medium">
             العودة للرئيسية
             <ArrowLeft className="w-4 h-4" />
           </Link>
@@ -28,7 +28,7 @@ export default function ContactPage() {
       {/* Content */}
       <div className="max-w-3xl mx-auto px-6 py-12">
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
-          <h1 className="text-3xl font-black text-[#5c2d91] dark:text-purple-400 mb-2">اتصل بنا</h1>
+          <h1 className="text-3xl font-black text-[#0aa674] dark:text-[#0aa674] mb-2">اتصل بنا</h1>
           <p className="text-slate-300 text-sm mb-10">نسعد بتواصلك معنا. اختر الطريقة المناسبة لك.</p>
         </motion.div>
 
@@ -55,10 +55,10 @@ export default function ContactPage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: idx * 0.1 }}
-              className="bg-[#1e293b] border border-slate-800 rounded-2xl p-6 text-center hover:border-purple-500/30 transition-all shadow-sm hover:shadow-md"
+              className="bg-[#1e293b] border border-slate-800 rounded-2xl p-6 text-center hover:border-[#0aa674]/30 transition-all shadow-sm hover:shadow-md"
             >
-              <div className="w-12 h-12 rounded-xl bg-purple-900/20 flex items-center justify-center mx-auto mb-4">
-                <item.icon className="w-5 h-5 text-purple-400" />
+              <div className="w-12 h-12 rounded-xl bg-[#0aa674]/10 flex items-center justify-center mx-auto mb-4">
+                <item.icon className="w-5 h-5 text-[#0aa674]" />
               </div>
               <h3 className="text-white font-bold text-sm mb-1">{item.title}</h3>
               <p className="text-slate-300 text-sm">{item.value}</p>
@@ -73,7 +73,7 @@ export default function ContactPage() {
           transition={{ delay: 0.3 }}
           className="bg-[#1e293b] border border-slate-800 rounded-2xl p-6 md:p-8 shadow-sm transition-colors duration-300"
         >
-          <h2 className="text-lg font-bold text-purple-400 mb-6">أرسل لنا رسالة</h2>
+          <h2 className="text-lg font-bold text-[#0aa674] mb-6">أرسل لنا رسالة</h2>
           <form className="space-y-5">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
               <div>
@@ -81,7 +81,7 @@ export default function ContactPage() {
                 <input
                   type="text"
                   placeholder="اسمك الكامل"
-                  className="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition-all"
+                  className="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-[#0aa674] focus:ring-1 focus:ring-[#0aa674] transition-all"
                 />
               </div>
               <div>
@@ -89,7 +89,7 @@ export default function ContactPage() {
                 <input
                   type="email"
                   placeholder="email@example.com"
-                  className="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition-all"
+                  className="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-[#0aa674] focus:ring-1 focus:ring-[#0aa674] transition-all"
                 />
               </div>
             </div>
@@ -98,7 +98,7 @@ export default function ContactPage() {
               <input
                 type="text"
                 placeholder="موضوع الرسالة"
-                className="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition-all"
+                className="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-[#0aa674] focus:ring-1 focus:ring-[#0aa674] transition-all"
               />
             </div>
             <div>
@@ -106,12 +106,12 @@ export default function ContactPage() {
               <textarea
                 rows={5}
                 placeholder="اكتب رسالتك هنا..."
-                className="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition-all resize-none"
+                className="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-[#0aa674] focus:ring-1 focus:ring-[#0aa674] transition-all resize-none"
               />
             </div>
             <button
               type="button"
-              className="bg-[#5c2d91] text-white font-bold text-sm px-8 py-3 rounded-xl hover:bg-[#4a2475] active:scale-95 transition-all duration-200 shadow-lg shadow-[#5c2d91]/20"
+              className="bg-[#0aa674] text-white font-bold text-sm px-8 py-3 rounded-xl hover:bg-[#088f62] active:scale-95 transition-all duration-200 shadow-lg shadow-[#0aa674]/20"
             >
               إرسال الرسالة
             </button>

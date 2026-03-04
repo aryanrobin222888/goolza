@@ -203,16 +203,16 @@ export default async function MatchPage({ params }) {
       <header className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-b border-slate-100 dark:border-slate-800 sticky top-0 z-50 transition-colors duration-300">
         <div className="max-w-4xl mx-auto px-6 h-16 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2 group">
-            <div className="w-7 h-7 bg-[#5c2d91] rounded-lg flex items-center justify-center transition-transform group-hover:scale-105">
+            <div className="w-7 h-7 bg-[#0aa674] rounded-lg flex items-center justify-center transition-transform group-hover:scale-105">
               <span className="text-white text-xs font-black">M</span>
             </div>
-            <span className="text-lg font-bold tracking-tight text-[#5c2d91] dark:text-purple-400">
+            <span className="text-lg font-bold tracking-tight text-[#0aa674] dark:text-[#0aa674]">
               gool<span className="text-white">za</span>
             </span>
           </Link>
           <Link
             href="/"
-            className="flex items-center gap-1.5 text-sm text-slate-500 hover:text-[#5c2d91] dark:text-slate-400 dark:hover:text-purple-400 transition-colors font-medium"
+            className="flex items-center gap-1.5 text-sm text-slate-500 hover:text-[#0aa674] dark:text-slate-400 dark:hover:text-[#0aa674] transition-colors font-medium"
           >
             الجدول الكامل
             <ArrowLeft className="w-4 h-4" />
@@ -237,7 +237,7 @@ export default async function MatchPage({ params }) {
 
         {/* ── H1 + Status ── */}
         <div className="text-center space-y-2">
-          <h1 className="text-2xl md:text-3xl font-bold text-[#5c2d91] dark:text-purple-400">
+          <h1 className="text-2xl md:text-3xl font-bold text-[#0aa674] dark:text-[#0aa674]">
             بث مباشر مباراة {home} و{away}
           </h1>
           {isLive && (
@@ -252,7 +252,7 @@ export default async function MatchPage({ params }) {
             </span>
           )}
           {!isLive && !isFinished && match.time && (
-            <span className="inline-flex items-center gap-1.5 bg-purple-50 dark:bg-purple-900/20 text-[#5c2d91] dark:text-purple-400 text-xs font-bold px-3 py-1 rounded-full border border-purple-200 dark:border-purple-800/30">
+            <span className="inline-flex items-center gap-1.5 bg-[#0aa674]/10 dark:bg-[#0aa674]/10 text-[#0aa674] dark:text-[#0aa674] text-xs font-bold px-3 py-1 rounded-full border border-[#0aa674]/30 dark:border-[#0aa674]/30">
               <CalendarClock className="w-3.5 h-3.5" />
               {match.time}
             </span>
@@ -315,58 +315,69 @@ export default async function MatchPage({ params }) {
         </div>
 
         {/* ── Watch CTA ── */}
-        {match.streamPageUrl ? (
-          <a
-            href={match.streamPageUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group block w-full rounded-2xl overflow-hidden shadow-xl relative"
-          >
-            {/* Background gradient */}
-            <div className="bg-gradient-to-br from-[#1a0533] via-[#2d0f5e] to-[#0f0020] aspect-video flex flex-col items-center justify-center gap-6 px-6 transition-all duration-300 group-hover:from-[#220a42] group-hover:via-[#3a1478] group-hover:to-[#150030]">
-              {/* Live pulse ring */}
-              {isLive && (
-                <div className="relative">
-                  <span className="absolute -inset-3 rounded-full bg-red-500/20 animate-ping" />
-                  <span className="relative inline-flex items-center gap-2 bg-red-600 text-white text-xs font-bold px-4 py-1.5 rounded-full shadow-lg shadow-red-900/50">
-                    <span className="w-1.5 h-1.5 bg-white rounded-full animate-pulse" />
-                    LIVE
-                  </span>
+        <div className="w-full rounded-2xl overflow-hidden shadow-xl relative bg-[#0d1f2d] border border-[#0aa674]/20">
+          {/* Animated background glow */}
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_#0aa67420_0%,_transparent_70%)] pointer-events-none" />
+
+          <div className="aspect-video flex flex-col items-center justify-center gap-8 px-6 relative">
+
+            {/* LIVE badge */}
+            {isLive && (
+              <div className="relative flex items-center justify-center">
+                <span className="absolute w-20 h-20 rounded-full bg-red-500/20 animate-ping" />
+                <span className="relative inline-flex items-center gap-2 bg-red-600 text-white text-xs font-bold px-4 py-1.5 rounded-full shadow-lg shadow-red-900/50">
+                  <span className="w-1.5 h-1.5 bg-white rounded-full animate-pulse" />
+                  LIVE
+                </span>
+              </div>
+            )}
+
+            {/* Ripple rings behind the button */}
+            <div className="relative flex items-center justify-center">
+              <span className="absolute w-40 h-40 rounded-full border border-[#0aa674]/10 animate-ping" style={{ animationDuration: "2.5s" }} />
+              <span className="absolute w-56 h-56 rounded-full border border-[#0aa674]/5 animate-ping" style={{ animationDuration: "3.2s", animationDelay: "0.4s" }} />
+
+              {/* CTA Button */}
+              {match.streamPageUrl ? (
+                <a
+                  href={match.streamPageUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group/btn relative inline-flex items-center gap-3 bg-[#0aa674] hover:bg-[#08c285] text-white font-bold text-lg md:text-xl px-10 py-4 rounded-2xl shadow-lg shadow-[#0aa674]/30 hover:shadow-[#0aa674]/50 transition-all duration-300 hover:scale-105 active:scale-95 overflow-hidden"
+                >
+                  {/* Shimmer sweep on hover */}
+                  <span className="absolute inset-0 -translate-x-full group-hover/btn:translate-x-full transition-transform duration-700 bg-gradient-to-r from-transparent via-white/20 to-transparent skew-x-12 pointer-events-none" />
+                  {/* Play icon */}
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6 flex-shrink-0 transition-transform duration-300 group-hover/btn:scale-110">
+                    <path fillRule="evenodd" d="M4.5 5.653c0-1.427 1.529-2.33 2.779-1.643l11.54 6.347c1.295.712 1.295 2.573 0 3.286L7.28 19.99c-1.25.687-2.779-.217-2.779-1.643V5.653Z" clipRule="evenodd" />
+                  </svg>
+                  شاهد البث من هنا
+                </a>
+              ) : (
+                <div className="flex flex-col items-center gap-4">
+                  <div className="inline-flex items-center gap-3 bg-[#0aa674]/20 border border-[#0aa674]/30 text-[#0aa674] font-bold text-lg md:text-xl px-10 py-4 rounded-2xl cursor-default">
+                    <Tv className="w-6 h-6 flex-shrink-0" />
+                    {isFinished ? "انتهى البث" : "البث سيبدأ قريباً"}
+                  </div>
+                  <p className="text-[#0aa674]/70 text-sm text-center">
+                    {isFinished
+                      ? "انتهت المباراة."
+                      : !isLive && match.time
+                      ? `سيبدأ البث عند الساعة ${match.time}`
+                      : "سيتم توفير رابط البث عند انطلاق المباراة."}
+                  </p>
                 </div>
               )}
+            </div>
 
-              {/* Main button */}
-              <div className="flex flex-col items-center justify-center">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  fill="currentColor"
-                  className="w-24 h-24 md:w-32 md:h-32 text-white transition-transform duration-300 group-hover:scale-110 drop-shadow-2xl"
-                >
-                  <path fillRule="evenodd" d="M4.5 5.653c0-1.427 1.529-2.33 2.779-1.643l11.54 6.347c1.295.712 1.295 2.573 0 3.286L7.28 19.99c-1.25.687-2.779-.217-2.779-1.643V5.653Z" clipRule="evenodd" />
-                </svg>
-              </div>
-            </div>
-          </a>
-        ) : (
-          <div className="bg-gradient-to-br from-[#1a0533] via-[#2d0f5e] to-[#0f0020] rounded-2xl aspect-video flex flex-col items-center justify-center text-center px-6 shadow-xl gap-4">
-            <div className="w-16 h-16 bg-white/10 rounded-full flex items-center justify-center">
-              <Tv className="w-8 h-8 text-white/50" />
-            </div>
-            <div>
-              <p className="text-white font-bold text-lg mb-1">
-                {isFinished ? "انتهى البث" : "البث سيبدأ قريباً"}
+            {/* Subtitle hint */}
+            {match.streamPageUrl && (
+              <p className="text-slate-400 text-sm text-center">
+                انقر للمشاهدة — بث مباشر بجودة عالية
               </p>
-              <p className="text-purple-300 text-sm">
-                {isFinished
-                  ? "انتهت المباراة."
-                  : !isLive && match.time
-                  ? `سيبدأ البث عند الساعة ${match.time}`
-                  : "سيتم توفير رابط البث عند انطلاق المباراة."}
-              </p>
-            </div>
+            )}
           </div>
-        )}
+        </div>
 
         {/* ── Match Details Grid ── */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
@@ -396,7 +407,7 @@ export default async function MatchPage({ params }) {
               key={detail.label}
               className="bg-[#1e293b] rounded-xl border border-slate-800 p-4 flex flex-col gap-2 transition-colors duration-300"
             >
-              <div className="flex items-center gap-2 text-[#5c2d91] dark:text-purple-400">
+              <div className="flex items-center gap-2 text-[#0aa674] dark:text-[#0aa674]">
                 {detail.icon}
                 <span className="text-xs font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-wide">
                   {detail.label}
@@ -411,7 +422,7 @@ export default async function MatchPage({ params }) {
         <div className="text-center pt-2">
           <Link
             href="/"
-            className="inline-flex items-center gap-2 text-sm font-medium text-[#5c2d91] hover:underline dark:text-purple-400"
+            className="inline-flex items-center gap-2 text-sm font-medium text-[#0aa674] hover:underline dark:text-[#0aa674]"
           >
             <ArrowRight className="w-4 h-4" />
             عودة إلى جدول المباريات

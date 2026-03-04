@@ -119,7 +119,7 @@ export default function MatchRow({
 
   const classes = `relative p-4 rounded-xl border transition-all duration-300 group
     bg-[#1e293b]
-    ${isSelected ? "border-purple-500 ring-1 ring-purple-500 shadow-md" : "border-slate-800 shadow-sm hover:border-slate-700"}
+    ${isSelected ? "border-[#0aa674] ring-1 ring-[#0aa674] shadow-md" : "border-slate-800 shadow-sm hover:border-slate-700"}
     cursor-pointer
   `;
 
