@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { Zap, ArrowLeft, Mail, MapPin, Phone } from "lucide-react";
-import { motion } from "framer-motion";
 
 export default function ContactPage() {
   return (
@@ -27,10 +26,10 @@ export default function ContactPage() {
 
       {/* Content */}
       <div className="max-w-3xl mx-auto px-6 py-12">
-        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
+        <div className="animate-[fadeIn_0.4s_ease_forwards]">
           <h1 className="text-3xl font-black text-[#0aa674] dark:text-[#0aa674] mb-2">اتصل بنا</h1>
           <p className="text-slate-300 text-sm mb-10">نسعد بتواصلك معنا. اختر الطريقة المناسبة لك.</p>
-        </motion.div>
+        </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-12">
           {[
@@ -50,11 +49,8 @@ export default function ContactPage() {
               value: "الدار البيضاء، المغرب",
             },
           ].map((item, idx) => (
-            <motion.div
+            <div
               key={item.title}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: idx * 0.1 }}
               className="bg-[#1e293b] border border-slate-800 rounded-2xl p-6 text-center hover:border-[#0aa674]/30 transition-all shadow-sm hover:shadow-md"
             >
               <div className="w-12 h-12 rounded-xl bg-[#0aa674]/10 flex items-center justify-center mx-auto mb-4">
@@ -62,15 +58,12 @@ export default function ContactPage() {
               </div>
               <h3 className="text-white font-bold text-sm mb-1">{item.title}</h3>
               <p className="text-slate-300 text-sm">{item.value}</p>
-            </motion.div>
+            </div>
           ))}
         </div>
 
         {/* Contact Form */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3 }}
+        <div
           className="bg-[#1e293b] border border-slate-800 rounded-2xl p-6 md:p-8 shadow-sm transition-colors duration-300"
         >
           <h2 className="text-lg font-bold text-[#0aa674] mb-6">أرسل لنا رسالة</h2>
@@ -116,7 +109,7 @@ export default function ContactPage() {
               إرسال الرسالة
             </button>
           </form>
-        </motion.div>
+        </div>
       </div>
     </div>
   );

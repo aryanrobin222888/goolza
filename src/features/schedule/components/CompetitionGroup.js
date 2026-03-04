@@ -1,5 +1,5 @@
 "use client";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { useState } from "react";
 import MatchRow from "./MatchRow";
 import { getArabicName, mapEventToMatch } from "@/features/schedule/utils/mappers";
@@ -79,14 +79,14 @@ export default function CompetitionGroup({ competition, index, selectedDate }) {
   };
 
   return (
-    <motion.div
+    <m.div
       variants={containerVariants}
       initial="hidden"
       animate="visible"
       className="mb-12"
     >
       {/* Header - Simple & Clean */}
-      <motion.div 
+      <m.div 
         initial={{ opacity: 0, x: -20 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ delay: index * 0.1, duration: 0.5 }}
@@ -105,7 +105,7 @@ export default function CompetitionGroup({ competition, index, selectedDate }) {
               </h2>
               <p className="text-xs text-slate-300 font-medium uppercase tracking-wider">{categoryName}</p>
           </div>
-      </motion.div>
+      </m.div>
 
       {/* Matches Grid */}
       <div className="grid grid-cols-1 gap-x-6 gap-y-0">
@@ -130,6 +130,6 @@ export default function CompetitionGroup({ competition, index, selectedDate }) {
           );
         })}
       </div>
-    </motion.div>
+    </m.div>
   );
 }

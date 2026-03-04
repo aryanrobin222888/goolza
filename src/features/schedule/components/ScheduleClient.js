@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useState } from "react";
 import dynamic from "next/dynamic";
 import { format, addDays, subDays, startOfToday } from "date-fns";
-import { motion, AnimatePresence } from "framer-motion";
+import { m, LazyMotion, domAnimation, AnimatePresence } from "framer-motion";
 import { Zap, AlertCircle, Clock } from "lucide-react";
 import Footer from "@/features/schedule/components/Footer";
 import { FacebookIcon, TelegramIcon, TikTokIcon, XIcon } from "@/features/schedule/components/SocialIcons";
@@ -38,6 +38,7 @@ export default function ScheduleClient({ initialMatches }) {
     format(d, "yyyy-MM-dd") === format(selectedDate, "yyyy-MM-dd");
 
   return (
+    <LazyMotion features={domAnimation}>
     <div className="min-h-screen bg-slate-950 text-slate-100 font-sans selection:bg-slate-700 flex flex-col">
       
       {/* ═══ Header ═══ */}
@@ -51,16 +52,16 @@ export default function ScheduleClient({ initialMatches }) {
           </Link>
 
           <nav className="flex items-center gap-1">
-               <a href="https://www.facebook.com/profile.php?id=61584373584701" target="_blank" rel="noopener noreferrer" className="text-white hover:text-[#0aa674] transition-colors duration-300 p-2 hover:bg-slate-800 rounded-full">
+               <a href="https://www.facebook.com/profile.php?id=61584373584701" target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="text-white hover:text-[#0aa674] transition-colors duration-300 p-2 hover:bg-slate-800 rounded-full">
                   <FacebookIcon className="w-5 h-5" />
                </a>
-               <a href="https://t.me/+kDM7uK-Kq20wODlk" target="_blank" rel="noopener noreferrer" className="text-white hover:text-[#0aa674] transition-colors duration-300 p-2 hover:bg-slate-800 rounded-full">
+               <a href="https://t.me/+kDM7uK-Kq20wODlk" target="_blank" rel="noopener noreferrer" aria-label="Telegram" className="text-white hover:text-[#0aa674] transition-colors duration-300 p-2 hover:bg-slate-800 rounded-full">
                   <TelegramIcon className="w-5 h-5" />
                </a>
-               <a href="https://www.tiktok.com/@goolza.com" target="_blank" rel="noopener noreferrer" className="text-white hover:text-[#0aa674] transition-colors duration-300 p-2 hover:bg-slate-800 rounded-full">
+               <a href="https://www.tiktok.com/@goolza.com" target="_blank" rel="noopener noreferrer" aria-label="TikTok" className="text-white hover:text-[#0aa674] transition-colors duration-300 p-2 hover:bg-slate-800 rounded-full">
                   <TikTokIcon className="w-5 h-5" />
                </a>
-               <a href="https://x.com/six1398361" target="_blank" rel="noopener noreferrer" className="text-white hover:text-[#0aa674] transition-colors duration-300 p-2 hover:bg-slate-800 rounded-full">
+               <a href="https://x.com/six1398361" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)" className="text-white hover:text-[#0aa674] transition-colors duration-300 p-2 hover:bg-slate-800 rounded-full">
                   <XIcon className="w-4 h-4" />
                </a>
           </nav>
@@ -76,7 +77,7 @@ export default function ScheduleClient({ initialMatches }) {
             <h1 className="text-3xl font-bold text-[#0aa674]">
               جدول المباريات
             </h1>
-            <motion.div 
+            <m.div 
               className="flex bg-slate-900 p-1.5 rounded-full border border-slate-700 shadow-sm"
             >
                 {days.map((day) => {
@@ -90,7 +91,7 @@ export default function ScheduleClient({ initialMatches }) {
                             }`}
                         >
                             {active && (
-                                <motion.div 
+                                <m.div 
                                     layoutId="activeTabV2"
                                     className="absolute inset-0 bg-[#0aa674] rounded-full shadow-lg shadow-[#0aa674]/20"
                                     transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
@@ -100,14 +101,14 @@ export default function ScheduleClient({ initialMatches }) {
                         </button>
                     )
                 })}
-            </motion.div>
+            </m.div>
 
         </div>
 
         {/* Content */}
         <AnimatePresence mode="wait">
           {isLoading ? (
-            <motion.div
+            <m.div
               key="load"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -115,9 +116,9 @@ export default function ScheduleClient({ initialMatches }) {
               className="flex justify-center py-20"
             >
               <div className="w-6 h-6 border-2 border-slate-200 border-t-slate-800 rounded-full animate-spin"></div>
-            </motion.div>
+            </m.div>
           ) : error ? (
-            <motion.div
+            <m.div
               key="err"
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
@@ -127,9 +128,9 @@ export default function ScheduleClient({ initialMatches }) {
               <AlertCircle className="w-10 h-10 text-red-500 mb-3" />
               <p className="text-slate-900 font-medium">Unable to load matches</p>
               <p className="text-slate-500 text-sm mt-1">Please check your connection and try again.</p>
-            </motion.div>
+            </m.div>
           ) : !competitions || competitions.length === 0 ? (
-            <motion.div
+            <m.div
               key="empty"
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
@@ -141,9 +142,9 @@ export default function ScheduleClient({ initialMatches }) {
               </div>
               <p className="text-slate-900 font-medium">لا توجد مباريات مجدولة</p>
               <p className="text-slate-500 text-sm mt-1">تحقق مرة أخرى لاحقًا للمباريات القادمة.</p>
-            </motion.div>
+            </m.div>
           ) : (
-            <motion.div
+            <m.div
               key="data"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -158,7 +159,7 @@ export default function ScheduleClient({ initialMatches }) {
                   selectedDate={selectedDate}
                 />
               ))}
-            </motion.div>
+            </m.div>
           )}
         </AnimatePresence>
       </main>
@@ -166,5 +167,6 @@ export default function ScheduleClient({ initialMatches }) {
       {/* ═══ Footer ═══ */}
       <Footer />
     </div>
+    </LazyMotion>
   );
 }

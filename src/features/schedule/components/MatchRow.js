@@ -1,5 +1,5 @@
 "use client";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { Tv } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
@@ -139,9 +139,9 @@ export default function MatchRow({
 
   if (onClick) {
     return (
-      <motion.div {...interactiveProps} onClick={onClick}>
+      <m.div {...interactiveProps} onClick={onClick}>
         {content}
-      </motion.div>
+      </m.div>
     );
   }
 
@@ -151,7 +151,7 @@ export default function MatchRow({
       className="block mb-3"
       prefetch={false}
     >
-      <motion.div {...interactiveProps} className={`${interactiveProps.className} overflow-hidden`}>
+      <m.div {...interactiveProps} className={`${interactiveProps.className} overflow-hidden`}>
            {/* Minimal Meta Info Overlay - Top Left */}
            <div className="absolute top-2 left-3 md:top-auto md:bottom-2 md:left-4 flex items-center gap-2 text-[10px] text-white z-10">
                 {match.tournamentId && tournamentLogo ? (
@@ -186,7 +186,7 @@ export default function MatchRow({
                   {isLive ? "شاهد المباراة الان" : isFinished ? "انتهت" : "لم تبدأ بعد"}
                 </span>
            </div>
-      </motion.div>
+      </m.div>
     </Link>
   );
 }

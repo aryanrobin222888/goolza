@@ -23,7 +23,7 @@ export default function Footer() {
           </div>
 
           <div>
-            <h4 className="font-semibold text-white mb-4">الشركة</h4>
+            <p className="font-semibold text-white mb-4">الشركة</p>
             <ul className="space-y-3 text-sm text-slate-300">
               <li><Link href="/about" className="hover:text-[#0aa674] transition-colors duration-300">عن التطبيق</Link></li>
               <li><Link href="/privacy" className="hover:text-[#0aa674] transition-colors duration-300">الخصوصية</Link></li>
@@ -39,16 +39,16 @@ export default function Footer() {
           </p>
           
           <div className="flex items-center gap-6">
-            <a href="https://www.facebook.com/profile.php?id=61584373584701" target="_blank" rel="noopener noreferrer" className="text-white hover:text-[#0aa674] transition-colors duration-300" title="Facebook">
+            <a href="https://www.facebook.com/profile.php?id=61584373584701" target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="text-white hover:text-[#0aa674] transition-colors duration-300" title="Facebook">
               <FacebookIcon className="w-5 h-5" />
             </a>
-            <a href="https://t.me/+kDM7uK-Kq20wODlk" target="_blank" rel="noopener noreferrer" className="text-white hover:text-[#0aa674] transition-colors duration-300" title="Telegram">
+            <a href="https://t.me/+kDM7uK-Kq20wODlk" target="_blank" rel="noopener noreferrer" aria-label="Telegram" className="text-white hover:text-[#0aa674] transition-colors duration-300" title="Telegram">
               <TelegramIcon className="w-5 h-5" />
             </a>
-            <a href="https://www.tiktok.com/@goolza.com" target="_blank" rel="noopener noreferrer" className="text-white hover:text-[#0aa674] transition-colors duration-300" title="TikTok">
+            <a href="https://www.tiktok.com/@goolza.com" target="_blank" rel="noopener noreferrer" aria-label="TikTok" className="text-white hover:text-[#0aa674] transition-colors duration-300" title="TikTok">
               <TikTokIcon className="w-5 h-5" />
             </a>
-            <a href="https://x.com/six1398361" target="_blank" rel="noopener noreferrer" className="text-white hover:text-[#0aa674] transition-colors duration-300" title="X (Twitter)">
+            <a href="https://x.com/six1398361" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)" className="text-white hover:text-[#0aa674] transition-colors duration-300" title="X (Twitter)">
               <XIcon className="w-4 h-4" />
             </a>
           </div>
