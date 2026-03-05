@@ -152,30 +152,40 @@ export default function MatchRow({
       prefetch={false}
     >
       <m.div {...interactiveProps} className={`${interactiveProps.className} overflow-hidden`}>
-           {/* Minimal Meta Info Overlay - Top Left */}
-           <div className="absolute top-2 left-3 md:top-auto md:bottom-2 md:left-4 flex items-center gap-2 text-[10px] text-white z-10">
-                {match.tournamentId && tournamentLogo ? (
-                    <div className="relative w-5 h-5 bg-white rounded-full flex items-center justify-center p-0.5 shadow-sm">
-                      <Image 
-                        src={tournamentLogo} 
-                        alt="Tournament Logo" 
-                        fill 
-                        className="object-contain p-0.5" 
-                        sizes="20px"
-                      />
-                    </div>
-                ) : null}
-                <span className="uppercase tracking-wider font-semibold">{match.league}</span>
+           {/* Meta row: inline on mobile, absolute on desktop */}
+           <div className="flex items-center justify-between mb-2 md:hidden text-[10px] text-slate-400">
+             <div className="flex items-center gap-1.5">
+               {match.tournamentId && tournamentLogo ? (
+                 <div className="relative w-4 h-4 bg-white rounded-full flex items-center justify-center p-0.5 shadow-sm shrink-0">
+                   <Image src={tournamentLogo} alt="Tournament Logo" fill className="object-contain p-0.5" sizes="16px" />
+                 </div>
+               ) : null}
+               <span className="uppercase tracking-wider font-semibold truncate max-w-[100px]">{match.league}</span>
+             </div>
+             {match.channel && (
+               <div className="flex items-center gap-1">
+                 <Tv className="w-3 h-3 shrink-0" />
+                 <span className="truncate max-w-[110px]">{match.channel}</span>
+               </div>
+             )}
            </div>
-           
-           {/* Channel Info - Top Right */}
+
+           {/* Desktop absolute overlays */}
+           <div className="hidden md:flex absolute bottom-2 left-4 items-center gap-2 text-[10px] text-white z-10">
+               {match.tournamentId && tournamentLogo ? (
+                   <div className="relative w-5 h-5 bg-white rounded-full flex items-center justify-center p-0.5 shadow-sm">
+                     <Image src={tournamentLogo} alt="Tournament Logo" fill className="object-contain p-0.5" sizes="20px" />
+                   </div>
+               ) : null}
+               <span className="uppercase tracking-wider font-semibold">{match.league}</span>
+           </div>
            {match.channel && (
-               <div className="absolute top-2 right-3 md:top-auto md:bottom-2 md:right-4 flex items-center gap-1 text-[10px] text-slate-300 z-10">
-                   <Tv className="w-3 h-3 group-hover:text-blue-400 transition-colors" /> {match.channel}
+               <div className="hidden md:flex absolute bottom-2 right-4 items-center gap-1 text-[10px] text-slate-300 z-10">
+                   <Tv className="w-3 h-3" /> {match.channel}
                </div>
            )}
 
-           <div className="pb-4 md:pb-0">{content}</div>
+           <div className="md:pb-4">{content}</div>
 
            {/* Hover Overlay - Watch Now */}
            <div className="absolute inset-0 bg-slate-900/80 backdrop-blur-[3px] opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center justify-center z-50">
