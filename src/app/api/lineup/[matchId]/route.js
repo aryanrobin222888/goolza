@@ -6,87 +6,88 @@ export const dynamic = "force-dynamic";
 
 /**
  * GET /api/lineup/[matchId]
+ * ─────────────────────────
+ * Reads lineups from MongoDB only.
+ * Returns { lineups: <object|null>, source: "cache"|"empty" }
  *
- * 1. Look up the match in MongoDB.
- * 2. If it already has lineups stored (and ?fresh is not set), return them.
- * 3. Otherwise fetch from SofaScore and persist before responding.
+ * If lineups are not yet stored, returns 200 with lineups: null
+ * (instead of server-side-fetching SofaScore which gets blocked).
+ * The browser-side MatchLineup component handles the SofaScore
+ * fetch + saves the result via POST (see below).
  */
 export async function GET(req, { params }) {
   const { matchId } = await params;
-  const { searchParams } = new URL(req.url);
-  const fresh = searchParams.get("fresh") === "1";
-
   if (!matchId) {
-    return NextResponse.json({ error: "matchId is required" }, { status: 400 });
+    return NextResponse.json({ error: "matchId required" }, { status: 400 });
   }
 
   try {
     await connectDB();
-
     const matchIdNum = Number(matchId);
     const query = isNaN(matchIdNum)
       ? { "matches.id": matchId }
       : { $or: [{ "matches.id": matchId }, { "matches.id": matchIdNum }] };
 
     const record = await LiveMatch.findOne(query).lean();
-
-    if (record && !fresh) {
-      const match = record.matches.find(
-        (m) => String(m.id) === String(matchId)
-      );
-      if (match?.lineups) {
-        return NextResponse.json({ lineups: match.lineups, source: "cache" });
-      }
+    if (!record) {
+      return NextResponse.json({ lineups: null, source: "empty" });
     }
 
-    // ── Fetch fresh from SofaScore ──────────────────────────────────────────
-    const sofaUrl = `https://www.sofascore.com/api/v1/event/${matchId}/lineups`;
-    const sofaRes = await fetch(sofaUrl, {
-      headers: {
-        "User-Agent":
-          "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36",
-        Accept: "application/json",
-        Referer: "https://www.sofascore.com/",
-      },
-      next: { revalidate: 0 },
-    });
-
-    if (!sofaRes.ok) {
-      if (sofaRes.status === 404) {
-        return NextResponse.json(
-          { lineups: null, message: "Lineups not yet available" },
-          { status: 200 }
-        );
-      }
-      return NextResponse.json(
-        { error: `SofaScore returned ${sofaRes.status}` },
-        { status: 502 }
-      );
-    }
-
-    const data = await sofaRes.json();
-    const lineups = data; // raw SofaScore lineup object
-
-    // ── Persist into MongoDB ────────────────────────────────────────────────
-    if (record) {
-      await LiveMatch.updateOne(
-        { _id: record._id, "matches.id": matchId },
-        { $set: { "matches.$.lineups": lineups } }
-      ).catch(() => {
-        // Also try numeric id
-        return LiveMatch.updateOne(
-          { _id: record._id, "matches.id": matchIdNum },
-          { $set: { "matches.$.lineups": lineups } }
-        );
-      });
-    }
-
-    return NextResponse.json({ lineups, source: "live" });
-  } catch (err) {
-    console.error("[lineup] Error:", err);
-    return NextResponse.json(
-      { error: "Internal Server Error" },
-      { status: 500 }
+    const match = record.matches.find(
+      (m) => String(m.id) === String(matchId)
     );
+
+    if (match?.lineups) {
+      return NextResponse.json({ lineups: match.lineups, source: "cache" });
+    }
+
+    return NextResponse.json({ lineups: null, source: "empty" });
+  } catch (err) {
+    console.error("[lineup GET] Error:", err);
+    return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
+  }
+}
+
+/**
+ * POST /api/lineup/[matchId]
+ * ──────────────────────────
+ * Body: the raw SofaScore lineup object.
+ * Saves it into MongoDB so future page loads read from the DB.
+ * Called by the browser after a successful SofaScore browser-fetch.
+ */
+export async function POST(req, { params }) {
+  const { matchId } = await params;
+  if (!matchId) {
+    return NextResponse.json({ error: "matchId required" }, { status: 400 });
+  }
+
+  let lineups;
+  try {
+    lineups = await req.json();
+  } catch {
+    return NextResponse.json({ error: "Invalid JSON body" }, { status: 400 });
+  }
+
+  try {
+    await connectDB();
+    const matchIdNum = Number(matchId);
+
+    // Try string id first, fall back to numeric
+    const res = await LiveMatch.updateOne(
+      { "matches.id": matchId },
+      { $set: { "matches.$.lineups": lineups } }
+    );
+
+    if (res.matchedCount === 0 && !isNaN(matchIdNum)) {
+      await LiveMatch.updateOne(
+        { "matches.id": matchIdNum },
+        { $set: { "matches.$.lineups": lineups } }
+      );
+    }
+
+    return NextResponse.json({ ok: true });
+  } catch (err) {
+    console.error("[lineup POST] Error:", err);
+    return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
   }
 }

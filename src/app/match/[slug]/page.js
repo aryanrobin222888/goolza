@@ -385,6 +385,7 @@ export default async function MatchPage({ params }) {
 
         {/* ── Lineup ── */}
         <MatchLineup
+          lineups={match.lineups ?? null}
           matchId={matchId}
           homeTeam={match.home}
           awayTeam={match.away}
