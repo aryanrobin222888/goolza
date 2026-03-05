@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import Footer from "@/features/schedule/components/Footer";
+import MatchLineup from "@/features/schedule/components/MatchLineup";
 import { Tv, Mic2, Trophy, CalendarClock, ArrowRight, ArrowLeft } from "lucide-react";
 import { extractIdFromSlug } from "@/lib/matchSlug";
 
@@ -32,6 +33,8 @@ async function getMatch(slug) {
     return null;
   }
 }
+
+
 
 // ─── SEO Metadata ─────────────────────────────────────────────────────────────
 export async function generateMetadata({ params }) {
@@ -104,6 +107,7 @@ export default async function MatchPage({ params }) {
   const { slug } = await params;
   const match = await getMatch(slug);
   if (!match) notFound();
+  const matchId = String(match.id);
 
   const home = match.home?.name || "الفريق الأول";
   const away = match.away?.name || "الفريق الثاني";
@@ -378,6 +382,13 @@ export default async function MatchPage({ params }) {
             )}
           </div>
         </div>
+
+        {/* ── Lineup ── */}
+        <MatchLineup
+          matchId={matchId}
+          homeTeam={match.home}
+          awayTeam={match.away}
+        />
 
         {/* ── Match Details Grid ── */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
