@@ -2,7 +2,6 @@
 import { m } from "framer-motion";
 import { Tv } from "lucide-react";
 import Link from "next/link";
-import Image from "next/image";
 import MatchStatus from "./MatchStatus";
 import { generateMatchSlug } from "@/lib/matchSlug";
 
@@ -46,13 +45,11 @@ export default function MatchRow({
         <div className="flex flex-col md:flex-row items-center md:items-center justify-start gap-3 flex-1 min-w-0">
           <div className="relative w-10 h-10 md:w-12 md:h-12 flex items-center justify-center p-1 bg-slate-800 rounded-full border border-slate-700 shadow-sm overflow-hidden">
             {match.home?.logo ? (
-              <Image
+              <img
                 src={match.home.logo}
                 alt={match.home.name || "Home Team"}
-                fill
-                priority={index < 3}
-                className="object-contain p-1"
-                sizes="(max-width: 768px) 40px, 48px"
+                className="w-full h-full object-contain p-1"
+                referrerPolicy="no-referrer"
                 onError={(e) => {
                   e.currentTarget.style.display = "none";
                   e.currentTarget.parentElement.innerHTML = '<span class="text-xs">⚽</span>';
@@ -97,13 +94,11 @@ export default function MatchRow({
           </span>
            <div className="relative w-10 h-10 md:w-12 md:h-12 flex items-center justify-center p-1 bg-slate-800 rounded-full border border-slate-700 shadow-sm overflow-hidden">
             {match.away?.logo ? (
-              <Image
+              <img
                 src={match.away.logo}
                 alt={match.away.name || "Away Team"}
-                fill
-                priority={index < 3}
-                className="object-contain p-1"
-                sizes="(max-width: 768px) 40px, 48px"
+                className="w-full h-full object-contain p-1"
+                referrerPolicy="no-referrer"
                 onError={(e) => {
                   e.currentTarget.style.display = "none";
                   e.currentTarget.parentElement.innerHTML = '<span class="text-xs">⚽</span>';
@@ -157,7 +152,12 @@ export default function MatchRow({
              <div className="flex items-center gap-1.5">
                {match.tournamentId && tournamentLogo ? (
                  <div className="relative w-4 h-4 bg-white rounded-full flex items-center justify-center p-0.5 shadow-sm shrink-0">
-                   <Image src={tournamentLogo} alt="Tournament Logo" fill className="object-contain p-0.5" sizes="16px" />
+                   <img 
+                      src={tournamentLogo} 
+                      alt="Tournament Logo" 
+                      className="w-full h-full object-contain p-0.5" 
+                      referrerPolicy="no-referrer"
+                    />
                  </div>
                ) : null}
                <span className="uppercase tracking-wider font-semibold truncate max-w-[100px]">{match.league}</span>
@@ -174,7 +174,12 @@ export default function MatchRow({
            <div className="hidden md:flex absolute bottom-2 left-4 items-center gap-2 text-[10px] text-white z-10">
                {match.tournamentId && tournamentLogo ? (
                    <div className="relative w-5 h-5 bg-white rounded-full flex items-center justify-center p-0.5 shadow-sm">
-                     <Image src={tournamentLogo} alt="Tournament Logo" fill className="object-contain p-0.5" sizes="20px" />
+                     <img 
+                        src={tournamentLogo} 
+                        alt="Tournament Logo" 
+                        className="w-full h-full object-contain p-0.5" 
+                        referrerPolicy="no-referrer"
+                      />
                    </div>
                ) : null}
                <span className="uppercase tracking-wider font-semibold">{match.league}</span>

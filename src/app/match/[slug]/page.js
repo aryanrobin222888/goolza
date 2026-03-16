@@ -1,7 +1,6 @@
 import connectDB from "@/lib/db";
 import LiveMatch from "@/models/LiveMatch";
 import { notFound } from "next/navigation";
-import Image from "next/image";
 import Link from "next/link";
 import Footer from "@/features/schedule/components/Footer";
 import { Tv, Mic2, Trophy, CalendarClock, ArrowRight, ArrowLeft } from "lucide-react";
@@ -266,12 +265,11 @@ export default async function MatchPage({ params }) {
             <div className="flex flex-col items-center gap-3 flex-1">
               <div className="relative w-16 h-16 md:w-20 md:h-20 bg-white dark:bg-slate-800 rounded-full border border-slate-100 dark:border-slate-700 p-2 shadow-sm">
                 {match.home?.logo ? (
-                  <Image
+                  <img
                     src={match.home.logo}
                     alt={`شعار ${home} - بث مباشر مباراة اليوم عبر موقع جولزا Goolza`}
-                    fill
-                    className="object-contain p-2"
-                    sizes="(max-width: 768px) 64px, 80px"
+                    className="w-full h-full object-contain p-2"
+                    referrerPolicy="no-referrer"
                   />
                 ) : (
                   <div className="w-full h-full rounded-full flex items-center justify-center text-2xl">⚽</div>
@@ -298,12 +296,11 @@ export default async function MatchPage({ params }) {
             <div className="flex flex-col items-center gap-3 flex-1">
               <div className="relative w-16 h-16 md:w-20 md:h-20 bg-white dark:bg-slate-800 rounded-full border border-slate-100 dark:border-slate-700 p-2 shadow-sm">
                 {match.away?.logo ? (
-                  <Image
+                  <img
                     src={match.away.logo}
                     alt={`شعار ${away} - بث مباشر مباراة اليوم عبر موقع جولزا Goolza`}
-                    fill
-                    className="object-contain p-2"
-                    sizes="(max-width: 768px) 64px, 80px"
+                    className="w-full h-full object-contain p-2"
+                    referrerPolicy="no-referrer"
                   />
                 ) : (
                   <div className="w-full h-full rounded-full flex items-center justify-center text-2xl">⚽</div>
