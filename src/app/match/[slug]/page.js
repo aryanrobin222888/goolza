@@ -6,6 +6,10 @@ import Footer from "@/features/schedule/components/Footer";
 import { Tv, Mic2, Trophy, CalendarClock, ArrowRight, ArrowLeft } from "lucide-react";
 import { extractIdFromSlug } from "@/lib/matchSlug";
 
+import { fetchSofaScoreEvents } from "@/lib/sofascore";
+import { syncMatchWithSofaScore } from "@/lib/matchSync";
+import { format } from "date-fns";
+
 export const dynamic = "force-dynamic";
 
 // ─── Data Fetching ────────────────────────────────────────────────────────────
@@ -24,8 +28,24 @@ async function getMatch(slug) {
     const record = await LiveMatch.findOne(query).lean();
     if (!record) return null;
 
-    const match = record.matches.find((m) => String(m.id) === String(matchId));
-    return match ? JSON.parse(JSON.stringify(match)) : null;
+    let match = record.matches.find((m) => String(m.id) === String(matchId));
+    if (!match) return null;
+
+    // ====== MERGE SOFASCORE DATA (LIVE SYNC) ======
+    try {
+      const todayStr = record.date || format(new Date(), "yyyy-MM-dd");
+      const sofaData = await fetchSofaScoreEvents(todayStr);
+      const events = sofaData.events || [];
+      const event = events.find((e) => e.id?.toString() === match.id?.toString());
+      if (event) {
+        syncMatchWithSofaScore(match, event);
+      }
+    } catch (err) {
+      console.warn("Failed to fetch fresh sofascore data for match details:", err.message);
+    }
+    // ==============================================
+
+    return JSON.parse(JSON.stringify(match));
   } catch (err) {
     console.error("Error fetching match:", err);
     return null;
