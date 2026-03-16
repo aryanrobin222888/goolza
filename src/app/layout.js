@@ -82,17 +82,17 @@ export default function RootLayout({ children }) {
       <head>
       </head>
       <body style={{ backgroundColor: "#020617", color: "#f8fafc" }} suppressHydrationWarning>
-          <QueryProvider>
-            {/* Content */}
-            <div className="relative z-10">{children}</div>
+            <QueryProvider>
+              {/* Content */}
+              <div className="relative z-10">{children}</div>
 
-            {/* Toast */}
-            <Toaster
-              position="bottom-left"
-              richColors
-              closeButton
-            />
-          </QueryProvider>
+              {/* Toast */}
+              <Toaster
+                position="bottom-left"
+                richColors
+                closeButton
+              />
+            </QueryProvider>
       </body>
     </html>
   );

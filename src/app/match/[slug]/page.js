@@ -207,7 +207,7 @@ export default async function MatchPage({ params }) {
   };
 
   return (
-    <div className="min-h-screen bg-[#fafafa] dark:bg-slate-950 text-slate-900 dark:text-slate-200 font-sans flex flex-col transition-colors duration-300" dir="rtl">
+    <div className="min-h-screen bg-slate-950 text-slate-200 font-sans flex flex-col transition-colors duration-300" dir="rtl">
       {/* ── JSON-LD Schemas ── */}
       <script
         type="application/ld+json"
@@ -219,19 +219,19 @@ export default async function MatchPage({ params }) {
       />
 
       {/* ── Header ── */}
-      <header className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-b border-slate-100 dark:border-slate-800 sticky top-0 z-50 transition-colors duration-300">
+      <header className="bg-slate-900/80 backdrop-blur-md border-b border-slate-800 sticky top-0 z-50 transition-colors duration-300">
         <div className="max-w-4xl mx-auto px-6 h-16 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2 group">
             <div className="w-7 h-7 bg-[#0aa674] rounded-lg flex items-center justify-center transition-transform group-hover:scale-105">
               <span className="text-white text-xs font-black">M</span>
             </div>
-            <span className="text-lg font-bold tracking-tight text-[#0aa674] dark:text-[#0aa674]">
+            <span className="text-lg font-bold tracking-tight text-[#0aa674]">
               gool<span className="text-white">za</span>
             </span>
           </Link>
           <Link
             href="/"
-            className="flex items-center gap-1.5 text-sm text-slate-500 hover:text-[#0aa674] dark:text-slate-400 dark:hover:text-[#0aa674] transition-colors font-medium"
+            className="flex items-center gap-1.5 text-sm text-slate-400 hover:text-[#0aa674] transition-colors font-medium"
           >
             الجدول الكامل
             <ArrowLeft className="w-4 h-4" />
@@ -256,22 +256,22 @@ export default async function MatchPage({ params }) {
 
         {/* ── H1 + Status ── */}
         <div className="text-center space-y-2">
-          <h1 className="text-2xl md:text-3xl font-bold text-[#0aa674] dark:text-[#0aa674]">
+          <h1 className="text-2xl md:text-3xl font-bold text-[#0aa674]">
             بث مباشر مباراة {home} و{away}
           </h1>
           {isLive && (
-            <span className="inline-flex items-center gap-1.5 bg-red-50 dark:bg-red-900/30 text-red-600 dark:text-red-400 text-xs font-bold px-3 py-1 rounded-full border border-red-200 dark:border-red-900/50 animate-pulse">
+            <span className="inline-flex items-center gap-1.5 bg-red-900/30 text-red-400 text-xs font-bold px-3 py-1 rounded-full border border-red-900/50 animate-pulse">
               <span className="w-1.5 h-1.5 bg-red-500 rounded-full" />
               مباشر الآن
             </span>
           )}
           {isFinished && (
-            <span className="inline-flex items-center gap-1.5 bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 text-xs font-bold px-3 py-1 rounded-full border border-slate-200 dark:border-slate-700">
+            <span className="inline-flex items-center gap-1.5 bg-slate-800 text-slate-400 text-xs font-bold px-3 py-1 rounded-full border border-slate-700">
               انتهت المباراة
             </span>
           )}
           {!isLive && !isFinished && match.time && (
-            <span className="inline-flex items-center gap-1.5 bg-[#0aa674]/10 dark:bg-[#0aa674]/10 text-[#0aa674] dark:text-[#0aa674] text-xs font-bold px-3 py-1 rounded-full border border-[#0aa674]/30 dark:border-[#0aa674]/30">
+            <span className="inline-flex items-center gap-1.5 bg-[#0aa674]/10 text-[#0aa674] text-xs font-bold px-3 py-1 rounded-full border border-[#0aa674]/30">
               <CalendarClock className="w-3.5 h-3.5" />
               {match.time}
             </span>
@@ -283,7 +283,7 @@ export default async function MatchPage({ params }) {
           <div className="flex items-center justify-between gap-4">
             {/* Home */}
             <div className="flex flex-col items-center gap-3 flex-1">
-              <div className="relative w-16 h-16 md:w-20 md:h-20 bg-white dark:bg-slate-800 rounded-full border border-slate-100 dark:border-slate-700 p-2 shadow-sm">
+              <div className="relative w-16 h-16 md:w-20 md:h-20 bg-slate-800 rounded-full border border-slate-700 p-2 shadow-sm">
                 {match.home?.logo ? (
                   <img
                     src={match.home.logo}
@@ -314,7 +314,7 @@ export default async function MatchPage({ params }) {
 
             {/* Away */}
             <div className="flex flex-col items-center gap-3 flex-1">
-              <div className="relative w-16 h-16 md:w-20 md:h-20 bg-white dark:bg-slate-800 rounded-full border border-slate-100 dark:border-slate-700 p-2 shadow-sm">
+              <div className="relative w-16 h-16 md:w-20 md:h-20 bg-slate-800 rounded-full border border-slate-700 p-2 shadow-sm">
                 {match.away?.logo ? (
                   <img
                     src={match.away.logo}
@@ -424,9 +424,9 @@ export default async function MatchPage({ params }) {
               key={detail.label}
               className="bg-[#1e293b] rounded-xl border border-slate-800 p-4 flex flex-col gap-2 transition-colors duration-300"
             >
-              <div className="flex items-center gap-2 text-[#0aa674] dark:text-[#0aa674]">
+              <div className="flex items-center gap-2 text-[#0aa674]">
                 {detail.icon}
-                <span className="text-xs font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-wide">
+                <span className="text-xs font-semibold text-slate-500 uppercase tracking-wide">
                   {detail.label}
                 </span>
               </div>
@@ -439,7 +439,7 @@ export default async function MatchPage({ params }) {
         <div className="text-center pt-2">
           <Link
             href="/"
-            className="inline-flex items-center gap-2 text-sm font-medium text-[#0aa674] hover:underline dark:text-[#0aa674]"
+            className="inline-flex items-center gap-2 text-sm font-medium text-[#0aa674] hover:underline"
           >
             <ArrowRight className="w-4 h-4" />
             عودة إلى جدول المباريات

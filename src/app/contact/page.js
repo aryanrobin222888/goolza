@@ -5,7 +5,7 @@ import { Zap, ArrowLeft, Mail, MapPin, Phone } from "lucide-react";
 
 export default function ContactPage() {
   return (
-    <div className="min-h-screen bg-[#fafafa] dark:bg-slate-950 text-slate-900 dark:text-slate-200 font-sans transition-colors duration-300" dir="rtl">
+    <div className="min-h-screen bg-slate-950 text-slate-200 font-sans transition-colors duration-300" dir="rtl">
       {/* Header */}
       <div className="border-b border-slate-800 bg-slate-900/80 backdrop-blur-md sticky top-0 z-50 transition-colors duration-300">
         <div className="max-w-4xl mx-auto px-6 h-16 flex items-center justify-between">
@@ -13,7 +13,7 @@ export default function ContactPage() {
             <div className="w-8 h-8 rounded-lg bg-[#0aa674] flex items-center justify-center transition-transform group-hover:scale-105">
               <Zap className="w-4 h-4 text-white" />
             </div>
-            <span className="text-lg font-bold tracking-tight text-[#0aa674] dark:text-[#0aa674]">
+            <span className="text-lg font-bold tracking-tight text-[#0aa674]">
               goolza
             </span>
           </Link>
@@ -27,7 +27,7 @@ export default function ContactPage() {
       {/* Content */}
       <div className="max-w-3xl mx-auto px-6 py-12">
         <div className="animate-[fadeIn_0.4s_ease_forwards]">
-          <h1 className="text-3xl font-black text-[#0aa674] dark:text-[#0aa674] mb-2">اتصل بنا</h1>
+          <h1 className="text-3xl font-black text-[#0aa674] mb-2">اتصل بنا</h1>
           <p className="text-slate-300 text-sm mb-10">نسعد بتواصلك معنا. اختر الطريقة المناسبة لك.</p>
         </div>
 

@@ -126,8 +126,8 @@ export default function ScheduleClient({ initialMatches }) {
               className="flex flex-col items-center justify-center py-20 text-center"
             >
               <AlertCircle className="w-10 h-10 text-red-500 mb-3" />
-              <p className="text-slate-900 font-medium">Unable to load matches</p>
-              <p className="text-slate-500 text-sm mt-1">Please check your connection and try again.</p>
+              <p className="text-slate-100 font-medium">Unable to load matches</p>
+              <p className="text-slate-400 text-sm mt-1">Please check your connection and try again.</p>
             </m.div>
           ) : !competitions || competitions.length === 0 ? (
             <m.div
@@ -137,11 +137,11 @@ export default function ScheduleClient({ initialMatches }) {
               exit={{ opacity: 0 }}
               className="flex flex-col items-center justify-center py-20 text-center"
             >
-              <div className="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center mb-4 border border-slate-200">
-                   <Clock className="w-8 h-8 text-slate-400" />
+              <div className="w-16 h-16 bg-slate-900 rounded-full flex items-center justify-center mb-4 border border-slate-800">
+                   <Clock className="w-8 h-8 text-slate-500" />
               </div>
-              <p className="text-slate-900 font-medium">لا توجد مباريات مجدولة</p>
-              <p className="text-slate-500 text-sm mt-1">تحقق مرة أخرى لاحقًا للمباريات القادمة.</p>
+              <p className="text-slate-100 font-medium">لا توجد مباريات مجدولة</p>
+              <p className="text-slate-400 text-sm mt-1">تحقق مرة أخرى لاحقًا للمباريات القادمة.</p>
             </m.div>
           ) : (
             <m.div

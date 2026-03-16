@@ -77,8 +77,8 @@ export default function MatchStatus({
   // LIVE — Minimal Red Dot
   if (effectiveState === "LIVE") {
     return (
-      <span className="inline-flex items-center gap-1.5 bg-red-50 dark:bg-red-900/30 text-red-600 dark:text-red-400 text-[11px] px-2.5 py-0.5 rounded-full font-semibold border border-red-100 dark:border-red-900/50">
-        <span className="w-1.5 h-1.5 bg-red-500 dark:bg-red-500 rounded-full animate-pulse" />
+      <span className="inline-flex items-center gap-1.5 bg-red-900/30 text-red-400 text-[11px] px-2.5 py-0.5 rounded-full font-semibold border border-red-900/50">
+        <span className="w-1.5 h-1.5 bg-red-500 rounded-full animate-pulse" />
         مباشر
       </span>
     );
@@ -87,14 +87,14 @@ export default function MatchStatus({
   // ENDED
   if (effectiveState === "ENDED" || effectiveState === "finished") {
     return (
-      <span className="text-zinc-400 dark:text-zinc-500 text-[11px] font-medium">انتهت</span>
+      <span className="text-zinc-500 text-[11px] font-medium">انتهت</span>
     );
   }
 
   // Postponed
   if (effectiveState === "postponed") {
     return (
-      <span className="inline-block bg-orange-50 dark:bg-orange-900/30 text-orange-500 dark:text-orange-400 border border-orange-100 dark:border-orange-900/50 text-[10px] px-2 py-0.5 rounded-full font-medium">
+      <span className="inline-block bg-orange-900/30 text-orange-400 border border-orange-900/50 text-[10px] px-2 py-0.5 rounded-full font-medium">
         مؤجلة
       </span>
     );
@@ -103,7 +103,7 @@ export default function MatchStatus({
   // Canceled
   if (effectiveState === "canceled") {
     return (
-      <span className="inline-block bg-zinc-100 dark:bg-zinc-800 text-zinc-500 dark:text-zinc-400 text-[10px] px-2 py-0.5 rounded-full font-medium line-through decoration-zinc-400 dark:decoration-zinc-500">
+      <span className="inline-block bg-zinc-800 text-zinc-400 text-[10px] px-2 py-0.5 rounded-full font-medium line-through decoration-zinc-500">
         ملغاة
       </span>
     );
@@ -112,7 +112,7 @@ export default function MatchStatus({
   // Countdown
   if (matchState === "COUNTDOWN") {
     return (
-      <span className="text-emerald-600 dark:text-emerald-400 text-[11px] font-semibold bg-emerald-50 dark:bg-emerald-900/20 px-2 py-0.5 rounded-full border border-emerald-100/50 dark:border-emerald-800/30">
+      <span className="text-emerald-400 text-[11px] font-semibold bg-emerald-900/20 px-2 py-0.5 rounded-full border border-emerald-800/30">
         {timeLeft || "قريبا"}
       </span>
     );
@@ -120,6 +120,6 @@ export default function MatchStatus({
 
   // Fallback
   return (
-    <span className="text-zinc-400 dark:text-zinc-500 text-[11px]">قادمة</span>
+    <span className="text-zinc-500 text-[11px]">قادمة</span>
   );
 }

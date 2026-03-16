@@ -150,16 +150,16 @@ export default function MatchRow({
            {/* Meta row: inline on mobile, absolute on desktop */}
            <div className="flex items-center justify-between mb-2 md:hidden text-[10px] text-slate-400">
              <div className="flex items-center gap-1.5">
-               {match.tournamentId && tournamentLogo ? (
-                 <div className="relative w-4 h-4 bg-white rounded-full flex items-center justify-center p-0.5 shadow-sm shrink-0">
-                   <img 
-                      src={tournamentLogo} 
-                      alt="Tournament Logo" 
-                      className="w-full h-full object-contain p-0.5" 
-                      referrerPolicy="no-referrer"
-                    />
-                 </div>
-               ) : null}
+                {match.tournamentId && tournamentLogo ? (
+                  <div className="relative w-4 h-4 bg-slate-800 rounded-full flex items-center justify-center p-0.5 shadow-sm shrink-0">
+                    <img 
+                       src={tournamentLogo} 
+                       alt="Tournament Logo" 
+                       className="w-full h-full object-contain p-0.5" 
+                       referrerPolicy="no-referrer"
+                     />
+                  </div>
+                ) : null}
                <span className="uppercase tracking-wider font-semibold truncate max-w-[100px]">{match.league}</span>
              </div>
              {match.channel && (
@@ -173,7 +173,7 @@ export default function MatchRow({
            {/* Desktop absolute overlays */}
            <div className="hidden md:flex absolute bottom-2 left-4 items-center gap-2 text-[10px] text-white z-10">
                {match.tournamentId && tournamentLogo ? (
-                   <div className="relative w-5 h-5 bg-white rounded-full flex items-center justify-center p-0.5 shadow-sm">
+                   <div className="relative w-5 h-5 bg-slate-800 rounded-full flex items-center justify-center p-0.5 shadow-sm">
                      <img 
                         src={tournamentLogo} 
                         alt="Tournament Logo" 
