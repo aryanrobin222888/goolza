@@ -22,8 +22,11 @@ export const useMatches = (date, initialData = null) => {
 
       return groupMatches(response.data.matches);
     },
-    // Only use initialData if the date matches today
-    initialData: formattedDate === todayFormatted && initialData ? initialData : undefined,
+    // Only use initialData if the date matches today and we actually have data
+    initialData:
+      formattedDate === todayFormatted && initialData?.length > 0
+        ? initialData
+        : undefined,
     staleTime: 60 * 1000,
   });
 };

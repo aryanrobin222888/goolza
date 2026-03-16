@@ -4,6 +4,7 @@ import { format, startOfToday } from "date-fns";
 import { groupMatches } from "@/lib/matchUtils";
 import ScheduleClient from "@/features/schedule/components/ScheduleClient";
 import { syncMatchWithSofaScore } from "@/lib/matchSync";
+import { fetchSofaScoreEvents } from "@/lib/sofascore";
 
 export const dynamic = "force-dynamic";
 
