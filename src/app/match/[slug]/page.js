@@ -311,7 +311,7 @@ export default async function MatchPage({ params }) {
                 <span className="text-3xl font-black text-white">VS</span>
               )}
               <span className="text-xs text-slate-300 font-medium text-center px-2">
-                {comp.length > 20 ? `${comp.substring(0, 20)}...` : comp}
+                {comp.length > 20 ? `${comp.substring(0, 15)}` : comp}
               </span>
             </div>
 
