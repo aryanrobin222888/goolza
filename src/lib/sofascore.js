@@ -14,74 +14,74 @@ const proxyList = [
   { host: "191.96.254.138", port: "6185" },
 ];
 
-// Simple in-memory cache to avoid overloading SofaScore from the public homepage
-const cache = new Map();
-const CACHE_TTL = 60 * 1000; // 60 seconds
+const SOFA_HEADERS = {
+  "User-Agent":
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36",
+  Accept: "application/json, text/plain, */*",
+  "Accept-Language": "en-US,en;q=0.9",
+  Referer: "https://www.sofascore.com/",
+  Origin: "https://www.sofascore.com",
+};
 
-export async function fetchSofaScoreEvents(date) {
-  // Check cache first
-  const now = Date.now();
-  const cached = cache.get(date);
-  if (cached && (now - cached.timestamp < CACHE_TTL)) {
-    console.log(`[SofaScore Fetch] Returning cached data for ${date}`);
-    return cached.data;
-  }
-
+/**
+ * Generic fetch from SofaScore through rotating proxies.
+ * @param {string} url - Full SofaScore API URL
+ * @param {object} opts - { responseType: 'json' | 'arraybuffer' }
+ * @returns {Promise<{data: any, contentType: string}>}
+ */
+export async function fetchFromSofaScore(url, opts = {}) {
   const proxyUser = process.env.PROXY_USER || "huqlguxg";
   const proxyPass = process.env.PROXY_PASS || "wkvzxiyp12au";
-
-  const headers = {
-    "User-Agent":
-      "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36",
-    Accept: "application/json, text/plain, */*",
-    "Accept-Language": "en-US,en;q=0.9",
-    Referer: "https://www.sofascore.com/",
-    Origin: "https://www.sofascore.com",
-  };
-
-  const url = `https://api.sofascore.com/api/v1/sport/football/scheduled-events/${date}`;
+  const responseType = opts.responseType || "json";
 
   let lastError = null;
 
   for (const proxy of proxyList) {
-    console.log(
-      `[SofaScore Fetch] Fetching data for ${date} through proxy ${proxy.host}:${proxy.port}`
-    );
-
     const proxyConfig = {
       protocol: "http",
       host: proxy.host,
       port: parseInt(proxy.port, 10),
-      auth: {
-        username: proxyUser,
-        password: proxyPass,
-      },
+      auth: { username: proxyUser, password: proxyPass },
     };
 
     try {
       const response = await axios.get(url, {
         proxy: proxyConfig,
-        headers: headers,
+        headers: SOFA_HEADERS,
         timeout: 10000,
+        responseType,
       });
 
-      console.log(`[SofaScore Fetch] Success with ${proxy.host}`);
-      
-      // Update cache
-      cache.set(date, {
-        timestamp: now,
-        data: response.data
-      });
-
-      return response.data;
+      return {
+        data: response.data,
+        contentType: response.headers["content-type"] || "application/json",
+      };
     } catch (err) {
       lastError = err;
       console.log(
-        `[SofaScore Fetch] Failed with ${proxy.host} (${err.response?.status || err.message}). Rotating...`
+        `[SofaScore] Failed ${proxy.host} → ${url} (${err.response?.status || err.message})`
       );
     }
   }
 
-  console.error("[SofaScore Fetch] All proxies failed!");
-  throw new Error(lastError?.message || "Failed to bypass protection");
+  throw new Error(lastError?.message || "All proxies failed");
+}
+
+// ─── Scheduled Events (existing) ──────────────────────────────────────────────
+const cache = new Map();
+const CACHE_TTL = 60 * 1000; // 60 seconds
+
+export async function fetchSofaScoreEvents(date) {
+  const now = Date.now();
+  const cached = cache.get(date);
+  if (cached && now - cached.timestamp < CACHE_TTL) {
+    console.log(`[SofaScore Fetch] Returning cached data for ${date}`);
+    return cached.data;
+  }
+
+  const url = `https://api.sofascore.com/api/v1/sport/football/scheduled-events/${date}`;
+  const { data } = await fetchFromSofaScore(url);
+
+  cache.set(date, { timestamp: now, data });
+  return data;
 }

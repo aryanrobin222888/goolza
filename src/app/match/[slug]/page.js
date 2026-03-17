@@ -9,6 +9,7 @@ import { extractIdFromSlug } from "@/lib/matchSlug";
 import { fetchSofaScoreEvents } from "@/lib/sofascore";
 import { syncMatchWithSofaScore } from "@/lib/matchSync";
 import { format } from "date-fns";
+import MatchTabs from "@/features/match/components/MatchTabs";
 
 export const dynamic = "force-dynamic";
 
@@ -434,6 +435,9 @@ export default async function MatchPage({ params }) {
             </div>
           ))}
         </div>
+
+        {/* ── Match Tabs (Live Details / Lineups / Stats) ── */}
+        <MatchTabs eventId={match.id} isLive={isLive} isFinished={isFinished} />
 
         {/* ── Back CTA ── */}
         <div className="text-center pt-2">
