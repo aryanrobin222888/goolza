@@ -23,25 +23,40 @@ function RatingBadge({ rating }) {
 
 function PlayerDot({ player, side }) {
   const img = `/api/sofascore/player/${player.player.id}/image`;
+  const rating = player.avgRating || player.rating;
+  
+  // Decide badge color based on rating logic
+  let badgeBg = "bg-slate-800";
+  let displayValue = player.shirtNumber;
+  let pxClass = "px-[5px]";
+
+  if (rating) {
+    displayValue = parseFloat(rating).toFixed(1);
+    pxClass = "px-[4px]";
+    const r = parseFloat(rating);
+    if (r >= 7.5) badgeBg = "bg-emerald-600";
+    else if (r >= 7.0) badgeBg = "bg-green-600";
+    else if (r >= 6.5) badgeBg = "bg-yellow-600";
+    else if (r >= 6.0) badgeBg = "bg-orange-500";
+    else badgeBg = "bg-red-500";
+  }
+
   return (
-    <div className="flex flex-col items-center gap-0.5 w-14">
-      <div className="relative">
+    <div className="flex flex-col items-center gap-0.5 w-16">
+      <div className="relative mb-0.5">
         <img
           src={img}
           alt={player.player.shortName}
-          className="w-8 h-8 rounded-full bg-slate-700 object-cover border border-slate-600"
+          className="w-10 h-10 rounded-full bg-slate-700 object-cover border-2 border-slate-600 shadow-sm"
           onError={(e) => {
             e.target.style.display = "none";
           }}
         />
-        <span className="absolute -bottom-1 -right-1 bg-slate-800 text-[9px] text-white font-bold w-4 h-4 rounded-full flex items-center justify-center border border-slate-600">
-          {player.shirtNumber}
+        <span className={`absolute -bottom-1.5 left-1/2 -translate-x-1/2 ${badgeBg} text-[10px] text-white font-bold h-4 flex items-center justify-center rounded-sm ${pxClass} border border-slate-900 shadow-md`}>
+          {displayValue}
         </span>
       </div>
-      {player.avgRating && (
-        <RatingBadge rating={player.avgRating} />
-      )}
-      <span className="text-[9px] text-slate-300 text-center leading-tight truncate w-full">
+      <span className="text-[10px] text-slate-200 text-center leading-tight truncate w-full mt-1 drop-shadow-md">
         {player.player.shortName}
       </span>
     </div>
@@ -141,9 +156,9 @@ export default function LineupsView({ data, event }) {
 
         <div className="relative flex flex-col">
           {/* Home Team — top half */}
-          <div className="flex flex-col items-center gap-3 py-4 px-2">
+          <div className="flex flex-col items-center gap-6 py-6 px-2">
             {homeRows.map((pos) => (
-              <div key={`home-${pos}`} className="flex justify-center gap-2 flex-wrap">
+              <div key={`home-${pos}`} className="flex justify-around w-full px-2 md:px-8">
                 {homeGroups[pos]?.map((p) => (
                   <PlayerDot key={p.player.id} player={p} side="home" />
                 ))}
@@ -152,12 +167,12 @@ export default function LineupsView({ data, event }) {
           </div>
 
           {/* Away Team — bottom half */}
-          <div className="flex flex-col items-center gap-3 py-4 px-2">
+          <div className="flex flex-col items-center gap-6 py-6 px-2">
             {awayRows
               .slice()
               .reverse()
               .map((pos) => (
-                <div key={`away-${pos}`} className="flex justify-center gap-2 flex-wrap">
+                <div key={`away-${pos}`} className="flex justify-around w-full px-2 md:px-8">
                   {awayGroups[pos]?.map((p) => (
                     <PlayerDot key={p.player.id} player={p} side="away" />
                   ))}
