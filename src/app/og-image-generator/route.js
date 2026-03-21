@@ -3,87 +3,115 @@ import { ImageResponse } from "next/og";
 export const runtime = "edge";
 
 export async function GET() {
+  const fontData = await fetch(
+    "https://fonts.gstatic.com/s/cairo/v28/SLXgc1nY6HkvangtZmpQdkhzfH5lkSs2SgRjCAGMQ1z0hOA-W1ToLQ-HmkA.woff2"
+  ).then((res) => res.arrayBuffer());
+
   return new ImageResponse(
     (
       <div
         style={{
+          width: "1200px",
+          height: "630px",
+          background: "#020617",
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
           justifyContent: "center",
-          width: "100%",
-          height: "100%",
-          background: "#020617",
-          fontFamily: "Arial, sans-serif",
+          fontFamily: '"Cairo"',
+          position: "relative",
         }}
       >
-        {/* Glow */}
         <div
           style={{
             position: "absolute",
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, -50%)",
-            width: 500,
-            height: 500,
-            borderRadius: "50%",
-            background: "radial-gradient(circle, rgba(16,185,129,0.15) 0%, transparent 70%)",
+            top: 0,
+            left: 0,
+            right: 0,
+            height: "6px",
+            background: "#10b981",
             display: "flex",
           }}
         />
-        {/* Football icon */}
         <div
           style={{
-            display: "flex",
-            width: 90,
-            height: 90,
+            width: "120px",
+            height: "120px",
             borderRadius: "50%",
-            background: "#10b981",
+            border: "4px solid #10b981",
+            marginBottom: "32px",
+            display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            marginBottom: 32,
-            fontSize: 44,
-            boxShadow: "0 0 60px rgba(16,185,129,0.4)",
           }}
         >
-          ⚽
+          <div
+            style={{
+              width: "60px",
+              height: "60px",
+              borderRadius: "50%",
+              background: "#10b981",
+              display: "flex",
+            }}
+          />
         </div>
-        {/* Brand name */}
         <div
           style={{
-            display: "flex",
-            fontSize: 80,
-            fontWeight: 900,
+            fontSize: "96px",
+            fontWeight: "700",
             color: "#ffffff",
-            marginBottom: 16,
+            display: "flex",
+            letterSpacing: "-2px",
           }}
         >
           جولزا
         </div>
-        {/* Subtitle */}
         <div
           style={{
-            display: "flex",
-            fontSize: 30,
+            fontSize: "32px",
+            fontWeight: "400",
             color: "#10b981",
-            fontWeight: 600,
+            marginTop: "16px",
+            display: "flex",
           }}
         >
           جدول مباريات اليوم بث مباشر
         </div>
-        {/* Domain */}
         <div
           style={{
+            fontSize: "20px",
+            color: "#475569",
+            marginTop: "24px",
             display: "flex",
-            fontSize: 20,
-            color: "rgba(148,163,184,0.5)",
-            marginTop: 24,
           }}
         >
           goolza.com
         </div>
+        <div
+          style={{
+            position: "absolute",
+            bottom: 0,
+            left: 0,
+            right: 0,
+            height: "4px",
+            background: "#10b981",
+            opacity: 0.4,
+            display: "flex",
+          }}
+        />
       </div>
     ),
-    { width: 1200, height: 630 }
+    {
+      width: 1200,
+      height: 630,
+      fonts: [
+        {
+          name: "Cairo",
+          data: fontData,
+          style: "normal",
+          weight: 400,
+        },
+      ],
+    }
   );
 }
