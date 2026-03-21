@@ -17,7 +17,7 @@ const ibmPlexSansArabic = IBM_Plex_Sans_Arabic({
 });
 
 export const metadata = {
-  metadataBase: new URL("https://goolza.com"), // Replace with actual domain when deployed
+  metadataBase: new URL("https://goolza.com"),
   title: {
     default: "goolza - جدول مباريات اليوم وبث مباشر",
     template: "%s | goolza",
@@ -39,20 +39,26 @@ export const metadata = {
   authors: [{ name: "goolza Team" }],
   creator: "goolza",
   publisher: "goolza",
+  alternates: {
+    canonical: "https://goolza.com",
+  },
+  verification: {
+    google: "a_BdI3p-yHYsUxcVQ_4PdB9iVR98xbnTf0aHEhhe47w", // Replace with your actual Google Search Console verification code
+  },
   openGraph: {
     title: "goolza - جدول مباريات اليوم وبث مباشر",
     description:
       "تابع أحدث نتائج مباريات كرة القدم، البث المباشر، وجداول المباريات للدوريات العالمية والمحلية.",
     url: "https://goolza.com",
-    siteName: "goolza",
-    locale: "ar_SA",
+    siteName: "جولزا",
+    locale: "ar_AR",
     type: "website",
     images: [
       {
-        url: "/og-image.jpg", // Ensure this image exists or is added later
+        url: "/og-image-generator",
         width: 1200,
         height: 630,
-        alt: "goolza - Live Matches",
+        alt: "جولزا — مباريات اليوم بث مباشر",
       },
     ],
   },
@@ -60,7 +66,8 @@ export const metadata = {
     card: "summary_large_image",
     title: "goolza - جدول مباريات اليوم",
     description: "تابع نتائج المباريات وجداول البطولات العالمية والمحلية.",
-    images: ["/og-image.jpg"],
+    site: "@goolza",
+    images: ["/og-image-generator"],
   },
   robots: {
     index: true,
@@ -73,13 +80,48 @@ export const metadata = {
       "max-snippet": -1,
     },
   },
+};
 
+const websiteJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: "جولزا",
+  alternateName: "goolza",
+  url: "https://goolza.com",
+  potentialAction: {
+    "@type": "SearchAction",
+    target: "https://goolza.com/?q={search_term_string}",
+    "query-input": "required name=search_term_string",
+  },
+};
+
+const organizationJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: "جولزا",
+  alternateName: "goolza",
+  url: "https://goolza.com",
+  logo: "https://goolza.com/logo.png",
+  sameAs: [
+    "https://www.facebook.com/profile.php?id=61584373584701",
+    "https://t.me/+kDM7uK-Kq20wODlk",
+    "https://www.tiktok.com/@goolza.com",
+    "https://x.com/six1398361",
+  ],
 };
 
 export default function RootLayout({ children }) {
   return (
     <html lang="ar" dir="rtl" className={`${cairo.variable} ${ibmPlexSansArabic.variable}`} suppressHydrationWarning>
       <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
+        />
       </head>
       <body style={{ backgroundColor: "#020617", color: "#f8fafc" }} suppressHydrationWarning>
             <QueryProvider>

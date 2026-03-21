@@ -5,6 +5,7 @@ import Link from "next/link";
 import Footer from "@/features/schedule/components/Footer";
 import { Tv, Mic2, Trophy, CalendarClock, ArrowRight, ArrowLeft } from "lucide-react";
 import Logo from "@/components/ui/Logo";
+import Image from "next/image";
 import { extractIdFromSlug } from "@/lib/matchSlug";
 
 import { fetchSofaScoreEvents } from "@/lib/sofascore";
@@ -282,11 +283,14 @@ export default async function MatchPage({ params }) {
             <div className="flex flex-col items-center gap-3 flex-1">
               <div className="relative w-16 h-16 md:w-20 md:h-20 bg-slate-800 rounded-full border border-slate-700 p-2 shadow-sm">
                 {match.home?.logo ? (
-                  <img
+                  <Image
                     src={match.home.logo}
                     alt={`شعار ${home} - بث مباشر مباراة اليوم عبر موقع جولزا Goolza`}
+                    width={80}
+                    height={80}
+                    priority={true}
                     className="w-full h-full object-contain p-2"
-                    referrerPolicy="no-referrer"
+                    unoptimized
                   />
                 ) : (
                   <div className="w-full h-full rounded-full flex items-center justify-center text-2xl">⚽</div>
@@ -315,11 +319,14 @@ export default async function MatchPage({ params }) {
             <div className="flex flex-col items-center gap-3 flex-1">
               <div className="relative w-16 h-16 md:w-20 md:h-20 bg-slate-800 rounded-full border border-slate-700 p-2 shadow-sm">
                 {match.away?.logo ? (
-                  <img
+                  <Image
                     src={match.away.logo}
                     alt={`شعار ${away} - بث مباشر مباراة اليوم عبر موقع جولزا Goolza`}
+                    width={80}
+                    height={80}
+                    priority={false}
                     className="w-full h-full object-contain p-2"
-                    referrerPolicy="no-referrer"
+                    unoptimized
                   />
                 ) : (
                   <div className="w-full h-full rounded-full flex items-center justify-center text-2xl">⚽</div>
@@ -436,6 +443,33 @@ export default async function MatchPage({ params }) {
 
         {/* ── Match Tabs (Live Details / Lineups / Stats) ── */}
         <MatchTabs eventId={match.id} isLive={isLive} isFinished={isFinished} />
+
+        {/* ── SEO Content Article (server-rendered, crawlable) ── */}
+        <article
+          className="bg-slate-900/50 rounded-2xl border border-slate-800/50 p-6 md:p-8 leading-loose"
+          style={{ direction: "rtl", textAlign: "right" }}
+        >
+          <h2 className="text-xl font-bold text-[#0aa674] mb-3">
+            {home} ضد {away} — {comp}
+          </h2>
+          <p className="text-sm text-slate-400 mb-4">
+            {comp} — {match.time || "—"} {match.venue ? `— ${match.venue}` : ""}
+          </p>
+          <p className="text-sm text-slate-400/80 mb-4">
+            تابع مباراة {home} ضد {away} بث مباشر اليوم ضمن منافسات {comp} عبر موقع جولزا.
+            يقدّم لك جولزا تغطية شاملة تشمل البث المباشر بجودة عالية HD دون تقطيع، مع التشكيلة
+            المتوقعة للفريقين وآخر الأخبار قبل انطلاق المباراة. تابع أيضاً إحصائيات المواجهات
+            السابقة بين {home} و{away} ونتائج الجولات الأخيرة. سواء كنت تشاهد من الهاتف
+            المحمول أو الحاسوب، يضمن لك جولزا تجربة مشاهدة سلسة مع سيرفرات بث متعددة
+            لضمان أفضل اتصال ممكن. لا تفوّت متابعة أهداف وملخص المباراة فور انتهائها.
+          </p>
+          <dl className="text-sm">
+            <div className="flex gap-2 items-center">
+              <dt className="font-bold text-slate-300">القناة الناقلة:</dt>
+              <dd className="text-[#0aa674]">{match.channel || "غير محدد"}</dd>
+            </div>
+          </dl>
+        </article>
 
         {/* ── Back CTA ── */}
         <div className="text-center pt-2">
