@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import Footer from "@/features/schedule/components/Footer";
 import { Tv, Mic2, Trophy, CalendarClock, ArrowRight, ArrowLeft } from "lucide-react";
+import Logo from "@/components/ui/Logo";
 import { extractIdFromSlug } from "@/lib/matchSlug";
 
 import { fetchSofaScoreEvents } from "@/lib/sofascore";
@@ -223,12 +224,7 @@ export default async function MatchPage({ params }) {
       <header className="bg-slate-900/80 backdrop-blur-md border-b border-slate-800 sticky top-0 z-50 transition-colors duration-300">
         <div className="max-w-4xl mx-auto px-6 h-16 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2 group">
-            <div className="w-7 h-7 bg-[#0aa674] rounded-lg flex items-center justify-center transition-transform group-hover:scale-105">
-              <span className="text-white text-xs font-black">M</span>
-            </div>
-            <span className="text-lg font-bold tracking-tight text-[#0aa674]">
-              gool<span className="text-white">za</span>
-            </span>
+            <Logo />
           </Link>
           <Link
             href="/"

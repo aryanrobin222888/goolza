@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { Zap, ArrowLeft } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
+import Logo from "@/components/ui/Logo";
 
 export const metadata = {
   title: "الشروط والأحكام — goolza",
@@ -13,12 +14,7 @@ export default function TermsPage() {
       <div className="border-b border-slate-800 bg-slate-900/80 backdrop-blur-md sticky top-0 z-50 transition-colors duration-300">
         <div className="max-w-4xl mx-auto px-6 h-16 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2 group">
-            <div className="w-8 h-8 rounded-lg bg-[#0aa674] flex items-center justify-center transition-transform group-hover:scale-105">
-              <Zap className="w-4 h-4 text-white" />
-            </div>
-            <span className="text-lg font-bold tracking-tight text-[#0aa674]">
-              goolza
-            </span>
+            <Logo />
           </Link>
           <Link href="/" className="flex items-center gap-1.5 text-slate-300 hover:text-[#0aa674] text-sm transition-colors font-medium">
             العودة للرئيسية

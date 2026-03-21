@@ -6,6 +6,7 @@ import dynamic from "next/dynamic";
 import { format, addDays, subDays, startOfToday } from "date-fns";
 import { m, LazyMotion, domAnimation, AnimatePresence } from "framer-motion";
 import { Zap, AlertCircle, Clock } from "lucide-react";
+import Logo from "@/components/ui/Logo";
 import Footer from "@/features/schedule/components/Footer";
 import { FacebookIcon, TelegramIcon, TikTokIcon, XIcon } from "@/features/schedule/components/SocialIcons";
 import { useMatches } from "@/features/schedule/api/useMatches";
@@ -45,10 +46,7 @@ export default function ScheduleClient({ initialMatches }) {
       <header className="sticky top-0 z-50 bg-slate-950/80 backdrop-blur-md border-b border-slate-800">
         <div className="max-w-4xl mx-auto px-6 h-16 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2 group">
-            <div className="w-8 h-8 bg-[#0aa674] rounded-lg flex items-center justify-center transition-transform group-hover:scale-105">
-                <Zap className="w-4 h-4 text-white" />
-            </div>
-            <span className="text-lg font-bold tracking-tight text-[#0aa674]">gool<span className="text-white">za</span></span>
+            <Logo />
           </Link>
 
           <nav className="flex items-center gap-1">

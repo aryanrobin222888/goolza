@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import { Zap } from "lucide-react";
+import Logo from "@/components/ui/Logo";
 import { FacebookIcon, TelegramIcon, TikTokIcon, XIcon } from "./SocialIcons";
 
 export default function Footer() {
@@ -10,12 +10,7 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
           <div className="col-span-1 md:col-span-2">
             <Link href="/" className="flex items-center gap-2 mb-4">
-              <div className="w-8 h-8 bg-[#0aa674] rounded-lg flex items-center justify-center">
-                <Zap className="w-4 h-4 text-white" />
-              </div>
-              <span className="text-lg font-bold tracking-tight text-[#0aa674]">
-                gool<span className="text-white">za</span>
-              </span>
+              <Logo />
             </Link>
             <p className="text-slate-300 text-sm leading-relaxed max-w-sm">
               أسرع طريقة لمتابعة مباريات كرة القدم المفضلة لديك. تصميم نظيف وبسيط للتركيز.
