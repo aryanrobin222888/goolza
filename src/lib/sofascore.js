@@ -12,6 +12,7 @@ const proxyList = [
   { host: "216.10.27.159", port: "6837" },
   { host: "142.111.67.146", port: "5611" },
   { host: "191.96.254.138", port: "6185" },
+  { host: "31.59.20.176", port: "6754" },
 ];
 
 const SOFA_HEADERS = {
@@ -30,8 +31,8 @@ const SOFA_HEADERS = {
  * @returns {Promise<{data: any, contentType: string}>}
  */
 export async function fetchFromSofaScore(url, opts = {}) {
-  const proxyUser = process.env.PROXY_USER || "huqlguxg";
-  const proxyPass = process.env.PROXY_PASS || "wkvzxiyp12au";
+  const proxyUser = process.env.PROXY_USER || "nvdlmmdp";
+  const proxyPass = process.env.PROXY_PASS || "2j29y5uhofbp";
   const responseType = opts.responseType || "json";
 
   let lastError = null;
