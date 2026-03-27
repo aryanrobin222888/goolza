@@ -4,6 +4,7 @@ import { Tv } from "lucide-react";
 import Link from "next/link";
 import MatchStatus from "./MatchStatus";
 import { generateMatchSlug } from "@/lib/matchSlug";
+import { useLocalTime } from "@/hooks/useLocalTime";
 
 export default function MatchRow({
   match,
@@ -13,6 +14,8 @@ export default function MatchRow({
   tournamentLogo,
   selectedDate,
 }) {
+  const localTime = useLocalTime(match.startTime, match.time);
+
   // Calculate isLive and isFinished based on time if status is not explicit
   let isLive = match.status === "LIVE";
   let isFinished = match.status === "ENDED" || match.status === "finished";
@@ -75,7 +78,7 @@ export default function MatchRow({
               </div>
             ) : (
               <div className="text-lg font-bold text-white bg-slate-800 px-3 py-1 rounded-md group-hover:bg-slate-700 transition-colors">
-                {match.time}
+                {localTime}
               </div>
             )}
           </div>

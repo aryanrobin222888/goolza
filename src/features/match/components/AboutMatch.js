@@ -1,5 +1,7 @@
 "use client";
 
+import { useState, useEffect } from "react";
+
 export default function AboutMatch({ event }) {
   if (!event) return null;
 
@@ -10,23 +12,31 @@ export default function AboutMatch({ event }) {
   const ut = tournament?.uniqueTournament;
   const round = event.roundInfo;
 
-  // Format start time
-  let dateStr = "";
-  if (event.startTimestamp) {
+  // Format start time safely for hydration
+  const [dateStr, setDateStr] = useState(() => {
+    if (!event?.startTimestamp) return "";
     const d = new Date(event.startTimestamp * 1000);
-    dateStr = d.toLocaleDateString("en-GB", {
-      day: "numeric",
-      month: "short",
-      year: "numeric",
+    const date = d.toLocaleDateString("en-GB", {
+       day: "numeric", month: "short", year: "numeric"
     });
-    const timeStr = d.toLocaleTimeString("en-GB", {
-      hour: "2-digit",
-      minute: "2-digit",
-      hour12: false,
-      timeZone: "UTC",
+    const time = d.toLocaleTimeString("en-GB", {
+       hour: "2-digit", minute: "2-digit", hour12: false, timeZone: "UTC"
     });
-    dateStr = `${dateStr} at ${timeStr} UTC`;
-  }
+    return `${date} at ${time} UTC`;
+  });
+
+  useEffect(() => {
+    if (event?.startTimestamp) {
+      const d = new Date(event.startTimestamp * 1000);
+      const date = d.toLocaleDateString("en-GB", {
+         day: "numeric", month: "short", year: "numeric"
+      });
+      const time = d.toLocaleTimeString("en-GB", {
+         hour: "2-digit", minute: "2-digit", hour12: false
+      });
+      setDateStr(`${date} at ${time}`);
+    }
+  }, [event?.startTimestamp]);
 
   const tournamentName = ut?.name || tournament?.name || "the tournament";
   const roundName = round?.name || "";
