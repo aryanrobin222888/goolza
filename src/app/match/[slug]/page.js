@@ -12,6 +12,7 @@ import { fetchSofaScoreEvents } from "@/lib/sofascore";
 import { syncMatchWithSofaScore } from "@/lib/matchSync";
 import { format } from "date-fns";
 import MatchTabs from "@/features/match/components/MatchTabs";
+import WatchButton from "@/features/match/components/WatchButton";
 
 export const dynamic = "force-dynamic";
 
@@ -360,43 +361,17 @@ export default async function MatchPage({ params }) {
               <span className="absolute w-40 h-40 rounded-full border border-[#0aa674]/10 animate-ping" style={{ animationDuration: "2.5s" }} />
               <span className="absolute w-56 h-56 rounded-full border border-[#0aa674]/5 animate-ping" style={{ animationDuration: "3.2s", animationDelay: "0.4s" }} />
 
-              {/* CTA Button */}
-              {match.streamPageUrl && !isFinished ? (
-                <Link
-                  href={match.streamPageUrl}
-                  className="group/btn relative inline-flex items-center gap-3 bg-[#0aa674] hover:bg-[#08c285] text-white font-bold text-lg md:text-xl px-10 py-4 rounded-2xl shadow-lg shadow-[#0aa674]/30 hover:shadow-[#0aa674]/50 transition-all duration-300 hover:scale-105 active:scale-95 overflow-hidden"
-                >
-                  {/* Shimmer sweep on hover */}
-                  <span className="absolute inset-0 -translate-x-full group-hover/btn:translate-x-full transition-transform duration-700 bg-gradient-to-r from-transparent via-white/20 to-transparent skew-x-12 pointer-events-none" />
-                  {/* Play icon */}
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6 flex-shrink-0 transition-transform duration-300 group-hover/btn:scale-110">
-                    <path fillRule="evenodd" d="M4.5 5.653c0-1.427 1.529-2.33 2.779-1.643l11.54 6.347c1.295.712 1.295 2.573 0 3.286L7.28 19.99c-1.25.687-2.779-.217-2.779-1.643V5.653Z" clipRule="evenodd" />
-                  </svg>
-                  شاهد البث من هنا
-                </Link>
-              ) : (
-                <div className="flex flex-col items-center gap-4">
-                  <div className="inline-flex items-center gap-3 bg-[#0aa674]/20 border border-[#0aa674]/30 text-[#0aa674] font-bold text-lg md:text-xl px-10 py-4 rounded-2xl cursor-default">
-                    <Tv className="w-6 h-6 flex-shrink-0" />
-                    {isFinished ? "انتهت المباراة" : "البث سيبدأ قريباً"}
-                  </div>
-                  <p className="text-[#0aa674]/70 text-sm text-center">
-                    {isFinished
-                      ? "انتهى البث، شكراً على المتابعة."
-                      : !isLive && match.time
-                      ? `سيبدأ البث عند الساعة ${match.time}`
-                      : "سيتم توفير رابط البث عند انطلاق المباراة."}
-                  </p>
-                </div>
-              )}
+            {/* CTA Button with Countdown */}
+              <WatchButton
+                streamPageUrl={match.streamPageUrl}
+                isFinished={isFinished}
+                isLive={isLive}
+                matchTime={match.time}
+                matchStartTime={match.startTime}
+              />
+
             </div>
 
-            {/* Subtitle hint */}
-            {match.streamPageUrl && !isFinished && (
-              <p className="text-slate-400 text-sm text-center">
-                انقر للمشاهدة — بث مباشر بجودة عالية
-              </p>
-            )}
           </div>
         </div>
 

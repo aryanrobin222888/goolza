@@ -229,3 +229,12 @@ body {
   background: rgba(16, 185, 129, 0.25);
   color: white;
 }
+
+/* ═══════════════════════════════════════════
+   WATCH BUTTON SHIMMER (disabled state)
+   ═══════════════════════════════════════════ */
+
+@keyframes shimmer {
+  0% { transform: translateX(-100%) skewX(12deg); }
+  100% { transform: translateX(100%) skewX(12deg); }
+}
