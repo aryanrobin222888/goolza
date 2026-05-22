@@ -46,9 +46,11 @@ export async function GET(req, { params }) {
     });
   } catch (error) {
     console.error("[SofaScore Proxy]", error.message);
+    const is404 = error.message.includes("404");
     return NextResponse.json(
-      { error: "Failed to fetch from SofaScore" },
-      { status: 502 }
+      { error: is404 ? "Not Found" : "Failed to fetch from SofaScore" },
+      { status: is404 ? 404 : 502 }
     );
   }
+
 }

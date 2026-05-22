@@ -123,9 +123,16 @@ export async function fetchFromSofaScore(url, opts = {}) {
   const proxyPass = process.env.PROXY_PASS;
   const responseType = opts.responseType || "json";
 
-  let lastError = null;
+  // Pick a random subset of 4 proxies to race in parallel
+  const subsetSize = 4;
+  const shuffled = [...proxyList].sort(() => 0.5 - Math.random());
+  const selectedProxies = shuffled.slice(0, subsetSize);
 
-  for (const proxy of proxyList) {
+  const controllers = [];
+  const promises = selectedProxies.map((proxy) => {
+    const controller = new AbortController();
+    controllers.push(controller);
+
     const proxyConfig = {
       protocol: "http",
       host: proxy.host,
@@ -133,31 +140,98 @@ export async function fetchFromSofaScore(url, opts = {}) {
       auth: { username: proxyUser, password: proxyPass },
     };
 
-    try {
-      const response = await axios.get(url, {
-        proxy: proxyConfig,
-        headers: SOFA_HEADERS,
-        timeout: 10000,
-        responseType,
-      });
+    return (async () => {
+      try {
+        const response = await axios.get(url, {
+          proxy: proxyConfig,
+          headers: SOFA_HEADERS,
+          timeout: 4000, // lower timeout to 4s to keep it extremely responsive
+          responseType,
+          signal: controller.signal,
+        });
 
-      return {
-        data: response.data,
-        contentType: response.headers["content-type"] || "application/json",
+        // Cancel all other pending requests in this batch
+        controllers.forEach((c) => {
+          if (c !== controller) c.abort();
+        });
+
+        return {
+          data: response.data,
+          contentType: response.headers["content-type"] || "application/json",
+        };
+      } catch (err) {
+        if (err.name === 'CanceledError' || axios.isCancel(err)) {
+          throw new Error("Aborted");
+        }
+        // If it's explicitly a 404 Not Found, fail early
+        if (err.response?.status === 404) {
+          controllers.forEach((c) => c.abort());
+          throw new Error("404 Not Found from SofaScore API");
+        }
+        console.log(`[SofaScore] Proxy ${proxy.host} failed: ${err.message}`);
+        throw err;
+      }
+    })();
+  });
+
+  try {
+    return await Promise.any(promises);
+  } catch (aggregateError) {
+    console.log("[SofaScore] Primary racing batch failed. Trying fallback batch...");
+    
+    // Fallback: Race a second batch of 3 different proxies
+    const fallbackShuffled = shuffled.slice(subsetSize, subsetSize + 3);
+    const fallbackControllers = [];
+    const fallbackPromises = fallbackShuffled.map((proxy) => {
+      const controller = new AbortController();
+      fallbackControllers.push(controller);
+
+      const proxyConfig = {
+        protocol: "http",
+        host: proxy.host,
+        port: parseInt(proxy.port, 10),
+        auth: { username: proxyUser, password: proxyPass },
       };
+
+      return (async () => {
+        try {
+          const response = await axios.get(url, {
+            proxy: proxyConfig,
+            headers: SOFA_HEADERS,
+            timeout: 5000,
+            responseType,
+            signal: controller.signal,
+          });
+
+          fallbackControllers.forEach((c) => {
+            if (c !== controller) c.abort();
+          });
+
+          return {
+            data: response.data,
+            contentType: response.headers["content-type"] || "application/json",
+          };
+        } catch (err) {
+          if (err.name === 'CanceledError' || axios.isCancel(err)) throw new Error("Aborted");
+          if (err.response?.status === 404) {
+            fallbackControllers.forEach((c) => c.abort());
+            throw new Error("404 Not Found from SofaScore API");
+          }
+          throw err;
+        }
+      })();
+    });
+
+    try {
+      return await Promise.any(fallbackPromises);
     } catch (err) {
-      lastError = err;
-      console.log(
-        `[SofaScore] Failed ${proxy.host} → ${url} (${err.response?.status || err.message})`
-      );
-      // If it's explicitly a 404 Not Found, don't try other proxies. It means the data simply doesn't exist yet (e.g. no events scheduled).
-      if (err.response?.status === 404) {
+      if (aggregateError.errors?.some(e => e.message === "404 Not Found from SofaScore API") || 
+          err.errors?.some(e => e.message === "404 Not Found from SofaScore API")) {
         throw new Error("404 Not Found from SofaScore API");
       }
+      throw new Error("All proxies failed in primary and fallback batches");
     }
   }
-
-  throw new Error(lastError?.message || "All proxies failed");
 }
 
 // ─── Scheduled Events (existing) ──────────────────────────────────────────────
