@@ -31,10 +31,10 @@ async function safeFetch(url) {
 export async function generateMetadata({ params }) {
   const { slug } = await params;
   const tournament = getTournamentBySlug(slug);
-  if (!tournament) return { title: "الدوري غير موجود | يلا شوت" };
+  if (!tournament) return { title: "الدوري غير موجود | جولزا يلا شوت" };
 
-  const title = `${tournament.nameAr} 2025/26 — الترتيب والنتائج والهدافين | يلا شوت`;
-  const description = `تابع جدول ترتيب ${tournament.nameAr} موسم 2025/26 مع نتائج المباريات الأخيرة والهدافين. ${tournament.nameAr} بث مباشر على يلا شوت Yallashoot.`;
+  const title = `${tournament.nameAr} 2025/26 — الترتيب والنتائج والهدافين | جولزا يلا شوت`;
+  const description = `تابع جدول ترتيب ${tournament.nameAr} موسم 2025/26 مع نتائج المباريات الأخيرة والهدافين. بث مباشر ${tournament.nameAr} على جولزا يلا شوت Goolza.`;
 
   return {
     title,
@@ -45,6 +45,9 @@ export async function generateMetadata({ params }) {
       `ترتيب ${tournament.nameAr}`,
       `نتائج ${tournament.nameAr}`,
       `هدافو ${tournament.nameAr}`,
+      "جولزا",
+      "goolza",
+      "جولزا يلا شوت",
       "يلا شوت",
       "Yallashoot",
     ],
@@ -55,7 +58,7 @@ export async function generateMetadata({ params }) {
       title,
       description,
       url: `https://goolza.com/league/${slug}`,
-      siteName: "يلا شوت - Yalla Shoot",
+      siteName: "جولزا يلا شوت - Goolza",
       locale: "ar_AR",
       type: "website",
     },

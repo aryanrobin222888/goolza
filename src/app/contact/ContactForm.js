@@ -120,7 +120,7 @@ export default function ContactForm() {
             </div>
             <button
               type="button"
-              className="bg-[#ff7a00] text-white font-bold text-sm px-8 py-3 rounded-xl hover:bg-[#088f62] active:scale-95 transition-all duration-200 shadow-lg shadow-[#ff7a00]/20"
+              className="bg-[#ff7a00] text-white font-bold text-sm px-8 py-3 rounded-xl hover:bg-[#e06b00] active:scale-95 transition-all duration-200 shadow-lg shadow-[#ff7a00]/20"
             >
               إرسال الرسالة
             </button>

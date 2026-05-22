@@ -77,7 +77,7 @@ export async function generateMetadata({ params }) {
   const match = await getMatch(slug);
 
   if (!match) {
-    return { title: "المباراة غير موجودة | يلا شوت - Yallashoot" };
+    return { title: "المباراة غير موجودة | جولزا يلا شوت - Goolza" };
   }
 
   const home = match.home?.name || "الفريق الأول";
@@ -91,31 +91,31 @@ export async function generateMetadata({ params }) {
   const matchTime = match.time || null;
 
   // ── Title: hybrid format focused on Match Info & Timing to avoid DMCA bots ──
-  const title = `بث مباشر مباراة ${home} ضد ${away} | يلا شوت | Yalla Shoot`;
+  const title = `بث مباشر مباراة ${home} ضد ${away} | جولزا يلا شوت | Goolza Yalla Shoot`;
 
   // ── Description: injects time + channel for keyword-rich snippet ──
   const timeStr = matchTime ? `الساعة ${matchTime}` : "اليوم";
-  const channelStr = channel ? `على قناة ${channel}` : "عبر يلا شوت";
-  const description = `شاهد مباراة ${home} ضد ${away} بث مباشر ${timeStr} ${channelStr} ضمن ${comp}. بث HD بدون تقطيع على يلا شوت Yalla Shoot — أسرع بث مباشر مجاني للمباريات.`;
-  const ogDescription = `${home} ضد ${away} لايف ${timeStr} ${channelStr}. يلا شوت — بث مباشر HD بدون تقطيع.`;
+  const channelStr = channel ? `على قناة ${channel}` : "عبر جولزا يلا شوت";
+  const description = `شاهد مباراة ${home} ضد ${away} بث مباشر ${timeStr} ${channelStr} ضمن ${comp}. بث HD بدون تقطيع على جولزا يلا شوت Goolza — أسرع بث مباشر مجاني للمباريات.`;
+  const ogDescription = `${home} ضد ${away} لايف ${timeStr} ${channelStr}. جولزا يلا شوت — بث مباشر HD بدون تقطيع.`;
 
   const images = [];
   if (match.home?.logo)
     images.push({
       url: match.home.logo,
-      alt: `شعار ${home} - بث مباشر مباراة اليوم عبر يلا شوت`,
+      alt: `شعار ${home} - بث مباشر مباراة اليوم عبر جولزا يلا شوت`,
     });
   if (match.away?.logo)
     images.push({
       url: match.away.logo,
-      alt: `شعار ${away} - بث مباشر مباراة اليوم عبر يلا شوت`,
+      alt: `شعار ${away} - بث مباشر مباراة اليوم عبر جولزا يلا شوت`,
     });
   if (images.length === 0)
     images.push({
       url: "/og-image.jpg",
       width: 1200,
       height: 630,
-      alt: "يلا شوت - بث مباشر",
+      alt: "جولزا يلا شوت - بث مباشر",
     });
 
   return {
@@ -127,6 +127,9 @@ export async function generateMetadata({ params }) {
       `مباراة ${home} و${away} بث مباشر`,
       `بث مباشر ${comp}`,
       ...(channel ? [`${channel} بث مباشر`, channel] : []),
+      "جولزا",
+      "goolza",
+      "جولزا يلا شوت",
       "يلا شوت",
       "كورة لايف",
       "بث مباشر بدون تقطيع",
@@ -141,7 +144,7 @@ export async function generateMetadata({ params }) {
       images,
       // video.other tells social crawlers this is a video stream page
       type: "video.other",
-      siteName: "يلا شوت - Yalla Shoot",
+      siteName: "جولزا يلا شوت - Goolza",
       locale: "ar_SA",
     },
     twitter: {
@@ -233,14 +236,14 @@ export default async function MatchPage({ params }) {
   const timeStr = match.time ? `الساعة ${match.time}` : "اليوم";
   const channelStr = match.channel
     ? `على قناة ${match.channel}`
-    : "عبر يلا شوت";
-  const dynamicDescription = `شاهد مباراة ${home} ضد ${away} بث مباشر ${timeStr} ${channelStr} ضمن ${comp}. بث HD بدون تقطيع على يلا شوت Yallashoot — أسرع بث مباشر مجاني للمباريات.`;
+    : "عبر جولزا يلا شوت";
+  const dynamicDescription = `شاهد مباراة ${home} ضد ${away} بث مباشر ${timeStr} ${channelStr} ضمن ${comp}. بث HD بدون تقطيع على جولزا يلا شوت Goolza — أسرع بث مباشر مجاني للمباريات.`;
 
   // ── JSON-LD SportsEvent Schema ── (isLiveBroadcast triggers LIVE badge in SERP)
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "SportsEvent",
-    name: `${home} vs ${away} بث مباشر | يلا شوت`,
+    name: `${home} vs ${away} بث مباشر | جولزا يلا شوت`,
     sport: "Football",
     url: `https://goolza.com/match/${slug}`,
     description: dynamicDescription,
@@ -257,7 +260,7 @@ export default async function MatchPage({ params }) {
         : "https://schema.org/EventScheduled",
     organizer: {
       "@type": "Organization",
-      name: "Yallashoot",
+      name: "Goolza Yalla Shoot",
       url: "https://goolza.com",
     },
     location: {
@@ -326,8 +329,8 @@ export default async function MatchPage({ params }) {
   const videoObjectLd = {
     "@context": "https://schema.org",
     "@type": "VideoObject",
-    name: `${home} vs ${away} بث مباشر — ${comp} | يلا شوت`,
-    description: `شاهد مباراة ${home} ضد ${away} بث مباشر${match.time ? ` الساعة ${match.time}` : ""} ضمن ${comp}${match.channel ? ` على قناة ${match.channel}` : ""}. بجودة HD بدون تقطيع على يلا شوت.`,
+    name: `${home} vs ${away} بث مباشر — ${comp} | جولزا يلا شوت`,
+    description: `شاهد مباراة ${home} ضد ${away} بث مباشر${match.time ? ` الساعة ${match.time}` : ""} ضمن ${comp}${match.channel ? ` على قناة ${match.channel}` : ""}. بجودة HD بدون تقطيع على جولزا يلا شوت.`,
     thumbnailUrl: [
       match.home?.logo || "https://goolza.com/og-image.jpg",
       match.away?.logo || "https://goolza.com/og-image.jpg",
@@ -344,7 +347,7 @@ export default async function MatchPage({ params }) {
     },
     publisher: {
       "@type": "Organization",
-      name: "يلا شوت",
+      name: "جولزا يلا شوت",
       logo: {
         "@type": "ImageObject",
         url: "https://goolza.com/logo.png",
@@ -382,7 +385,7 @@ export default async function MatchPage({ params }) {
         name: `ما هي القناة الناقلة لمباراة ${home} و${away}؟`,
         acceptedAnswer: {
           "@type": "Answer",
-          text: `يمكنك مشاهدة مباراة ${home} ضد ${away} عبر قناة ${match.channel || "غير محدد"} أو عبر البث المباشر على يلا شوت.`,
+          text: `يمكنك مشاهدة مباراة ${home} ضد ${away} عبر قناة ${match.channel || "غير محدد"} أو عبر البث المباشر على جولزا يلا شوت.`,
         },
       },
       {
@@ -398,7 +401,7 @@ export default async function MatchPage({ params }) {
         name: `أين أشاهد مباراة ${home} و${away} بث مباشر؟`,
         acceptedAnswer: {
           "@type": "Answer",
-          text: `يمكنك متابعة مباراة ${home} ضد ${away} بث مباشر مجاناً عبر موقع يلا شوت goolza.com بجودة عالية HD بدون تقطيع.`,
+          text: `يمكنك متابعة مباراة ${home} ضد ${away} بث مباشر مجاناً عبر موقع جولزا يلا شوت goolza.com بجودة عالية HD بدون تقطيع.`,
         },
       },
     ],
@@ -426,13 +429,13 @@ export default async function MatchPage({ params }) {
         author: [
           {
             "@type": "Organization",
-            name: "يلا شوت",
+            name: "جولزا يلا شوت",
             url: "https://goolza.com",
           },
         ],
         publisher: {
           "@type": "Organization",
-          name: "يلا شوت",
+          name: "جولزا يلا شوت",
           logo: {
             "@type": "ImageObject",
             url: "https://goolza.com/logo.png",
@@ -472,7 +475,7 @@ export default async function MatchPage({ params }) {
             ].filter(Boolean),
             organizer: {
               "@type": "Organization",
-              name: "Yallashoot",
+              name: "Goolza Yalla Shoot",
               url: "https://goolza.com",
             },
             performer: [
@@ -715,7 +718,7 @@ export default async function MatchPage({ params }) {
                   ),
                   h3: ({ node, ...props }) => (
                     <h3
-                      className="text-lg font-bold text-emerald-400 mb-3 mt-6"
+                      className="text-lg font-bold text-[#ff7a00] mb-3 mt-6"
                       {...props}
                     />
                   ),
@@ -733,7 +736,7 @@ export default async function MatchPage({ params }) {
                   ),
                   li: ({ node, ...props }) => (
                     <li
-                      className="text-gray-300 marker:text-emerald-500"
+                      className="text-gray-300 marker:text-[#ff7a00]"
                       {...props}
                     />
                   ),
@@ -748,11 +751,11 @@ export default async function MatchPage({ params }) {
               // Fallback Boilerplate Text if AI Article is not generated
               <>
                 <h2 className="text-xl md:text-2xl font-bold text-white mb-4 border-b border-slate-700/50 pb-3">
-                  يلا شوت بث مباشر الان — مشاهدة مباراة {home} و{away}
+                  جولزا يلا شوت بث مباشر الان — مشاهدة مباراة {home} و{away}
                 </h2>
                 <p className="text-base text-gray-400 mb-6">
                   تترقب الجماهير مشاهدة مباريات اليوم بث مباشر وخاصة مباراة{" "}
-                  {home} ضد {away} عبر موقع يلا شوت yalla shoot، والتي تنطلق
+                  {home} ضد {away} عبر موقع جولزا يلا شوت (goolza.com)، والتي تنطلق
                   {match.time ? ` في تمام الساعة ${match.time}` : ""} ضمن
                   منافسات{" "}
                   {leagueSlug ? (
@@ -767,15 +770,15 @@ export default async function MatchPage({ params }) {
                   )}
                   . وتأتي هذه المواجهة الهامة في{" "}
                   {match.venue || "الملعب الرسمي"}، حيث يسعى الفريقان لتحقيق
-                  نتيجة إيجابية لتعزيز موقفهما في البطولة. تابع كوره لايف يلا
-                  شوت لتصلك جميع التحديثات.
+                  نتيجة إيجابية لتعزيز موقفهما في البطولة. تابع كورة لايف يلا
+                  شوت عبر جولزا لتصلك جميع التحديثات فور حدوثها.
                 </p>
 
                 <h3 className="text-lg font-bold text-white mb-3 mt-6">
-                  كيفية المتابعة على يلا شوت
+                  كيفية المتابعة على جولزا يلا شوت
                 </h3>
                 <p className="text-base text-gray-400 mb-6">
-                  يوفر موقع يلا شوت لايف (yalla live) تجربة بث مباشر خالية من
+                  يوفر موقع جولزا يلا شوت لايف (yalla live) تجربة بث مباشر خالية من
                   التقطيع عبر سيرفرات متعددة تناسب مختلف سرعات الإنترنت (جودات
                   4K، FHD، HD، و SD). سواء كنت تتابع عبر هاتفك المحمول أو شاشة
                   الحاسوب، تضمن لك منصتنا استقرار البث لمباراة {home} و{away}{" "}

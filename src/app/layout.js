@@ -22,12 +22,16 @@ const ibmPlexSansArabic = IBM_Plex_Sans_Arabic({
 export const metadata = {
   metadataBase: new URL("https://goolza.com"),
   title: {
-    default: "يلا شوت | مباريات اليوم بث مباشر لايف | Yalla Shoot",
-    template: "%s | يلا شوت - Yalla Shoot",
+    default: "جولزا يلا شوت | بث مباشر مباريات اليوم لايف | Goolza Yalla Shoot",
+    template: "%s | جولزا يلا شوت - Goolza",
   },
   description:
-    "تابع أحدث نتائج مباريات كرة القدم، البث المباشر، وجداول المباريات للدوريات العالمية والمحلية في يلا شوت Yalla Shoot. تغطية حصرية ومباشرة لكل الأحداث الرياضية.",
+    "موقع جولزا يلا شوت (Goolza) لمشاهدة بث مباشر مباريات اليوم بدون تقطيع. تابع أهم مباريات اليوم لايف بجودة عالية HD، ملخصات وأهداف اللقاءات، وجدول ترتيب الدوريات والهدافين عبر يلا شوت الجديد yallashoot.",
   keywords: [
+    "جولزا",
+    "goolza",
+    "جولزا يلا شوت",
+    "goolza yalla shoot",
     "yalla shoot",
     "يلا شوت",
     "yallashoot",
@@ -59,10 +63,11 @@ export const metadata = {
     "كورة",
     "كرة القدم",
     "Live Football",
+    "koraonline-yallashoot",
   ],
-  authors: [{ name: "Yallashoot Team" }],
-  creator: "Yallashoot",
-  publisher: "Yallashoot",
+  authors: [{ name: "Goolza Yalla Shoot Team" }],
+  creator: "Goolza Yalla Shoot",
+  publisher: "Goolza Yalla Shoot",
   alternates: {
     canonical: "https://goolza.com",
   },
@@ -70,11 +75,11 @@ export const metadata = {
     google: "a_BdI3p-yHYsUxcVQ_4PdB9iVR98xbnTf0aHEhhe47w", // Replace with your actual Google Search Console verification code
   },
   openGraph: {
-    title: "Yalla Shoot | يلا شوت | مباريات اليوم بث مباشر لايف | yallashoot",
+    title: "جولزا يلا شوت | بث مباشر مباريات اليوم لايف | Goolza Yalla Shoot",
     description:
-      "تابع أهم مباريات اليوم بث مباشر عبر يلا شوت الجديد. تغطية حصرية ومباشرة لنتائج المباريات، أخبار الدوريات العالمية والمحلية، وتفاصيل البطولات الكبرى لحظة بلحظة وبدون تقطيع.",
+      "تابع أهم مباريات اليوم بث مباشر عبر جولزا يلا شوت الجديد (goolza.com). تغطية حصرية ومباشرة لنتائج المباريات، أخبار الدوريات العالمية والمحلية، وتفاصيل البطولات الكبرى بدون تقطيع.",
     url: "https://goolza.com",
-    siteName: "يلا شوت",
+    siteName: "جولزا يلا شوت",
     locale: "ar_AR",
     type: "website",
     images: [
@@ -82,16 +87,16 @@ export const metadata = {
         url: "/og-image-generator",
         width: 1200,
         height: 630,
-        alt: "يلا شوت — مباريات اليوم بث مباشر",
+        alt: "جولزا يلا شوت — بث مباشر مباريات اليوم بدون تقطيع",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Yalla Shoot | يلا شوت | مباريات اليوم بث مباشر لايف | yallashoot",
+    title: "جولزا يلا شوت | بث مباشر مباريات اليوم لايف | Goolza Yalla Shoot",
     description:
-      "تابع نتائج المباريات وجداول البطولات العالمية والمحلية وتغطية حصرية لأهم الأحداث الرياضية والبث المباشر عبر يلا شوت.",
-    site: "@Yallashoot",
+      "تابع نتائج المباريات وجداول البطولات العالمية والمحلية وتغطية حصرية لأهم الأحداث الرياضية والبث المباشر عبر جولزا يلا شوت.",
+    site: "@GoolzaYallaShoot",
     images: ["/og-image-generator"],
   },
   robots: {
@@ -110,8 +115,8 @@ export const metadata = {
 const websiteJsonLd = {
   "@context": "https://schema.org",
   "@type": "WebSite",
-  name: "يلا شوت",
-  alternateName: "Yallashoot",
+  name: "جولزا يلا شوت",
+  alternateName: "Goolza Yalla Shoot",
   url: "https://goolza.com",
   potentialAction: {
     "@type": "SearchAction",
@@ -123,8 +128,8 @@ const websiteJsonLd = {
 const organizationJsonLd = {
   "@context": "https://schema.org",
   "@type": "Organization",
-  name: "يلا شوت",
-  alternateName: "Yallashoot",
+  name: "جولزا يلا شوت",
+  alternateName: "Goolza Yalla Shoot",
   url: "https://goolza.com",
   logo: "https://goolza.com/logo.png",
   sameAs: [
