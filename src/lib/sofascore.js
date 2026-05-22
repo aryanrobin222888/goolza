@@ -1,4 +1,6 @@
 import axios from "axios";
+import connectDB from "./db";
+import SofaCache from "@/models/SofaCache";
 
 // Webshare IP list to rotate through if Cloudflare blocks one
 const proxyList = [
@@ -113,78 +115,70 @@ const SOFA_HEADERS = {
 };
 
 /**
- * Generic fetch from SofaScore through rotating proxies.
- * @param {string} url - Full SofaScore API URL
- * @param {object} opts - { responseType: 'json' | 'arraybuffer' }
- * @returns {Promise<{data: any, contentType: string}>}
+ * Utility to calculate Time-To-Live (TTL) in seconds based on SofaScore URL.
  */
-export async function fetchFromSofaScore(url, opts = {}) {
-  const proxyUser = process.env.PROXY_USER;
-  const proxyPass = process.env.PROXY_PASS;
+function getCacheTTL(url) {
+  // 1. Scheduled events
+  if (url.includes('/scheduled-events/')) {
+    const parts = url.split('/');
+    const dateStr = parts[parts.length - 1]; // YYYY-MM-DD
+    const todayStr = new Date().toISOString().split('T')[0];
+    if (dateStr === todayStr) {
+      return 60; // 1 minute for today's live matches
+    } else if (dateStr < todayStr) {
+      return 86400 * 7; // 7 days for past finished matches
+    } else {
+      return 7200; // 2 hours for future matches
+    }
+  }
+
+  // 2. Images (players, teams, tournaments)
+  if (url.includes('/image')) {
+    return 86400 * 30; // 30 days for images
+  }
+
+  // 3. Standings / Groups
+  if (url.includes('/standings')) {
+    return 600; // 10 minutes for standings/groups
+  }
+
+  // 4. Team/player details, rosters, trophies, transfers, tournaments list
+  if (
+    url.includes('/details') || 
+    url.includes('/trophies') || 
+    url.includes('/transfers') || 
+    url.includes('/players') || 
+    url.includes('/unique-tournaments') ||
+    url.includes('/seasons')
+  ) {
+    return 43200; // 12 hours
+  }
+
+  // 5. Default fallback
+  return 300; // 5 minutes
+}
+
+/**
+ * Raw proxy-racing fetch from SofaScore without database caching.
+ * Races parallel batches of 8 proxies to maximize success rates.
+ */
+async function fetchFromSofaScoreRaw(url, opts, proxyUser, proxyPass) {
   const responseType = opts.responseType || "json";
-
-  // Pick a random subset of 4 proxies to race in parallel
-  const subsetSize = 4;
   const shuffled = [...proxyList].sort(() => 0.5 - Math.random());
-  const selectedProxies = shuffled.slice(0, subsetSize);
+  
+  const batchSize = 8;
+  const maxBatches = Math.ceil(shuffled.length / batchSize);
+  let lastError = null;
+  let is404 = false;
 
-  const controllers = [];
-  const promises = selectedProxies.map((proxy) => {
-    const controller = new AbortController();
-    controllers.push(controller);
-
-    const proxyConfig = {
-      protocol: "http",
-      host: proxy.host,
-      port: parseInt(proxy.port, 10),
-      auth: { username: proxyUser, password: proxyPass },
-    };
-
-    return (async () => {
-      try {
-        const response = await axios.get(url, {
-          proxy: proxyConfig,
-          headers: SOFA_HEADERS,
-          timeout: 4000, // lower timeout to 4s to keep it extremely responsive
-          responseType,
-          signal: controller.signal,
-        });
-
-        // Cancel all other pending requests in this batch
-        controllers.forEach((c) => {
-          if (c !== controller) c.abort();
-        });
-
-        return {
-          data: response.data,
-          contentType: response.headers["content-type"] || "application/json",
-        };
-      } catch (err) {
-        if (err.name === 'CanceledError' || axios.isCancel(err)) {
-          throw new Error("Aborted");
-        }
-        // If it's explicitly a 404 Not Found, fail early
-        if (err.response?.status === 404) {
-          controllers.forEach((c) => c.abort());
-          throw new Error("404 Not Found from SofaScore API");
-        }
-        console.log(`[SofaScore] Proxy ${proxy.host} failed: ${err.message}`);
-        throw err;
-      }
-    })();
-  });
-
-  try {
-    return await Promise.any(promises);
-  } catch (aggregateError) {
-    console.log("[SofaScore] Primary racing batch failed. Trying fallback batch...");
+  for (let i = 0; i < maxBatches; i++) {
+    const startIdx = i * batchSize;
+    const batchProxies = shuffled.slice(startIdx, startIdx + batchSize);
     
-    // Fallback: Race a second batch of 3 different proxies
-    const fallbackShuffled = shuffled.slice(subsetSize, subsetSize + 3);
-    const fallbackControllers = [];
-    const fallbackPromises = fallbackShuffled.map((proxy) => {
+    const controllers = [];
+    const promises = batchProxies.map((proxy) => {
       const controller = new AbortController();
-      fallbackControllers.push(controller);
+      controllers.push(controller);
 
       const proxyConfig = {
         protocol: "http",
@@ -203,7 +197,8 @@ export async function fetchFromSofaScore(url, opts = {}) {
             signal: controller.signal,
           });
 
-          fallbackControllers.forEach((c) => {
+          // Cancel all other requests in this batch
+          controllers.forEach((c) => {
             if (c !== controller) c.abort();
           });
 
@@ -212,9 +207,12 @@ export async function fetchFromSofaScore(url, opts = {}) {
             contentType: response.headers["content-type"] || "application/json",
           };
         } catch (err) {
-          if (err.name === 'CanceledError' || axios.isCancel(err)) throw new Error("Aborted");
+          if (err.name === 'CanceledError' || axios.isCancel(err)) {
+            throw new Error("Aborted");
+          }
           if (err.response?.status === 404) {
-            fallbackControllers.forEach((c) => c.abort());
+            is404 = true;
+            controllers.forEach((c) => c.abort());
             throw new Error("404 Not Found from SofaScore API");
           }
           throw err;
@@ -223,16 +221,75 @@ export async function fetchFromSofaScore(url, opts = {}) {
     });
 
     try {
-      return await Promise.any(fallbackPromises);
+      return await Promise.any(promises);
     } catch (err) {
-      if (aggregateError.errors?.some(e => e.message === "404 Not Found from SofaScore API") || 
-          err.errors?.some(e => e.message === "404 Not Found from SofaScore API")) {
+      if (is404) {
         throw new Error("404 Not Found from SofaScore API");
       }
-      throw new Error("All proxies failed in primary and fallback batches");
+      lastError = err;
+      console.log(`[SofaScore Proxy] Batch ${i + 1}/${maxBatches} failed. Trying next batch...`);
     }
   }
+
+  throw new Error(lastError?.message || "All proxies failed");
 }
+
+/**
+ * Generic fetch from SofaScore with database caching and proxy batch racing.
+ * @param {string} url - Full SofaScore API URL
+ * @param {object} opts - { responseType: 'json' | 'arraybuffer' }
+ * @returns {Promise<{data: any, contentType: string}>}
+ */
+export async function fetchFromSofaScore(url, opts = {}) {
+  // 1. Try to read from MongoDB cache first
+  try {
+    await connectDB();
+    const cached = await SofaCache.findOne({ url });
+    if (cached) {
+      if (new Date() < new Date(cached.expiresAt)) {
+        let returnData = cached.data;
+        if (cached.dataType === 'binary' && cached.data) {
+          returnData = Buffer.isBuffer(cached.data) ? cached.data : Buffer.from(cached.data);
+        }
+        return {
+          data: returnData,
+          contentType: cached.contentType,
+          fromCache: true
+        };
+      }
+    }
+  } catch (dbErr) {
+    console.error("[SofaScore Cache Read Error]", dbErr.message);
+  }
+
+  // 2. Fetch using proxy batch racing on cache miss
+  const proxyUser = process.env.PROXY_USER;
+  const proxyPass = process.env.PROXY_PASS;
+  const result = await fetchFromSofaScoreRaw(url, opts, proxyUser, proxyPass);
+
+  // 3. Write new data to MongoDB cache
+  try {
+    const ttlSeconds = getCacheTTL(url);
+    const expiresAt = new Date(Date.now() + ttlSeconds * 1000);
+    const dataType = Buffer.isBuffer(result.data) || opts.responseType === 'arraybuffer' ? 'binary' : 'json';
+
+    await SofaCache.findOneAndUpdate(
+      { url },
+      {
+        data: result.data,
+        dataType,
+        contentType: result.contentType,
+        expiresAt
+      },
+      { upsert: true }
+    );
+  } catch (dbErr) {
+    console.error("[SofaScore Cache Write Error]", dbErr.message);
+  }
+
+  return result;
+}
+
 
 // ─── Scheduled Events (existing) ──────────────────────────────────────────────
 const cache = new Map();
