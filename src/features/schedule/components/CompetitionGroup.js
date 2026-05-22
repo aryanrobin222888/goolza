@@ -110,7 +110,7 @@ export default function CompetitionGroup({ competition, index, selectedDate }) {
                     href={`/league/${slug}`}
                     className="group/link"
                   >
-                    <h2 className="text-xl font-bold text-white leading-tight group-hover/link:text-[#0aa674] transition-colors duration-200">
+                    <h2 className="text-xl font-bold text-white leading-tight group-hover/link:text-[#ff7a00] transition-colors duration-200">
                       {displayName}
                     </h2>
                   </Link>

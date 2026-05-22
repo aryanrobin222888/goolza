@@ -19,7 +19,7 @@ export default function LeagueHeader({ tournament, season }) {
         className="absolute inset-0 pointer-events-none opacity-20"
         style={{
           background:
-            "radial-gradient(ellipse at 20% 50%, #0aa674 0%, transparent 60%)",
+            "radial-gradient(ellipse at 20% 50%, #ff7a00 0%, transparent 60%)",
         }}
       />
 
@@ -62,7 +62,7 @@ export default function LeagueHeader({ tournament, season }) {
             {seasonLabel && (
               <>
                 <span className="text-slate-700">·</span>
-                <span className="text-sm text-[#0aa674] font-semibold bg-[#0aa674]/10 px-2.5 py-0.5 rounded-full border border-[#0aa674]/20">
+                <span className="text-sm text-[#ff7a00] font-semibold bg-[#ff7a00]/10 px-2.5 py-0.5 rounded-full border border-[#ff7a00]/20">
                   موسم {seasonLabel}
                 </span>
               </>

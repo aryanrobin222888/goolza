@@ -107,16 +107,16 @@ export default function TopScorers({ scorers }) {
 
                 {/* Name + Team */}
                 <div className="flex-1 min-w-0">
-                  <span className="font-bold text-[13px] text-white truncate max-w-[140px] group-hover:text-[#0aa674] transition-colors leading-tight">
+                  <span className="font-bold text-[13px] text-white truncate max-w-[140px] group-hover:text-[#ff7a00] transition-colors leading-tight">
                     {getArabicName(player?.shortName || player?.name, player?.fieldTranslations)}
                   </span>
                   <div className="flex items-center gap-1 mt-0.5">
                     <Link 
                       href={team?.id ? `/team/${team.slug || "team"}/${team.id}` : "#"}
-                      className="flex items-center gap-1 hover:text-[#0aa674] transition-colors"
+                      className="flex items-center gap-1 hover:text-[#ff7a00] transition-colors"
                     >
                       <TeamBadge teamId={team?.id} name={team?.name} />
-                      <span className="text-[10px] text-slate-400 font-medium truncate max-w-[120px] hover:text-[#0aa674]">
+                      <span className="text-[10px] text-slate-400 font-medium truncate max-w-[120px] hover:text-[#ff7a00]">
                         {getArabicName(team?.shortName || team?.name, team?.fieldTranslations)}
                       </span>
                     </Link>
@@ -125,7 +125,7 @@ export default function TopScorers({ scorers }) {
 
                 {/* Goals */}
                 <div className="shrink-0 text-right">
-                  <span className="text-lg font-black text-[#0aa674] tabular-nums">
+                  <span className="text-lg font-black text-[#ff7a00] tabular-nums">
                     {goals}
                   </span>
                   <span className="text-[10px] text-slate-600 block leading-none">
@@ -137,7 +137,7 @@ export default function TopScorers({ scorers }) {
               {/* Goal bar */}
               <div className="mt-2 h-0.5 bg-slate-800 rounded-full overflow-hidden mx-8">
                 <div
-                  className="h-full bg-gradient-to-r from-[#0aa674] to-[#34d399] rounded-full transition-all duration-700"
+                  className="h-full bg-gradient-to-r from-[#ff7a00] to-[#34d399] rounded-full transition-all duration-700"
                   style={{ width: `${barWidth}%` }}
                 />
               </div>

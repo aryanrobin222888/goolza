@@ -194,7 +194,7 @@ export default async function LeaguePage({ params }) {
           <nav>
             <Link
               href="/"
-              className="flex items-center gap-1.5 text-sm text-slate-400 hover:text-[#0aa674] transition-colors font-medium"
+              className="flex items-center gap-1.5 text-sm text-slate-400 hover:text-[#ff7a00] transition-colors font-medium"
             >
               جدول المباريات
               <ArrowLeft className="w-4 h-4" />
@@ -213,7 +213,7 @@ export default async function LeaguePage({ params }) {
           {/* Left: Standings */}
           <div>
             <h2 className="text-base font-bold text-white mb-3 flex items-center gap-2">
-              <span className="w-1 h-5 bg-[#0aa674] rounded-full inline-block" />
+              <span className="w-1 h-5 bg-[#ff7a00] rounded-full inline-block" />
               جدول الترتيب
             </h2>
             <StandingsTable standings={standingsRows} />

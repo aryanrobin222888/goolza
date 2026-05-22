@@ -19,7 +19,7 @@ export default function ContactForm() {
           <nav>
             <Link
               href="/"
-              className="flex items-center gap-1.5 text-slate-300 hover:text-[#0aa674] text-sm transition-colors font-medium"
+              className="flex items-center gap-1.5 text-slate-300 hover:text-[#ff7a00] text-sm transition-colors font-medium"
             >
               العودة للرئيسية
               <ArrowLeft className="w-4 h-4" />
@@ -31,7 +31,7 @@ export default function ContactForm() {
       {/* Content */}
       <main className="max-w-3xl mx-auto px-6 py-12">
         <div className="animate-[fadeIn_0.4s_ease_forwards]">
-          <h1 className="text-3xl font-black text-[#0aa674] mb-2">اتصل بنا</h1>
+          <h1 className="text-3xl font-black text-[#ff7a00] mb-2">اتصل بنا</h1>
           <p className="text-slate-300 text-sm mb-10">
             نسعد بتواصلك معنا. اختر الطريقة المناسبة لك.
           </p>
@@ -57,10 +57,10 @@ export default function ContactForm() {
           ].map((item) => (
             <div
               key={item.title}
-              className="bg-[#1e293b] border border-slate-800 rounded-2xl p-6 text-center hover:border-[#0aa674]/30 transition-all shadow-sm hover:shadow-md"
+              className="bg-[#1e293b] border border-slate-800 rounded-2xl p-6 text-center hover:border-[#ff7a00]/30 transition-all shadow-sm hover:shadow-md"
             >
-              <div className="w-12 h-12 rounded-xl bg-[#0aa674]/10 flex items-center justify-center mx-auto mb-4">
-                <item.icon className="w-5 h-5 text-[#0aa674]" />
+              <div className="w-12 h-12 rounded-xl bg-[#ff7a00]/10 flex items-center justify-center mx-auto mb-4">
+                <item.icon className="w-5 h-5 text-[#ff7a00]" />
               </div>
               <h3 className="text-white font-bold text-sm mb-1">
                 {item.title}
@@ -72,7 +72,7 @@ export default function ContactForm() {
 
         {/* Contact Form */}
         <div className="bg-[#1e293b] border border-slate-800 rounded-2xl p-6 md:p-8 shadow-sm transition-colors duration-300">
-          <h2 className="text-lg font-bold text-[#0aa674] mb-6">
+          <h2 className="text-lg font-bold text-[#ff7a00] mb-6">
             أرسل لنا رسالة
           </h2>
           <form className="space-y-5">
@@ -84,7 +84,7 @@ export default function ContactForm() {
                 <input
                   type="text"
                   placeholder="اسمك الكامل"
-                  className="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-[#0aa674] focus:ring-1 focus:ring-[#0aa674] transition-all"
+                  className="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-[#ff7a00] focus:ring-1 focus:ring-[#ff7a00] transition-all"
                 />
               </div>
               <div>
@@ -94,7 +94,7 @@ export default function ContactForm() {
                 <input
                   type="email"
                   placeholder="email@example.com"
-                  className="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-[#0aa674] focus:ring-1 focus:ring-[#0aa674] transition-all"
+                  className="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-[#ff7a00] focus:ring-1 focus:ring-[#ff7a00] transition-all"
                 />
               </div>
             </div>
@@ -105,7 +105,7 @@ export default function ContactForm() {
               <input
                 type="text"
                 placeholder="موضوع الرسالة"
-                className="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-[#0aa674] focus:ring-1 focus:ring-[#0aa674] transition-all"
+                className="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-[#ff7a00] focus:ring-1 focus:ring-[#ff7a00] transition-all"
               />
             </div>
             <div>
@@ -115,12 +115,12 @@ export default function ContactForm() {
               <textarea
                 rows={5}
                 placeholder="اكتب رسالتك هنا..."
-                className="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-[#0aa674] focus:ring-1 focus:ring-[#0aa674] transition-all resize-none"
+                className="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-[#ff7a00] focus:ring-1 focus:ring-[#ff7a00] transition-all resize-none"
               />
             </div>
             <button
               type="button"
-              className="bg-[#0aa674] text-white font-bold text-sm px-8 py-3 rounded-xl hover:bg-[#088f62] active:scale-95 transition-all duration-200 shadow-lg shadow-[#0aa674]/20"
+              className="bg-[#ff7a00] text-white font-bold text-sm px-8 py-3 rounded-xl hover:bg-[#088f62] active:scale-95 transition-all duration-200 shadow-lg shadow-[#ff7a00]/20"
             >
               إرسال الرسالة
             </button>

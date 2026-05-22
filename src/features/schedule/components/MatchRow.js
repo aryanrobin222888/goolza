@@ -87,7 +87,7 @@ export default function MatchRow({
               <span className="text-xs">⚽</span>
             )}
           </div>
-          <span className="text-white font-semibold text-sm truncate text-center md:text-left transition-colors group-hover/team:text-[#0aa674]">
+          <span className="text-white font-semibold text-sm truncate text-center md:text-left transition-colors group-hover/team:text-[#ff7a00]">
             {match.home.name}
           </span>
         </div>
@@ -120,7 +120,7 @@ export default function MatchRow({
           className="flex flex-col-reverse md:flex-row items-center md:items-center justify-end gap-3 flex-1 min-w-0 group/team cursor-pointer"
           onClick={(e) => handleTeamClick(e, match.away)}
         >
-          <span className="text-white font-semibold text-sm truncate text-center md:text-right transition-colors group-hover/team:text-[#0aa674]">
+          <span className="text-white font-semibold text-sm truncate text-center md:text-right transition-colors group-hover/team:text-[#ff7a00]">
             {match.away.name}
           </span>
            <div className="relative w-10 h-10 md:w-12 md:h-12 flex items-center justify-center p-1 bg-slate-800 rounded-full border border-slate-700 shadow-sm overflow-hidden group-hover/team:scale-110 transition-transform">
@@ -149,7 +149,7 @@ export default function MatchRow({
 
   const classes = `relative p-4 rounded-xl border transition-all duration-300 group mb-3
     bg-[#1e293b]
-    ${isSelected ? "border-[#0aa674] ring-1 ring-[#0aa674] shadow-md" : "border-slate-800 shadow-sm hover:border-slate-700"}
+    ${isSelected ? "border-[#ff7a00] ring-1 ring-[#ff7a00] shadow-md" : "border-slate-800 shadow-sm hover:border-slate-700"}
     cursor-pointer
   `;
 

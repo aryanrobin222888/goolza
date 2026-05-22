@@ -202,7 +202,7 @@ export default function MatchCenter({ tournamentId, seasonId }) {
           onClick={() => setTab("recent")}
           className={`flex-1 flex items-center justify-center gap-2 py-3.5 text-sm font-semibold transition-all duration-200 ${
             tab === "recent"
-              ? "text-[#0aa674] border-b-2 border-[#0aa674]"
+              ? "text-[#ff7a00] border-b-2 border-[#ff7a00]"
               : "text-slate-500 hover:text-slate-300"
           }`}
         >
@@ -213,7 +213,7 @@ export default function MatchCenter({ tournamentId, seasonId }) {
           onClick={() => setTab("upcoming")}
           className={`flex-1 flex items-center justify-center gap-2 py-3.5 text-sm font-semibold transition-all duration-200 ${
             tab === "upcoming"
-              ? "text-[#0aa674] border-b-2 border-[#0aa674]"
+              ? "text-[#ff7a00] border-b-2 border-[#ff7a00]"
               : "text-slate-500 hover:text-slate-300"
           }`}
         >

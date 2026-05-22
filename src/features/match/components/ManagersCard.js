@@ -18,7 +18,7 @@ function ManagerSide({ manager, label }) {
       />
       <div>
         <p className="text-sm font-semibold text-white">{getArabicName(manager.name, manager.fieldTranslations)}</p>
-        <p className="text-xs text-[#0aa674]">{label}</p>
+        <p className="text-xs text-[#ff7a00]">{label}</p>
       </div>
     </div>
   );

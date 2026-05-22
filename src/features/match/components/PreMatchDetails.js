@@ -32,7 +32,7 @@ export default function PreMatchDetails({ eventId, activeTab }) {
   if (isEventLoading || isLineupsLoading) {
     return (
       <div className="bg-[#111923] p-8 flex items-center justify-center">
-        <div className="w-6 h-6 border-2 border-[#0aa674] border-t-transparent flex-shrink-0 animate-spin rounded-full"></div>
+        <div className="w-6 h-6 border-2 border-[#ff7a00] border-t-transparent flex-shrink-0 animate-spin rounded-full"></div>
       </div>
     );
   }

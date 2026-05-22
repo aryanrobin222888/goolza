@@ -539,7 +539,7 @@ export default async function MatchPage({ params }) {
           <nav>
             <Link
               href="/"
-              className="flex items-center gap-1.5 text-sm text-slate-400 hover:text-[#0aa674] transition-colors font-medium"
+              className="flex items-center gap-1.5 text-sm text-slate-400 hover:text-[#ff7a00] transition-colors font-medium"
             >
               الجدول الكامل
               <ArrowLeft className="w-4 h-4" />
@@ -564,7 +564,7 @@ export default async function MatchPage({ params }) {
 
         {/* ── H1 + Status ── */}
         <div className="text-center space-y-2">
-          <h1 className="text-2xl md:text-3xl font-bold text-[#0aa674]">
+          <h1 className="text-2xl md:text-3xl font-bold text-[#ff7a00]">
             بث مباشر مباراة {home} و{away}
           </h1>
           {isLive && (
@@ -579,7 +579,7 @@ export default async function MatchPage({ params }) {
             </span>
           )}
           {!isLive && !isFinished && match.time && (
-            <span className="inline-flex items-center gap-1.5 bg-[#0aa674]/10 text-[#0aa674] text-xs font-bold px-3 py-1 rounded-full border border-[#0aa674]/30">
+            <span className="inline-flex items-center gap-1.5 bg-[#ff7a00]/10 text-[#ff7a00] text-xs font-bold px-3 py-1 rounded-full border border-[#ff7a00]/30">
               <CalendarClock className="w-3.5 h-3.5" />
               {match.time}
             </span>
@@ -656,9 +656,9 @@ export default async function MatchPage({ params }) {
         </div>
 
         {/* ── Watch CTA ── */}
-        <div className="w-full rounded-2xl overflow-hidden shadow-xl relative bg-[#0d1f2d] border border-[#0aa674]/20">
+        <div className="w-full rounded-2xl overflow-hidden shadow-xl relative bg-[#0d1f2d] border border-[#ff7a00]/20">
           {/* Animated background glow */}
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_#0aa67420_0%,_transparent_70%)] pointer-events-none" />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_#ff7a0020_0%,_transparent_70%)] pointer-events-none" />
 
           <div className="aspect-video flex flex-col items-center justify-center gap-8 px-6 relative">
             {/* LIVE badge */}
@@ -675,11 +675,11 @@ export default async function MatchPage({ params }) {
             {/* Ripple rings behind the button */}
             <div className="relative flex items-center justify-center">
               <span
-                className="absolute w-40 h-40 rounded-full border border-[#0aa674]/10 animate-ping"
+                className="absolute w-40 h-40 rounded-full border border-[#ff7a00]/10 animate-ping"
                 style={{ animationDuration: "2.5s" }}
               />
               <span
-                className="absolute w-56 h-56 rounded-full border border-[#0aa674]/5 animate-ping"
+                className="absolute w-56 h-56 rounded-full border border-[#ff7a00]/5 animate-ping"
                 style={{ animationDuration: "3.2s", animationDelay: "0.4s" }}
               />
 
@@ -758,12 +758,12 @@ export default async function MatchPage({ params }) {
                   {leagueSlug ? (
                     <Link
                       href={`/league/${leagueSlug}`}
-                      className="text-[#0aa674] font-bold hover:underline"
+                      className="text-[#ff7a00] font-bold hover:underline"
                     >
                       {comp}
                     </Link>
                   ) : (
-                    <span className="text-[#0aa674] font-bold">{comp}</span>
+                    <span className="text-[#ff7a00] font-bold">{comp}</span>
                   )}
                   . وتأتي هذه المواجهة الهامة في{" "}
                   {match.venue || "الملعب الرسمي"}، حيث يسعى الفريقان لتحقيق
@@ -792,7 +792,7 @@ export default async function MatchPage({ params }) {
                   href={`/league/${leagueSlug}`}
                   className="bg-slate-800 hover:bg-slate-700 text-slate-300 px-4 py-2 rounded-full transition-colors flex items-center gap-2"
                 >
-                  <Trophy className="w-4 h-4 text-[#0aa674]" />
+                  <Trophy className="w-4 h-4 text-[#ff7a00]" />
                   المزيد من مباريات {comp}
                 </Link>
               </div>
@@ -804,7 +804,7 @@ export default async function MatchPage({ params }) {
         <div className="text-center pt-2">
           <Link
             href="/"
-            className="inline-flex items-center gap-2 text-sm font-medium text-[#0aa674] hover:underline"
+            className="inline-flex items-center gap-2 text-sm font-medium text-[#ff7a00] hover:underline"
           >
             <ArrowRight className="w-4 h-4" />
             عودة إلى جدول المباريات

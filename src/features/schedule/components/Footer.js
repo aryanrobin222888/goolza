@@ -51,7 +51,7 @@ export default function Footer() {
                 <li key={href}>
                   <Link
                     href={href}
-                    className="hover:text-[#0aa674] transition-colors duration-300 block truncate"
+                    className="hover:text-[#ff7a00] transition-colors duration-300 block truncate"
                   >
                     {label}
                   </Link>
@@ -70,7 +70,7 @@ export default function Footer() {
                   <li key={href}>
                     <Link
                       href={href}
-                      className="hover:text-[#0aa674] transition-colors duration-300 block truncate"
+                      className="hover:text-[#ff7a00] transition-colors duration-300 block truncate"
                     >
                       {label}
                     </Link>
@@ -86,7 +86,7 @@ export default function Footer() {
                 <li>
                   <Link
                     href="/about"
-                    className="hover:text-[#0aa674] transition-colors duration-300"
+                    className="hover:text-[#ff7a00] transition-colors duration-300"
                   >
                     عن التطبيق
                   </Link>
@@ -94,7 +94,7 @@ export default function Footer() {
                 <li>
                   <Link
                     href="/privacy"
-                    className="hover:text-[#0aa674] transition-colors duration-300"
+                    className="hover:text-[#ff7a00] transition-colors duration-300"
                   >
                     الخصوصية
                   </Link>
@@ -102,7 +102,7 @@ export default function Footer() {
                 <li>
                   <Link
                     href="/terms"
-                    className="hover:text-[#0aa674] transition-colors duration-300"
+                    className="hover:text-[#ff7a00] transition-colors duration-300"
                   >
                     الشروط
                   </Link>
@@ -110,7 +110,7 @@ export default function Footer() {
                 <li>
                   <Link
                     href="/contact"
-                    className="hover:text-[#0aa674] transition-colors duration-300"
+                    className="hover:text-[#ff7a00] transition-colors duration-300"
                   >
                     اتصل بنا
                   </Link>
@@ -132,7 +132,7 @@ export default function Footer() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Facebook"
-              className="text-white hover:text-[#0aa674] transition-colors duration-300"
+              className="text-white hover:text-[#ff7a00] transition-colors duration-300"
               title="Facebook"
             >
               <FacebookIcon className="w-5 h-5" />
@@ -142,7 +142,7 @@ export default function Footer() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Telegram"
-              className="text-white hover:text-[#0aa674] transition-colors duration-300"
+              className="text-white hover:text-[#ff7a00] transition-colors duration-300"
               title="Telegram"
             >
               <TelegramIcon className="w-5 h-5" />
@@ -152,7 +152,7 @@ export default function Footer() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="TikTok"
-              className="text-white hover:text-[#0aa674] transition-colors duration-300"
+              className="text-white hover:text-[#ff7a00] transition-colors duration-300"
               title="TikTok"
             >
               <TikTokIcon className="w-5 h-5" />
@@ -162,7 +162,7 @@ export default function Footer() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="X (Twitter)"
-              className="text-white hover:text-[#0aa674] transition-colors duration-300"
+              className="text-white hover:text-[#ff7a00] transition-colors duration-300"
               title="X (Twitter)"
             >
               <XIcon className="w-4 h-4" />

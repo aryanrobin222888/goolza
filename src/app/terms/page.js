@@ -47,7 +47,7 @@ export default function TermsPage() {
           <nav>
             <Link
               href="/"
-              className="flex items-center gap-1.5 text-slate-300 hover:text-[#0aa674] text-sm transition-colors font-medium"
+              className="flex items-center gap-1.5 text-slate-300 hover:text-[#ff7a00] text-sm transition-colors font-medium"
             >
               العودة للرئيسية
               <ArrowLeft className="w-4 h-4" />
@@ -58,14 +58,14 @@ export default function TermsPage() {
 
       {/* Content */}
       <main className="max-w-3xl mx-auto px-6 py-12">
-        <h1 className="text-3xl font-black text-[#0aa674] mb-2">
+        <h1 className="text-3xl font-black text-[#ff7a00] mb-2">
           الشروط والأحكام
         </h1>
         <p className="text-slate-300 text-sm mb-10">آخر تحديث: فبراير 2026</p>
 
         <div className="space-y-6 text-slate-300 leading-relaxed">
           <section className="bg-[#1e293b] border border-slate-800 rounded-2xl p-6 shadow-sm transition-colors duration-300">
-            <h2 className="text-lg font-bold text-[#0aa674] mb-3">
+            <h2 className="text-lg font-bold text-[#ff7a00] mb-3">
               1. قبول الشروط
             </h2>
             <p>
@@ -76,7 +76,7 @@ export default function TermsPage() {
           </section>
 
           <section className="bg-[#1e293b] border border-slate-800 rounded-2xl p-6 shadow-sm transition-colors duration-300">
-            <h2 className="text-lg font-bold text-[#0aa674] mb-3">
+            <h2 className="text-lg font-bold text-[#ff7a00] mb-3">
               2. استخدام الخدمة
             </h2>
             <p>
@@ -87,7 +87,7 @@ export default function TermsPage() {
           </section>
 
           <section className="bg-[#1e293b] border border-slate-800 rounded-2xl p-6 shadow-sm transition-colors duration-300">
-            <h2 className="text-lg font-bold text-[#0aa674] mb-3">
+            <h2 className="text-lg font-bold text-[#ff7a00] mb-3">
               3. حقوق الملكية الفكرية
             </h2>
             <p>
@@ -99,7 +99,7 @@ export default function TermsPage() {
           </section>
 
           <section className="bg-[#1e293b] border border-slate-800 rounded-2xl p-6 shadow-sm transition-colors duration-300">
-            <h2 className="text-lg font-bold text-[#0aa674] mb-3">
+            <h2 className="text-lg font-bold text-[#ff7a00] mb-3">
               4. سلوك المستخدم
             </h2>
             <p>
@@ -110,7 +110,7 @@ export default function TermsPage() {
           </section>
 
           <section className="bg-[#1e293b] border border-slate-800 rounded-2xl p-6 shadow-sm transition-colors duration-300">
-            <h2 className="text-lg font-bold text-[#0aa674] mb-3">
+            <h2 className="text-lg font-bold text-[#ff7a00] mb-3">
               5. إخلاء المسؤولية
             </h2>
             <p>
@@ -121,7 +121,7 @@ export default function TermsPage() {
           </section>
 
           <section className="bg-[#1e293b] border border-slate-800 rounded-2xl p-6 shadow-sm transition-colors duration-300">
-            <h2 className="text-lg font-bold text-[#0aa674] mb-3">
+            <h2 className="text-lg font-bold text-[#ff7a00] mb-3">
               6. تعديل الشروط
             </h2>
             <p>

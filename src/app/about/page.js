@@ -43,7 +43,7 @@ export default function AboutPage() {
           <nav>
             <Link
               href="/"
-              className="flex items-center gap-1.5 text-slate-300 hover:text-[#0aa674] text-sm transition-colors font-medium"
+              className="flex items-center gap-1.5 text-slate-300 hover:text-[#ff7a00] text-sm transition-colors font-medium"
             >
               العودة للرئيسية
               <ArrowLeft className="w-4 h-4" />
@@ -54,7 +54,7 @@ export default function AboutPage() {
 
       {/* Content */}
       <main className="max-w-3xl mx-auto px-6 py-12">
-        <h1 className="text-3xl font-black text-[#0aa674] mb-2">من نحن</h1>
+        <h1 className="text-3xl font-black text-[#ff7a00] mb-2">من نحن</h1>
         <p className="text-slate-300 text-sm mb-10">
           تعرف على يلا شوت (Yallashoot) ورؤيتنا لمستقبل الإعلام الرياضي
         </p>
@@ -91,10 +91,10 @@ export default function AboutPage() {
           ].map((item) => (
             <div
               key={item.title}
-              className="bg-[#1e293b] border border-slate-800 rounded-2xl p-6 hover:border-[#0aa674]/30 transition-all shadow-sm hover:shadow-md"
+              className="bg-[#1e293b] border border-slate-800 rounded-2xl p-6 hover:border-[#ff7a00]/30 transition-all shadow-sm hover:shadow-md"
             >
-              <div className="w-10 h-10 rounded-xl bg-[#0aa674]/10 flex items-center justify-center mb-4">
-                <item.icon className="w-5 h-5 text-[#0aa674]" />
+              <div className="w-10 h-10 rounded-xl bg-[#ff7a00]/10 flex items-center justify-center mb-4">
+                <item.icon className="w-5 h-5 text-[#ff7a00]" />
               </div>
               <h2 className="text-white font-bold mb-2">{item.title}</h2>
               <p className="text-slate-300 text-sm leading-relaxed">
@@ -106,7 +106,7 @@ export default function AboutPage() {
 
         {/* Stats */}
         <section className="bg-[#1e293b] border border-slate-800 rounded-2xl p-8 transition-colors duration-300">
-          <h2 className="text-lg font-bold text-[#0aa674] mb-6 text-center">
+          <h2 className="text-lg font-bold text-[#ff7a00] mb-6 text-center">
             أرقامنا
           </h2>
           <div className="grid grid-cols-3 gap-4 text-center">
@@ -116,7 +116,7 @@ export default function AboutPage() {
               { value: "24/7", label: "تحديث مستمر" },
             ].map((stat) => (
               <div key={stat.label}>
-                <div className="text-3xl font-black text-[#0aa674] mb-1">
+                <div className="text-3xl font-black text-[#ff7a00] mb-1">
                   {stat.value}
                 </div>
                 <p className="text-slate-300 text-xs font-medium">

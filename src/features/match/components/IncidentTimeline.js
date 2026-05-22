@@ -34,7 +34,7 @@ function GoalRow({ inc }) {
 
       {/* Center (Score + Minute) */}
       <div className="w-16 flex flex-col items-center justify-center shrink-0">
-        <span className="text-xs font-bold text-white bg-[#0aa674] rounded px-1.5 py-0.5 mb-1">
+        <span className="text-xs font-bold text-white bg-[#ff7a00] rounded px-1.5 py-0.5 mb-1">
           {score}
         </span>
         <span className="text-[10px] text-slate-500">'{minute.replace("'", "")}</span>

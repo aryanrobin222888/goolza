@@ -118,7 +118,7 @@ export default function LineupsView({ data, event }) {
           href={event?.homeTeam?.id ? `/team/${event.homeTeam.slug || "team"}/${event.homeTeam.id}` : "#"}
           className="flex items-center gap-2 group"
         >
-          <span className="text-sm font-semibold text-white group-hover:text-[#0aa674] transition-colors">{homeName}</span>
+          <span className="text-sm font-semibold text-white group-hover:text-[#ff7a00] transition-colors">{homeName}</span>
           {homeRating > 0 && (
             <span className="bg-yellow-500 text-black text-[10px] font-bold px-1.5 py-0.5 rounded">
               {homeRating.toFixed(2)}
@@ -139,7 +139,7 @@ export default function LineupsView({ data, event }) {
               {awayRating.toFixed(2)}
             </span>
           )}
-          <span className="text-sm font-semibold text-white group-hover:text-[#0aa674] transition-colors">{awayName}</span>
+          <span className="text-sm font-semibold text-white group-hover:text-[#ff7a00] transition-colors">{awayName}</span>
         </Link>
       </div>
 

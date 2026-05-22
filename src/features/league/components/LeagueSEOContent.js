@@ -49,7 +49,7 @@ export default function LeagueSEOContent({ tournament }) {
           >
             <div className="flex items-center gap-2 mb-3">
               <span className="text-xl leading-none">{sec.icon}</span>
-              <h2 className="text-sm font-bold text-[#0aa674]">{sec.title}</h2>
+              <h2 className="text-sm font-bold text-[#ff7a00]">{sec.title}</h2>
             </div>
             <p className="text-sm text-slate-400 leading-[1.9]">{sec.body}</p>
           </div>

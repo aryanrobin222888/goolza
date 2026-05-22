@@ -28,13 +28,13 @@ export default function MatchTabs({ eventId, isLive, isFinished }) {
             onClick={() => setActiveTab(tab.id)}
             className={`flex-1 py-3 text-sm font-semibold transition-colors duration-200 relative ${
               activeTab === tab.id
-                ? "text-[#0aa674]"
+                ? "text-[#ff7a00]"
                 : "text-slate-400 hover:text-slate-200"
             }`}
           >
             {tab.label}
             {activeTab === tab.id && (
-              <span className="absolute bottom-0 left-1/4 right-1/4 h-[2px] bg-[#0aa674] rounded-full" />
+              <span className="absolute bottom-0 left-1/4 right-1/4 h-[2px] bg-[#ff7a00] rounded-full" />
             )}
           </button>
         ))}

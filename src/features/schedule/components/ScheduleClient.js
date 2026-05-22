@@ -7,6 +7,7 @@ import { m, LazyMotion, domAnimation, AnimatePresence } from "framer-motion";
 import { Zap, AlertCircle, Clock } from "lucide-react";
 import Logo from "@/components/ui/Logo";
 import Footer from "@/features/schedule/components/Footer";
+import MobileAdsCarousel from "@/components/MobileAdsCarousel";
 import {
   FacebookIcon,
   TelegramIcon,
@@ -35,9 +36,9 @@ export default function ScheduleClient({ initialMatches, children }) {
 
   return (
     <LazyMotion features={domAnimation}>
-      <div className="min-h-screen bg-slate-950 text-slate-100 font-sans selection:bg-slate-700 flex flex-col">
+      <div className="min-h-screen bg-[#030712] text-slate-100 font-sans selection:bg-orange-500/25 flex flex-col">
         {/* ═══ Header ═══ */}
-        <header className="sticky top-0 z-50 bg-slate-950/80 backdrop-blur-md border-b border-slate-800">
+        <header className="sticky top-0 z-50 bg-[#030712]/80 backdrop-blur-md border-b border-slate-800/80">
           <div className="max-w-4xl mx-auto px-6 h-16 flex items-center justify-between">
             <Link href="/" className="flex items-center gap-2 group">
               <Logo />
@@ -49,7 +50,7 @@ export default function ScheduleClient({ initialMatches, children }) {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Facebook"
-                className="text-white hover:text-[#0aa674] transition-colors duration-300 p-2 hover:bg-slate-800 rounded-full"
+                className="text-white hover:text-[#ff7a00] transition-colors duration-300 p-2 hover:bg-slate-800 rounded-full"
               >
                 <FacebookIcon className="w-5 h-5" />
               </a>
@@ -58,7 +59,7 @@ export default function ScheduleClient({ initialMatches, children }) {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Telegram"
-                className="text-white hover:text-[#0aa674] transition-colors duration-300 p-2 hover:bg-slate-800 rounded-full"
+                className="text-white hover:text-[#ff7a00] transition-colors duration-300 p-2 hover:bg-slate-800 rounded-full"
               >
                 <TelegramIcon className="w-5 h-5" />
               </a>
@@ -67,7 +68,7 @@ export default function ScheduleClient({ initialMatches, children }) {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="TikTok"
-                className="text-white hover:text-[#0aa674] transition-colors duration-300 p-2 hover:bg-slate-800 rounded-full"
+                className="text-white hover:text-[#ff7a00] transition-colors duration-300 p-2 hover:bg-slate-800 rounded-full"
               >
                 <TikTokIcon className="w-5 h-5" />
               </a>
@@ -76,7 +77,7 @@ export default function ScheduleClient({ initialMatches, children }) {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="X (Twitter)"
-                className="text-white hover:text-[#0aa674] transition-colors duration-300 p-2 hover:bg-slate-800 rounded-full"
+                className="text-white hover:text-[#ff7a00] transition-colors duration-300 p-2 hover:bg-slate-800 rounded-full"
               >
                 <XIcon className="w-4 h-4" />
               </a>
@@ -85,7 +86,7 @@ export default function ScheduleClient({ initialMatches, children }) {
         </header>
 
         {/* ═══ Main ═══ */}
-        <main className="max-w-4xl mx-auto px-6 py-10 flex-1 w-full">
+        <main className="max-w-4xl mx-auto px-6 py-10 flex-1 w-full animate-fade-in">
           {/* World Cup Promo Banner */}
           <Link
             href="/world-cup"
@@ -166,7 +167,7 @@ export default function ScheduleClient({ initialMatches, children }) {
 
           {/* Date Selector */}
           <div className="flex flex-col-reverse md:flex-row justify-between items-center mb-12 w-full gap-4">
-            <h1 className="text-3xl font-bold text-[#0aa674]">
+            <h1 className="text-3xl font-bold text-[#ff7a00]">
               جدول المباريات
             </h1>
             <m.div className="flex bg-slate-900 p-1.5 rounded-full border border-slate-700 shadow-sm">
@@ -185,7 +186,7 @@ export default function ScheduleClient({ initialMatches, children }) {
                     {active && (
                       <m.div
                         layoutId="activeTabV2"
-                        className="absolute inset-0 bg-[#0aa674] rounded-full shadow-lg shadow-[#0aa674]/20"
+                        className="absolute inset-0 bg-[#ff7a00] rounded-full shadow-lg shadow-[#ff7a00]/25"
                         transition={{
                           type: "spring",
                           bounce: 0.2,
@@ -210,7 +211,7 @@ export default function ScheduleClient({ initialMatches, children }) {
                 exit={{ opacity: 0 }}
                 className="flex justify-center py-20"
               >
-                <div className="w-6 h-6 border-2 border-slate-200 border-t-slate-800 rounded-full animate-spin"></div>
+                <div className="w-6 h-6 border-2 border-slate-200 border-t-orange-500 rounded-full animate-spin"></div>
               </m.div>
             ) : error ? (
               <m.div
@@ -265,6 +266,9 @@ export default function ScheduleClient({ initialMatches, children }) {
               </m.div>
             )}
           </AnimatePresence>
+
+          {/* Elegant Mobile Ads Carousel placed cleanly below matches schedule */}
+          <MobileAdsCarousel />
         </main>
 
         {/* ═══ Children (SEO Content) ═══ */}

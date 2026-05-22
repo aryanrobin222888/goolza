@@ -2,7 +2,8 @@ import "./globals.css";
 import { Toaster } from "sonner";
 import QueryProvider from "@/providers/QueryProvider";
 import { Cairo, IBM_Plex_Sans_Arabic } from "next/font/google";
-import RightSidebarAd from "@/components/RightSidebarAd";
+import LeftSidebarAds from "@/components/LeftSidebarAds";
+import RightSidebarAds from "@/components/RightSidebarAds";
 import BottomBannerAd from "@/components/BottomBannerAd";
 
 const cairo = Cairo({
@@ -180,18 +181,21 @@ export default function RootLayout({ children }) {
         />
       </head>
       <body
-        style={{ backgroundColor: "#020617", color: "#f8fafc" }}
+        style={{ backgroundColor: "#030712", color: "#f8fafc" }}
         suppressHydrationWarning
       >
         <QueryProvider>
           {/* Content and Sidebar Wrapper */}
           <div className="relative z-10 min-h-screen flex flex-col">
-            <div className="flex-1 w-full max-w-[1280px] mx-auto px-4 md:px-6 flex gap-6 relative">
+            <div className="flex-1 w-full max-w-[1600px] mx-auto px-4 md:px-6 flex gap-6 relative">
+              {/* Sticky Left Sidebar Ads Column */}
+              <LeftSidebarAds />
+
               {/* Main Content Column */}
               <div className="flex-1 min-w-0">{children}</div>
 
-              {/* Sticky Right Sidebar Ad (Melbet) */}
-              <RightSidebarAd />
+              {/* Sticky Right Sidebar Ads Column */}
+              <RightSidebarAds />
             </div>
           </div>
 

@@ -62,7 +62,7 @@ export default function AttackMomentum({ data, event, incidents }) {
         {goals.filter(g => g.isHome).map((g, idx) => (
           <div 
             key={`hg-${idx}`}
-            className="absolute flex items-center justify-center bg-[#0aa674] rounded-full p-[2px] shadow shadow-black"
+            className="absolute flex items-center justify-center bg-[#ff7a00] rounded-full p-[2px] shadow shadow-black"
             style={{ left: `calc(40px + ${scaleX(g.time)}px - 8px)`, top: "-4px" }}
           >
             <Disc3 className="w-3.5 h-3.5 text-white" />

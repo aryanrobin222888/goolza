@@ -95,7 +95,7 @@ export default function WatchButton({ streamPageUrl, isFinished, isLive, matchTi
           <Link
             href={streamPageUrl}
             target="_blank"
-            className="group/btn relative inline-flex items-center gap-3 bg-[#0aa674] hover:bg-[#08c285] text-white font-bold text-lg md:text-xl px-10 py-4 rounded-2xl shadow-lg shadow-[#0aa674]/30 hover:shadow-[#0aa674]/50 transition-all duration-300 hover:scale-105 active:scale-95 overflow-hidden"
+            className="group/btn relative inline-flex items-center gap-3 bg-[#ff7a00] hover:bg-[#08c285] text-white font-bold text-lg md:text-xl px-10 py-4 rounded-2xl shadow-lg shadow-[#ff7a00]/30 hover:shadow-[#ff7a00]/50 transition-all duration-300 hover:scale-105 active:scale-95 overflow-hidden"
           >
             {/* Shimmer sweep on hover */}
             <span className="absolute inset-0 -translate-x-full group-hover/btn:translate-x-full transition-transform duration-700 bg-gradient-to-r from-transparent via-white/20 to-transparent skew-x-12 pointer-events-none" />
@@ -129,11 +129,11 @@ export default function WatchButton({ streamPageUrl, isFinished, isLive, matchTi
   if (!streamPageUrl) {
     return (
       <div className="flex flex-col items-center gap-4">
-        <div className="inline-flex items-center gap-3 bg-[#0aa674]/20 border border-[#0aa674]/30 text-[#0aa674] font-bold text-lg md:text-xl px-10 py-4 rounded-2xl cursor-default">
+        <div className="inline-flex items-center gap-3 bg-[#ff7a00]/20 border border-[#ff7a00]/30 text-[#ff7a00] font-bold text-lg md:text-xl px-10 py-4 rounded-2xl cursor-default">
           <Tv className="w-6 h-6 flex-shrink-0" />
           البث سيبدأ قريباً
         </div>
-        <p className="text-[#0aa674]/70 text-sm text-center">
+        <p className="text-[#ff7a00]/70 text-sm text-center">
           سيتم توفير رابط البث عند انطلاق المباراة.
         </p>
       </div>
@@ -187,7 +187,7 @@ export default function WatchButton({ streamPageUrl, isFinished, isLive, matchTi
                 />
                 <defs>
                   <linearGradient id="countdownGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-                    <stop offset="0%" stopColor="#0aa674" />
+                    <stop offset="0%" stopColor="#ff7a00" />
                     <stop offset="100%" stopColor="#06d6a0" />
                   </linearGradient>
                 </defs>
@@ -199,7 +199,7 @@ export default function WatchButton({ streamPageUrl, isFinished, isLive, matchTi
             </div>
 
             <p className="text-slate-400 text-sm text-center leading-relaxed">
-              سيتم تفعيل زر المشاهدة بعد <span className="text-[#0aa674] font-bold">{formatTime(secondsLeft)}</span>
+              سيتم تفعيل زر المشاهدة بعد <span className="text-[#ff7a00] font-bold">{formatTime(secondsLeft)}</span>
             </p>
           </div>
         </div>
@@ -213,7 +213,7 @@ export default function WatchButton({ streamPageUrl, isFinished, isLive, matchTi
       <Link
         href={streamPageUrl}
         target="_blank"
-        className="group/btn relative inline-flex items-center gap-3 bg-[#0aa674] hover:bg-[#08c285] text-white font-bold text-lg md:text-xl px-10 py-4 rounded-2xl shadow-lg shadow-[#0aa674]/30 hover:shadow-[#0aa674]/50 transition-all duration-300 hover:scale-105 active:scale-95 overflow-hidden"
+        className="group/btn relative inline-flex items-center gap-3 bg-[#ff7a00] hover:bg-[#08c285] text-white font-bold text-lg md:text-xl px-10 py-4 rounded-2xl shadow-lg shadow-[#ff7a00]/30 hover:shadow-[#ff7a00]/50 transition-all duration-300 hover:scale-105 active:scale-95 overflow-hidden"
       >
         {/* Shimmer sweep on hover */}
         <span className="absolute inset-0 -translate-x-full group-hover/btn:translate-x-full transition-transform duration-700 bg-gradient-to-r from-transparent via-white/20 to-transparent skew-x-12 pointer-events-none" />

@@ -34,7 +34,7 @@ export default function HeadToHead({ data, event }) {
           href={homeTeam?.id ? `/team/${homeTeam?.slug || "team"}/${homeTeam.id}` : "#"}
           className="text-center group"
         >
-          <p className="text-2xl font-bold text-white group-hover:text-[#0aa674] transition-colors">{duel.homeWins}</p>
+          <p className="text-2xl font-bold text-white group-hover:text-[#ff7a00] transition-colors">{duel.homeWins}</p>
           <p className="text-xs text-slate-400 group-hover:text-white transition-colors">{homeName}</p>
         </Link>
         <div className="text-center">
@@ -45,7 +45,7 @@ export default function HeadToHead({ data, event }) {
           href={awayTeam?.id ? `/team/${awayTeam?.slug || "team"}/${awayTeam.id}` : "#"}
           className="text-center group"
         >
-          <p className="text-2xl font-bold text-white group-hover:text-[#0aa674] transition-colors">{duel.awayWins}</p>
+          <p className="text-2xl font-bold text-white group-hover:text-[#ff7a00] transition-colors">{duel.awayWins}</p>
           <p className="text-xs text-slate-400 group-hover:text-white transition-colors">{awayName}</p>
         </Link>
       </div>
@@ -54,7 +54,7 @@ export default function HeadToHead({ data, event }) {
       <div className="flex h-2 rounded-full overflow-hidden bg-slate-800">
         {duel.homeWins > 0 && (
           <div
-            className="bg-[#0aa674] transition-all"
+            className="bg-[#ff7a00] transition-all"
             style={{ width: `${homePct}%` }}
           />
         )}
