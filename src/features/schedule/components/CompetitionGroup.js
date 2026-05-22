@@ -1,8 +1,10 @@
 "use client";
 import { m } from "framer-motion";
 import { useState } from "react";
+import Link from "next/link";
 import MatchRow from "./MatchRow";
 import { getArabicName, mapEventToMatch } from "@/features/schedule/utils/mappers";
+import { getSlugById } from "@/lib/tournamentConfig";
 
 // Inject Cloudinary transformation params to serve a small WebP
 function cloudinaryOptimized(url, size = 32) {
@@ -100,9 +102,24 @@ export default function CompetitionGroup({ competition, index, selectedDate }) {
              />
           )}
           <div>
-              <h2 className="text-xl font-bold text-white leading-tight">
-                {compName.split(/, Group|، المجموعة|، مجموعة/)[0]}
-              </h2>
+              {(() => {
+                const slug = getSlugById(competition.info.uniqueTournament?.id);
+                const displayName = compName.split(/, Group|، المجموعة|، مجموعة/)[0];
+                return slug ? (
+                  <Link
+                    href={`/league/${slug}`}
+                    className="group/link"
+                  >
+                    <h2 className="text-xl font-bold text-white leading-tight group-hover/link:text-[#0aa674] transition-colors duration-200">
+                      {displayName}
+                    </h2>
+                  </Link>
+                ) : (
+                  <h2 className="text-xl font-bold text-white leading-tight">
+                    {displayName}
+                  </h2>
+                );
+              })()}
               <p className="text-xs text-slate-300 font-medium uppercase tracking-wider">{categoryName}</p>
           </div>
       </m.div>

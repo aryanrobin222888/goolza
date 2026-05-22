@@ -11,17 +11,19 @@ async function getMatch(matchIdStr) {
     await connectDB();
     // match.id could be string or number, check both.
     const matchIdNum = Number(matchIdStr);
-    
+
     // Find the document that contains a match with this ID
-    const query = isNaN(matchIdNum) 
-      ? { "matches.id": matchIdStr } 
+    const query = isNaN(matchIdNum)
+      ? { "matches.id": matchIdStr }
       : { $or: [{ "matches.id": matchIdStr }, { "matches.id": matchIdNum }] };
-      
+
     const record = await LiveMatch.findOne(query).lean();
     if (!record) return null;
-    
+
     // Extract the specific match
-    const match = record.matches.find(m => String(m.id) === String(matchIdStr));
+    const match = record.matches.find(
+      (m) => String(m.id) === String(matchIdStr),
+    );
     return match;
   } catch (error) {
     console.error("Error fetching match:", error);
@@ -33,27 +35,39 @@ export async function generateMetadata({ params }) {
   const resolvedParams = await params;
   const match = await getMatch(resolvedParams.matchId);
   if (!match) {
-    return { title: "المباراة غير موجودة | كوولزا - goolza" };
+    return { title: "المباراة غير موجودة | يلا شوت - Yallashoot" };
   }
 
   const home = match.home?.name || "الفريق الأول";
   const away = match.away?.name || "الفريق الثاني";
-  const comp = match.tournament?.name || match.tournament?.uniqueTournament?.name || match.league || "البطولة";
+  const comp =
+    match.tournament?.name ||
+    match.tournament?.uniqueTournament?.name ||
+    match.league ||
+    "البطولة";
 
   // 1. Page Title
-  const title = `${home} ضد ${away} بث مباشر | ${comp} | كوولزا - goolza`;
+  const title = `${home} ضد ${away} بث مباشر | ${comp} | يلا شوت - Yallashoot`;
 
   // 2. Meta Description — targets high-volume keywords
-  const description = `مشاهدة مباراة ${home} ضد ${away} بث مباشر اليوم في ${comp}. تابع التغطية الحصرية عبر موقع كوولزا (goolza) مع سيرفرات يلا شوت وكورة لايف بدون تقطيع. جودة عالية HD تناسب الموبايل والإنترنت الضعيف.`;
+  const description = `مشاهدة مباراة ${home} ضد ${away} بث مباشر اليوم في ${comp}. تابع التغطية الحصرية عبر موقع يلا شوت (Yallashoot) مع سيرفرات يلا شوت وكورة لايف بدون تقطيع. جودة عالية HD تناسب الموبايل والإنترنت الضعيف.`;
 
   // 3. OG Description — concise & engaging for social shares
-  const ogDescription = `شاهد الآن ${home} و ${away} لايف. موقع كوولزا - أسرع بث مباشر للمباريات.`;
+  const ogDescription = `شاهد الآن ${home} و ${away} لايف. موقع يلا شوت - أسرع بث مباشر للمباريات.`;
 
   // OG images: prefer team logos, fallback to site OG image
   const images = [];
-  if (match.home?.logo) images.push({ url: match.home.logo, alt: `شعار ${home}` });
-  if (match.away?.logo) images.push({ url: match.away.logo, alt: `شعار ${away}` });
-  if (images.length === 0) images.push({ url: "/og-image.jpg", width: 1200, height: 630, alt: "كوولزا - بث مباشر" });
+  if (match.home?.logo)
+    images.push({ url: match.home.logo, alt: `شعار ${home}` });
+  if (match.away?.logo)
+    images.push({ url: match.away.logo, alt: `شعار ${away}` });
+  if (images.length === 0)
+    images.push({
+      url: "/og-image.jpg",
+      width: 1200,
+      height: 630,
+      alt: "يلا شوت - بث مباشر",
+    });
 
   return {
     title,
@@ -66,8 +80,8 @@ export async function generateMetadata({ params }) {
       "بث مباشر بدون تقطيع",
       "مباريات اليوم بث مباشر",
       `${comp} بث مباشر`,
-      "كوولزا",
-      "goolza",
+      "يلا شوت",
+      "Yallashoot",
       "مشاهدة مباشرة HD",
     ],
     openGraph: {
@@ -75,7 +89,7 @@ export async function generateMetadata({ params }) {
       description: ogDescription,
       images,
       type: "website",
-      siteName: "كوولزا - goolza",
+      siteName: "يلا شوت - Yallashoot",
       locale: "ar_SA",
     },
     twitter: {

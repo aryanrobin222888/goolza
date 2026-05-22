@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 /* ═══════════════════════════════════════════
-   goolza — PREMIUM SPORTS BROADCAST
+   Yallashoot — PREMIUM SPORTS BROADCAST
    Deep black • Emerald green • Gold live
    ═══════════════════════════════════════════ */
 
@@ -80,11 +80,15 @@ body {
   transition: all 0.25s ease;
   position: relative;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3), 0 4px 12px rgba(0, 0, 0, 0.15);
+  /* LCP/CLS optimization: avoid repaints of off-screen cards */
+  content-visibility: auto;
+  contain-intrinsic-size: 0 80px;
 }
 
 @media (min-width: 768px) {
   .match-card {
     padding: 14px 18px;
+    contain-intrinsic-size: 0 88px;
   }
 }
 
@@ -189,6 +193,22 @@ body {
 
 .badge-live {
   animation: liveBlink 2s ease-in-out infinite;
+  will-change: opacity;
+}
+
+/* ═══════════════════════════════════════════
+   PERFORMANCE HINTS
+   ═══════════════════════════════════════════ */
+
+/* Promote animated ping indicators to compositor layer */
+.animate-ping {
+  will-change: transform, opacity;
+}
+
+/* Prevent layout shifts on team logos */
+.team-badge img {
+  will-change: auto;
+  display: block;
 }
 
 /* ═══════════════════════════════════════════

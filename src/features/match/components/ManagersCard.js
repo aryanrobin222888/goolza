@@ -1,4 +1,5 @@
 "use client";
+import { getArabicName } from "@/features/schedule/utils/mappers";
 
 function ManagerSide({ manager, label }) {
   if (!manager) return <div className="flex-1" />;
@@ -16,7 +17,7 @@ function ManagerSide({ manager, label }) {
         }}
       />
       <div>
-        <p className="text-sm font-semibold text-white">{manager.name}</p>
+        <p className="text-sm font-semibold text-white">{getArabicName(manager.name, manager.fieldTranslations)}</p>
         <p className="text-xs text-[#0aa674]">{label}</p>
       </div>
     </div>
@@ -28,10 +29,10 @@ export default function ManagersCard({ data }) {
 
   return (
     <div className="px-4 py-4 border-t border-slate-800/60">
-      <h3 className="text-sm font-bold text-white text-center mb-3">Managers</h3>
+      <h3 className="text-sm font-bold text-white text-center mb-3">المدربون</h3>
       <div className="flex items-start justify-between gap-4">
-        <ManagerSide manager={data.homeManager} label="Coach" />
-        <ManagerSide manager={data.awayManager} label="Coach" />
+        <ManagerSide manager={data.homeManager} label="مدرب" />
+        <ManagerSide manager={data.awayManager} label="مدرب" />
       </div>
     </div>
   );

@@ -3,75 +3,129 @@ import { ArrowLeft } from "lucide-react";
 import Logo from "@/components/ui/Logo";
 
 export const metadata = {
-  title: "سياسة الخصوصية — goolza",
-  description: "سياسة الخصوصية الخاصة بموقع goolza",
+  title: "سياسة الخصوصية — يلا شوت",
+  description:
+    "سياسة الخصوصية الخاصة بموقع يلا شوت (Yallashoot). تعرف على كيفية جمع واستخدام وحماية معلوماتك الشخصية أثناء تصفح جداول مباريات اليوم ومتابعة الأخبار الرياضية الحصرية.",
+  robots: {
+    index: false,
+    follow: true,
+  },
+  alternates: {
+    canonical: "https://goolza.com/privacy",
+  },
+  openGraph: {
+    title: "سياسة الخصوصية — يلا شوت",
+    description:
+      "سياسة الخصوصية الخاصة بموقع يلا شوت (Yallashoot). تعرف على كيفية حماية معلوماتك أثناء استخدام الموقع.",
+    url: "https://goolza.com/privacy",
+    images: ["/og-image.jpg"],
+    type: "website",
+    siteName: "يلا شوت",
+    locale: "ar_AR",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "سياسة الخصوصية — يلا شوت",
+    description:
+      "سياسة الخصوصية الخاصة بموقع يلا شوت (Yallashoot). تعرف على كيفية حماية معلوماتك الشخصية.",
+    images: ["/og-image.jpg"],
+  },
 };
 
 export default function PrivacyPage() {
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-200 font-sans transition-colors duration-300" dir="rtl">
+    <div
+      className="min-h-screen bg-slate-950 text-slate-200 font-sans transition-colors duration-300"
+      dir="rtl"
+    >
       {/* Header */}
-      <div className="border-b border-slate-800 bg-slate-900/80 backdrop-blur-md sticky top-0 z-50 transition-colors duration-300">
+      <header className="border-b border-slate-800 bg-slate-900/80 backdrop-blur-md sticky top-0 z-50 transition-colors duration-300">
         <div className="max-w-4xl mx-auto px-6 h-16 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2 group">
             <Logo />
           </Link>
-          <Link href="/" className="flex items-center gap-1.5 text-slate-300 hover:text-[#0aa674] text-sm transition-colors font-medium">
-            العودة للرئيسية
-            <ArrowLeft className="w-4 h-4" />
-          </Link>
+          <nav>
+            <Link
+              href="/"
+              className="flex items-center gap-1.5 text-slate-300 hover:text-[#0aa674] text-sm transition-colors font-medium"
+            >
+              العودة للرئيسية
+              <ArrowLeft className="w-4 h-4" />
+            </Link>
+          </nav>
         </div>
-      </div>
+      </header>
 
       {/* Content */}
-      <div className="max-w-3xl mx-auto px-6 py-12">
-        <h1 className="text-3xl font-black text-[#0aa674] mb-2">سياسة الخصوصية</h1>
+      <main className="max-w-3xl mx-auto px-6 py-12">
+        <h1 className="text-3xl font-black text-[#0aa674] mb-2">
+          سياسة الخصوصية
+        </h1>
         <p className="text-slate-300 text-sm mb-10">آخر تحديث: فبراير 2026</p>
 
         <div className="space-y-6 text-slate-300 leading-relaxed">
           <section className="bg-[#1e293b] border border-slate-800 rounded-2xl p-6 shadow-sm transition-colors duration-300">
-            <h2 className="text-lg font-bold text-[#0aa674] mb-3">1. المعلومات التي نجمعها</h2>
+            <h2 className="text-lg font-bold text-[#0aa674] mb-3">
+              1. المعلومات التي نجمعها
+            </h2>
             <p>
-              نقوم بجمع معلومات محدودة لتحسين تجربة المستخدم. قد تشمل هذه المعلومات عنوان IP، نوع المتصفح، نظام التشغيل، والصفحات التي تمت زيارتها. لا نقوم بجمع معلومات شخصية حساسة.
+              نقوم بجمع معلومات محدودة لتحسين تجربة المستخدم. قد تشمل هذه
+              المعلومات عنوان IP، نوع المتصفح، نظام التشغيل، والصفحات التي تمت
+              زيارتها. لا نقوم بجمع معلومات شخصية حساسة.
             </p>
           </section>
 
           <section className="bg-[#1e293b] border border-slate-800 rounded-2xl p-6 shadow-sm transition-colors duration-300">
-            <h2 className="text-lg font-bold text-[#0aa674] mb-3">2. كيف نستخدم المعلومات</h2>
+            <h2 className="text-lg font-bold text-[#0aa674] mb-3">
+              2. كيف نستخدم المعلومات
+            </h2>
             <p>
-              نستخدم المعلومات المجمعة لتحسين خدماتنا، تحليل أنماط الاستخدام، ضمان أمان الموقع، وتقديم محتوى يتناسب مع اهتمامات المستخدمين.
+              نستخدم المعلومات المجمعة لتحسين خدماتنا، تحليل أنماط الاستخدام،
+              ضمان أمان الموقع، وتقديم محتوى يتناسب مع اهتمامات المستخدمين.
             </p>
           </section>
 
           <section className="bg-[#1e293b] border border-slate-800 rounded-2xl p-6 shadow-sm transition-colors duration-300">
-            <h2 className="text-lg font-bold text-[#0aa674] mb-3">3. ملفات تعريف الارتباط (الكوكيز)</h2>
+            <h2 className="text-lg font-bold text-[#0aa674] mb-3">
+              3. ملفات تعريف الارتباط (الكوكيز)
+            </h2>
             <p>
-              يستخدم موقعنا ملفات تعريف الارتباط لتحسين أداء الموقع وتخصيص تجربة المستخدم. يمكنك التحكم في إعدادات ملفات تعريف الارتباط من خلال إعدادات متصفحك.
+              يستخدم موقعنا ملفات تعريف الارتباط لتحسين أداء الموقع وتخصيص تجربة
+              المستخدم. يمكنك التحكم في إعدادات ملفات تعريف الارتباط من خلال
+              إعدادات متصفحك.
             </p>
           </section>
 
           <section className="bg-[#1e293b] border border-slate-800 rounded-2xl p-6 shadow-sm transition-colors duration-300">
-            <h2 className="text-lg font-bold text-[#0aa674] mb-3">4. مشاركة المعلومات</h2>
+            <h2 className="text-lg font-bold text-[#0aa674] mb-3">
+              4. مشاركة المعلومات
+            </h2>
             <p>
-              لا نقوم ببيع أو مشاركة معلوماتك الشخصية مع أطراف ثالثة لأغراض تسويقية. قد نشارك المعلومات مع مزودي الخدمات الذين يساعدوننا في تشغيل الموقع.
+              لا نقوم ببيع أو مشاركة معلوماتك الشخصية مع أطراف ثالثة لأغراض
+              تسويقية. قد نشارك المعلومات مع مزودي الخدمات الذين يساعدوننا في
+              تشغيل الموقع.
             </p>
           </section>
 
           <section className="bg-[#1e293b] border border-slate-800 rounded-2xl p-6 shadow-sm transition-colors duration-300">
-            <h2 className="text-lg font-bold text-[#0aa674] mb-3">5. أمان البيانات</h2>
+            <h2 className="text-lg font-bold text-[#0aa674] mb-3">
+              5. أمان البيانات
+            </h2>
             <p>
-              نتخذ إجراءات أمنية مناسبة لحماية معلوماتك من الوصول غير المصرح به أو التعديل أو الإفصاح أو الإتلاف.
+              نتخذ إجراءات أمنية مناسبة لحماية معلوماتك من الوصول غير المصرح به
+              أو التعديل أو الإفصاح أو الإتلاف.
             </p>
           </section>
 
           <section className="bg-[#1e293b] border border-slate-800 rounded-2xl p-6 shadow-sm transition-colors duration-300">
             <h2 className="text-lg font-bold text-[#0aa674] mb-3">6. حقوقك</h2>
             <p>
-              يحق لك الوصول إلى معلوماتك الشخصية وتصحيحها أو حذفها. للاستفسار حول بياناتك، يرجى التواصل معنا عبر صفحة الاتصال.
+              يحق لك الوصول إلى معلوماتك الشخصية وتصحيحها أو حذفها. للاستفسار
+              حول بياناتك، يرجى التواصل معنا عبر صفحة الاتصال.
             </p>
           </section>
         </div>
-      </div>
+      </main>
     </div>
   );
 }

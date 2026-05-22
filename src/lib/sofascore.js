@@ -103,7 +103,6 @@ const proxyList = [
   { host: "212.135.181.89", port: "6271" },
   { host: "45.41.179.232", port: "6767" }
 ];
-
 const SOFA_HEADERS = {
   "User-Agent":
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36",
@@ -120,8 +119,8 @@ const SOFA_HEADERS = {
  * @returns {Promise<{data: any, contentType: string}>}
  */
 export async function fetchFromSofaScore(url, opts = {}) {
-  const proxyUser = process.env.PROXY_USER
-  const proxyPass = process.env.PROXY_PASS
+  const proxyUser = process.env.PROXY_USER;
+  const proxyPass = process.env.PROXY_PASS;
   const responseType = opts.responseType || "json";
 
   let lastError = null;
@@ -151,6 +150,10 @@ export async function fetchFromSofaScore(url, opts = {}) {
       console.log(
         `[SofaScore] Failed ${proxy.host} → ${url} (${err.response?.status || err.message})`
       );
+      // If it's explicitly a 404 Not Found, don't try other proxies. It means the data simply doesn't exist yet (e.g. no events scheduled).
+      if (err.response?.status === 404) {
+        throw new Error("404 Not Found from SofaScore API");
+      }
     }
   }
 

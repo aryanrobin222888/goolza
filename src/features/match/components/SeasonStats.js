@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 
 function StatRow({ label, homeValue, awayValue }) {
   return (
@@ -18,7 +19,7 @@ export default function SeasonStats({ event, homeStats, awayStats }) {
   if (!homeStats && !awayStats) {
     return (
       <div className="flex items-center justify-center py-8 text-slate-500 text-sm">
-        Season statistics not available
+        إحصائيات الموسم غير متوفرة
       </div>
     );
   }
@@ -54,23 +55,25 @@ export default function SeasonStats({ event, homeStats, awayStats }) {
   return (
     <div className="px-4 py-4 border-t border-slate-800/60">
       <h3 className="text-sm font-bold text-white text-center mb-4">
-        Season statistics
+        إحصائيات الموسم
       </h3>
 
       {/* Avg Rating Header */}
       <div className="flex items-start justify-between mb-4">
         <div className="flex-1">
           <div className="flex items-center gap-2">
-            <p className="text-xs text-slate-400">Average Sofascore Rating</p>
+            <p className="text-xs text-slate-400">متوسط تقييم Sofascore</p>
           </div>
           <div className="flex items-center gap-2 mt-1">
             {home && (
-              <img
-                src={`/api/sofascore/team/${home.id}/image`}
-                alt={home.shortName}
-                className="w-5 h-5 object-contain"
-                onError={(e) => { e.target.style.display = "none"; }}
-              />
+              <Link href={`/team/${home.slug || "team"}/${home.id}`}>
+                <img
+                  src={`/api/sofascore/team/${home.id}/image`}
+                  alt={home.shortName}
+                  className="w-5 h-5 object-contain hover:scale-110 transition-transform"
+                  onError={(e) => { e.target.style.display = "none"; }}
+                />
+              </Link>
             )}
             <span className="bg-yellow-500 text-black text-xs font-bold px-1.5 py-0.5 rounded">
               {homeRating}
@@ -79,19 +82,21 @@ export default function SeasonStats({ event, homeStats, awayStats }) {
         </div>
         <div className="flex-1 text-right">
           <div className="flex items-center gap-2 justify-end">
-            <p className="text-xs text-slate-400">Average Sofascore Rating</p>
+            <p className="text-xs text-slate-400">متوسط تقييم Sofascore</p>
           </div>
           <div className="flex items-center gap-2 mt-1 justify-end">
             <span className="bg-yellow-500 text-black text-xs font-bold px-1.5 py-0.5 rounded">
               {awayRating}
             </span>
             {away && (
-              <img
-                src={`/api/sofascore/team/${away.id}/image`}
-                alt={away.shortName}
-                className="w-5 h-5 object-contain"
-                onError={(e) => { e.target.style.display = "none"; }}
-              />
+              <Link href={`/team/${away.slug || "team"}/${away.id}`}>
+                <img
+                  src={`/api/sofascore/team/${away.id}/image`}
+                  alt={away.shortName}
+                  className="w-5 h-5 object-contain hover:scale-110 transition-transform"
+                  onError={(e) => { e.target.style.display = "none"; }}
+                />
+              </Link>
             )}
           </div>
         </div>
@@ -99,13 +104,13 @@ export default function SeasonStats({ event, homeStats, awayStats }) {
 
       {/* Stats Table */}
       <div className="bg-slate-800/30 rounded-xl px-3 py-1">
-        <StatRow label="Matches" homeValue={hs.matches || 0} awayValue={as.matches || 0} />
-        <StatRow label="Goals scored" homeValue={hs.goalsScored || 0} awayValue={as.goalsScored || 0} />
-        <StatRow label="Goals per game" homeValue={homeGpg} awayValue={awayGpg} />
-        <StatRow label="Goals conceded" homeValue={hs.goalsConceded || 0} awayValue={as.goalsConceded || 0} />
-        <StatRow label="Clean sheets" homeValue={hs.cleanSheets || 0} awayValue={as.cleanSheets || 0} />
-        <StatRow label="Assists" homeValue={hs.assists || 0} awayValue={as.assists || 0} />
-        <StatRow label="Ball possession" homeValue={homePoss} awayValue={awayPoss} />
+        <StatRow label="المباريات" homeValue={hs.matches || 0} awayValue={as.matches || 0} />
+        <StatRow label="الأهداف المسجلة" homeValue={hs.goalsScored || 0} awayValue={as.goalsScored || 0} />
+        <StatRow label="الأهداف في كل مباراة" homeValue={homeGpg} awayValue={awayGpg} />
+        <StatRow label="الأهداف المستقبلة" homeValue={hs.goalsConceded || 0} awayValue={as.goalsConceded || 0} />
+        <StatRow label="شباك نظيفة" homeValue={hs.cleanSheets || 0} awayValue={as.cleanSheets || 0} />
+        <StatRow label="التمريرات الحاسمة" homeValue={hs.assists || 0} awayValue={as.assists || 0} />
+        <StatRow label="الاستحواذ على الكرة" homeValue={homePoss} awayValue={awayPoss} />
       </div>
     </div>
   );

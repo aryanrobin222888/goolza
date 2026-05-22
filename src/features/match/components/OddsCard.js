@@ -1,4 +1,5 @@
 "use client";
+import { getArabicName } from "@/features/schedule/utils/mappers";
 
 function fractionToDecimal(frac) {
   if (!frac) return "-";
@@ -23,8 +24,8 @@ export default function OddsCard({ data, event }) {
   );
   if (!fullTime || !fullTime.choices || fullTime.choices.length < 3) return null;
 
-  const homeName = event?.homeTeam?.shortName || "1";
-  const awayName = event?.awayTeam?.shortName || "2";
+  const homeName = getArabicName(event?.homeTeam?.shortName || event?.homeTeam?.name || "1", event?.homeTeam?.fieldTranslations);
+  const awayName = getArabicName(event?.awayTeam?.shortName || event?.awayTeam?.name || "2", event?.awayTeam?.fieldTranslations);
 
   const homeChoice = fullTime.choices.find((c) => c.name === "1");
   const drawChoice = fullTime.choices.find((c) => c.name === "X");

@@ -72,7 +72,15 @@ export default function MatchStatus({
     return <span className="opacity-0">...</span>;
   }
 
-  const effectiveState = matchState || status;
+  const getEffectiveState = () => {
+    if (status === "LIVE") return "LIVE";
+    if (status === "ENDED" || status === "finished") return "ENDED";
+    if (status === "postponed") return "postponed";
+    if (status === "canceled") return "canceled";
+    return matchState;
+  };
+
+  const effectiveState = getEffectiveState();
 
   // LIVE — Minimal Red Dot
   if (effectiveState === "LIVE") {

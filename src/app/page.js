@@ -9,18 +9,36 @@ import { fetchSofaScoreEvents } from "@/lib/sofascore";
 export const dynamic = "force-dynamic";
 
 export const metadata = {
-  title: "جولزا — مباريات اليوم بث مباشر | جدول كرة القدم",
+  title: "يلا شوت الجديد | بث مباشر مباريات اليوم وتغطية حصرية - Yalla Shoot",
   description:
-    "شاهد مباريات اليوم بث مباشر مجاناً على جولزا. جدول شامل لمباريات كرة القدم اليوم مع القنوات الناقلة والتوقيت العربي — دوري أبطال أوروبا، الدوري السعودي، الإنجليزي، الإسباني والمزيد.",
+    "تابع أهم مباريات اليوم بث مباشر عبر يلا شوت الجديد Yalla Shoot. تغطية شاملة وحصرية لنتائج المباريات، أخبار الدوريات العالمية والمحلية، وتفاصيل البطولات الكبرى لحظة بلحظة وبدون تقطيع.",
   keywords: [
     "مباريات اليوم",
-    "بث مباشر كرة القدم",
+    "بث مباشر مباريات اليوم",
+    "yalla shoot live",
+    "يلا شوت بث مباشر",
     "مباريات اليوم بث مباشر",
-    "جدول مباريات اليوم",
-    "مباريات الليلة",
-    "القنوات الناقلة",
-    "دوري أبطال أوروبا اليوم",
-    "goolza",
+    "yalla live",
+    "بث مباشر",
+    "يلا شوت بث مباشر الان",
+    "يلا لايف",
+    "يلا شوت لايف",
+    "yalla shoot koora",
+    "yalla shot",
+    "يلا شوت مباشر الان",
+    "يلا شووت",
+    "بث مباشر يلا شوت",
+    "yalla tv",
+    "yalla shoot live koora",
+    "مشاهدة مباريات اليوم بث مباشر",
+    "يلا شوت مباشر",
+    "yallah shoot",
+    "يلا شوط",
+    "يلا شوت الجديد",
+    "يلاشوط",
+    "كوره لايف يلا شوت",
+    "Yallashoot",
+    "yalla shoot",
   ],
   alternates: {
     canonical: "https://goolza.com",
@@ -31,22 +49,22 @@ const faqData = [
   {
     question: "أين أشاهد مباريات اليوم بث مباشر مجاناً؟",
     answer:
-      "يمكنك متابعة جميع مباريات اليوم بث مباشر مجاناً عبر موقع جولزا goolza.com، الذي يجمع روابط البث المباشر لجميع المباريات في صفحة واحدة محدّثة لحظياً.",
+      "يمكنك متابعة جميع مباريات اليوم بث مباشر مجاناً عبر موقع يلا شوت goolza.com، الذي يجمع روابط البث المباشر لجميع المباريات في صفحة واحدة محدّثة لحظياً.",
   },
   {
     question: "ما هي مباريات اليوم في دوري أبطال أوروبا؟",
     answer:
-      "يعرض جولزا جدول مباريات دوري أبطال أوروبا اليوم بالتوقيت العربي مع القنوات الناقلة. يُحدَّث الجدول يومياً ليشمل جميع مباريات الليلة.",
+      "يعرض يلا شوت جدول مباريات دوري أبطال أوروبا اليوم بالتوقيت العربي مع القنوات الناقلة. يُحدَّث الجدول يومياً ليشمل جميع مباريات الليلة.",
   },
   {
     question: "كيف أعرف القناة الناقلة لمباراة اليوم؟",
     answer:
-      "يُظهر جولزا اسم القناة الناقلة بجانب كل مباراة في الجدول، سواء كانت beIN Sports أو SSC أو MBC أو أي قناة مجانية أو مشفرة.",
+      "يُظهر يلا شوت اسم القناة الناقلة بجانب كل مباراة في الجدول، سواء كانت beIN Sports أو SSC أو MBC أو أي قناة مجانية أو مشفرة.",
   },
   {
-    question: "هل يعمل موقع جولزا على الجوال؟",
+    question: "هل يعمل موقع يلا شوت على الجوال؟",
     answer:
-      "نعم، موقع جولزا متوافق بالكامل مع الهواتف الذكية وأجهزة الكمبيوتر، ويمكنك متابعة مباريات اليوم مباشرة من أي جهاز.",
+      "نعم، موقع يلا شوت متوافق بالكامل مع الهواتف الذكية وأجهزة الكمبيوتر، ويمكنك متابعة مباريات اليوم مباشرة من أي جهاز.",
   },
 ];
 
@@ -69,7 +87,7 @@ export default async function SchedulePageV2() {
         if (events.length > 0) {
           matches.forEach((match) => {
             const event = events.find(
-              (e) => e.id?.toString() === match.id?.toString()
+              (e) => e.id?.toString() === match.id?.toString(),
             );
             if (event) {
               syncMatchWithSofaScore(match, event);
@@ -107,141 +125,73 @@ export default async function SchedulePageV2() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
 
-      <ScheduleClient initialMatches={initialMatches} />
-
-      {/* ═══ SEO Content Section (server-rendered, crawlable) ═══ */}
-      <section
-        dir="rtl"
-        style={{
-          direction: "rtl",
-          textAlign: "right",
-          marginTop: "3rem",
-          borderTop: "1px solid rgba(255,255,255,0.08)",
-          padding: "2.5rem 1.5rem",
-          maxWidth: "56rem",
-          marginLeft: "auto",
-          marginRight: "auto",
-        }}
-      >
-        <h2
-          style={{
-            fontSize: "1.5rem",
-            fontWeight: 800,
-            color: "#10b981",
-            marginBottom: "1rem",
-          }}
+      <ScheduleClient initialMatches={initialMatches}>
+        {/* ═══ SEO Content Section (server-rendered, crawlable) ═══ */}
+        <section
+          className="mt-4 pt-16 pb-20 border-t border-slate-800/80 px-6 max-w-4xl mx-auto w-full"
+          dir="rtl"
+          style={{ textAlign: "right" }}
         >
-          مباريات اليوم بث مباشر — جدول كامل لكل المباريات
-        </h2>
-        <p
-          style={{
-            color: "rgba(203,213,225,0.75)",
-            lineHeight: 1.9,
-            marginBottom: "1.5rem",
-            fontSize: "0.95rem",
-          }}
-        >
-          يُقدّم موقع جولزا جدولاً شاملاً لمباريات اليوم بث مباشر، يضمّ جميع
-          المباريات من أبرز الدوريات العالمية كالدوري السعودي للمحترفين، دوري
-          أبطال أوروبا، الدوري الإسباني، الدوري الإنجليزي الممتاز، والدوري
-          المصري. يمكنك متابعة جميع مباريات كرة القدم اليوم مجاناً وبجودة عالية
-          دون الحاجة إلى اشتراك.
-        </p>
-
-        <h2
-          style={{
-            fontSize: "1.25rem",
-            fontWeight: 700,
-            color: "#10b981",
-            marginBottom: "0.75rem",
-          }}
-        >
-          بث مباشر كرة القدم — القنوات الناقلة وتوقيت المباريات
-        </h2>
-        <p
-          style={{
-            color: "rgba(203,213,225,0.75)",
-            lineHeight: 1.9,
-            marginBottom: "1.5rem",
-            fontSize: "0.95rem",
-          }}
-        >
-          يعرض جولزا توقيت كل مباراة بالتوقيت المحلي لكل دولة عربية، مع اسم
-          القناة الناقلة لكل مباراة سواء كانت beIN Sports أو SSC أو MBC أو
-          غيرها. احرص على مراجعة جدول مباريات اليوم كرة القدم قبل انطلاق
-          المباريات للاطلاع على آخر التعديلات في المواعيد والقنوات الناقلة.
-        </p>
-
-        <h2
-          style={{
-            fontSize: "1.25rem",
-            fontWeight: 700,
-            color: "#10b981",
-            marginBottom: "0.75rem",
-          }}
-        >
-          نتائج المباريات ومباريات الغد — كل ما تحتاجه في مكان واحد
-        </h2>
-        <p
-          style={{
-            color: "rgba(203,213,225,0.75)",
-            lineHeight: 1.9,
-            marginBottom: "2rem",
-            fontSize: "0.95rem",
-          }}
-        >
-          إلى جانب مباريات اليوم، يتيح لك جولزا الاطلاع على نتائج مباريات أمس
-          ومتابعة جدول مباريات غد. سواء كنت تبحث عن مباريات دوري أبطال أوروبا
-          الليلة أو أي مباراة في أي دوري عربي أو عالمي، ستجد كل التفاصيل هنا —
-          التشكيلة، أهداف مباريات اليوم، وملخصات الجولات.
-        </p>
-
-        <h3
-          style={{
-            fontSize: "1.1rem",
-            fontWeight: 700,
-            color: "#f8fafc",
-            marginBottom: "1rem",
-          }}
-        >
-          أسئلة شائعة
-        </h3>
-        <dl
-          style={{ display: "flex", flexDirection: "column", gap: "1rem" }}
-        >
-          {faqData.map((item, i) => (
-            <div
-              key={i}
-              style={{
-                background: "rgba(30,41,59,0.6)",
-                borderRadius: "0.75rem",
-                padding: "1rem 1.25rem",
-                border: "1px solid rgba(255,255,255,0.05)",
-              }}
+          <h2 className="text-2xl font-extrabold text-emerald-500 mb-4">
+            مباريات اليوم بث مباشر — جدول كامل لكل المباريات
+          </h2>
+          <p className="text-gray-400 leading-loose mb-6 text-[0.95rem]">
+            يُقدّم موقع يلا شوت (yalla shoot) الجديد جدولاً شاملاً لمباريات
+            اليوم بث مباشر، يضمّ جميع المباريات من أبرز الدوريات العالمية
+            كالدوري السعودي للمحترفين، دوري أبطال أوروبا، الدوري الإسباني،
+            الدوري الإنجليزي الممتاز، والدوري المصري. يمكنك مشاهدة مباريات اليوم
+            بث مباشر (yalla live) مجاناً وبدون تقطيع. نوفر عبر كوره لايف يلا شوت
+            تجربة مشاهدة ممتعة عبر صفحة{" "}
+            <a
+              href="https://goolza.com/matches-today"
+              className="text-emerald-500 hover:underline"
             >
-              <dt
-                style={{
-                  fontWeight: 700,
-                  color: "#e2e8f0",
-                  marginBottom: "0.5rem",
-                  fontSize: "0.95rem",
-                }}
+              مباريات اليوم
+            </a>
+            .
+          </p>
+
+          <h3 className="text-xl font-bold text-emerald-500 mb-3 mt-8">
+            يلا شوت بث مباشر الان — القنوات الناقلة وتوقيت المباريات
+          </h3>
+          <p className="text-gray-400 leading-loose mb-6 text-[0.95rem]">
+            يعرض موقع يلا شوت لايف توقيت كل مباراة بالتوقيت المحلي لكل دولة
+            عربية، مع اسم القناة الناقلة لكل مباراة. سواء كنت تبحث عن يلا شوت بث
+            مباشر أو yalla tv، فنحن نوفر التغطية من قنوات beIN Sports، SSC، MBC
+            وغيرها. احرص على مراجعة جدول مباريات اليوم بث مباشر قبل انطلاق
+            المباريات للاطلاع على آخر التعديلات.
+          </p>
+
+          <h3 className="text-xl font-bold text-emerald-500 mb-3 mt-8">
+            نتائج المباريات ومباريات الغد — كل ما تحتاجه في مكان واحد
+          </h3>
+          <p className="text-gray-400 leading-loose mb-8 text-[0.95rem]">
+            إلى جانب مباريات اليوم، يتيح لك يلا شوت الاطلاع على نتائج مباريات
+            أمس ومتابعة جدول مباريات غد. سواء كنت تبحث عن مباريات دوري أبطال
+            أوروبا الليلة أو أي مباراة في أي دوري عربي أو عالمي، ستجد كل
+            التفاصيل هنا — التشكيلة، أهداف مباريات اليوم، وملخصات الجولات.
+          </p>
+
+          <h3 className="text-lg font-bold text-white mb-4 mt-10">
+            أسئلة شائعة
+          </h3>
+          <dl className="flex flex-col gap-4">
+            {faqData.map((item, i) => (
+              <div
+                key={i}
+                className="bg-slate-900/60 rounded-xl p-5 border border-slate-800/50"
               >
-                {item.question}
-              </dt>
-              <dd
-                style={{
-                  color: "rgba(203,213,225,0.75)",
-                  fontSize: "0.9rem",
-                  lineHeight: 1.8,
-                }}
-              >
-                {item.answer}
-              </dd>
-            </div>
-          ))}
-        </dl>
-      </section>
+                <dt className="font-bold text-slate-200 mb-2 text-[0.95rem]">
+                  {item.question}
+                </dt>
+                <dd className="text-gray-400 text-sm leading-relaxed">
+                  {item.answer}
+                </dd>
+              </div>
+            ))}
+          </dl>
+        </section>
+      </ScheduleClient>
     </>
   );
 }

@@ -1,4 +1,6 @@
 "use client";
+import Link from "next/link";
+import { getArabicName } from "@/features/schedule/utils/mappers";
 
 function RatingBadge({ rating }) {
   const r = parseFloat(rating);
@@ -29,34 +31,61 @@ function PlayerRow({ entry, align }) {
         onError={(e) => { e.target.style.display = "none"; }}
       />
       <div className={`min-w-0 flex-1 ${align === "right" ? "text-right" : ""}`}>
-        <p className="text-sm font-semibold text-white truncate">{p.name}</p>
+        <p className="text-sm font-semibold text-white truncate">{getArabicName(p.name, p.fieldTranslations)}</p>
       </div>
       <RatingBadge rating={entry.value} />
     </div>
   );
 }
 
-export default function HighestRatedPlayers({ data }) {
+export default function HighestRatedPlayers({ data, event }) {
   if (!data?.bestHomeTeamPlayers && !data?.bestAwayTeamPlayers) return null;
 
-  const home = data.bestHomeTeamPlayers || [];
-  const away = data.bestAwayTeamPlayers || [];
+  const homePlayers = data.bestHomeTeamPlayers || [];
+  const awayPlayers = data.bestAwayTeamPlayers || [];
 
-  if (home.length === 0 && away.length === 0) return null;
+  if (homePlayers.length === 0 && awayPlayers.length === 0) return null;
+
+  const homeTeam = event?.homeTeam;
+  const awayTeam = event?.awayTeam;
 
   return (
     <div className="px-4 py-4 border-t border-slate-800/60">
-      <h3 className="text-sm font-bold text-white text-center mb-3">
-        Highest-rated players
+      <h3 className="text-sm font-bold text-white text-center mb-4">
+        أعلى اللاعبين تقييماً
       </h3>
       <div className="grid grid-cols-2 gap-4">
         <div>
-          {home.map((entry) => (
+          {homeTeam && (
+            <div className="flex justify-center mb-3">
+              <Link href={`/team/${homeTeam.slug || "team"}/${homeTeam.id}`}>
+                <img 
+                  src={`/api/sofascore/team/${homeTeam.id}/image`}
+                  alt={homeTeam.name}
+                  className="w-7 h-7 object-contain hover:scale-110 transition-transform"
+                  onError={(e) => { e.target.style.display = "none"; }}
+                />
+              </Link>
+            </div>
+          )}
+          {homePlayers.map((entry) => (
             <PlayerRow key={entry.player.id} entry={entry} align="left" />
           ))}
         </div>
         <div>
-          {away.map((entry) => (
+          {awayTeam && (
+            <div className="flex justify-center mb-3">
+              <Link href={`/team/${awayTeam.slug || "team"}/${awayTeam.id}`}>
+                <img 
+                  src={`/api/sofascore/team/${awayTeam.id}/image`}
+                  alt={awayTeam.name}
+                  className="w-7 h-7 object-contain hover:scale-110 transition-transform"
+                  onError={(e) => { e.target.style.display = "none"; }}
+                />
+              </Link>
+            </div>
+          )}
+          {awayPlayers.map((entry) => (
             <PlayerRow key={entry.player.id} entry={entry} align="right" />
           ))}
         </div>
@@ -64,3 +93,4 @@ export default function HighestRatedPlayers({ data }) {
     </div>
   );
 }
+

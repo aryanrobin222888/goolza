@@ -1,4 +1,6 @@
 "use client";
+import Link from "next/link";
+import { getArabicName } from "@/features/schedule/utils/mappers";
 
 const POSITION_MAP = { G: "GK", D: "DEF", M: "MID", F: "FWD" };
 
@@ -57,7 +59,7 @@ function PlayerDot({ player, side }) {
         </span>
       </div>
       <span className="text-[10px] text-slate-200 text-center leading-tight truncate w-full mt-1 drop-shadow-md">
-        {player.player.shortName}
+        {getArabicName(player.player.shortName || player.player.name, player.player.fieldTranslations)}
       </span>
     </div>
   );
@@ -78,7 +80,7 @@ export default function LineupsView({ data, event }) {
   if (!data?.home || !data?.away) {
     return (
       <div className="flex items-center justify-center py-12 text-slate-500 text-sm">
-        Lineups not available yet
+        التشكيلات غير متوفرة بعد
       </div>
     );
   }
@@ -89,8 +91,8 @@ export default function LineupsView({ data, event }) {
   const awayFormation = data.away.formation;
   const confirmed = data.confirmed;
 
-  const homeName = event?.homeTeam?.shortName || event?.homeTeam?.name || "Home";
-  const awayName = event?.awayTeam?.shortName || event?.awayTeam?.name || "Away";
+  const homeName = getArabicName(event?.homeTeam?.shortName || event?.homeTeam?.name || "Home", event?.homeTeam?.fieldTranslations);
+  const awayName = getArabicName(event?.awayTeam?.shortName || event?.awayTeam?.name || "Away", event?.awayTeam?.fieldTranslations);
   const homeRating = data.home.players
     .filter((p) => !p.substitute && p.avgRating)
     .reduce((sum, p, _, a) => sum + p.avgRating / a.length, 0);
@@ -107,32 +109,38 @@ export default function LineupsView({ data, event }) {
     <div className="px-4 py-4">
       {/* Header */}
       <h3 className="text-sm font-bold text-white mb-3">
-        {confirmed ? "Lineups" : "Possible lineups"}
+        {confirmed ? "التشكيلات الأساسية" : "التشكيلات المتوقعة"}
       </h3>
 
       {/* Team info row */}
       <div className="flex items-center justify-between mb-3">
-        <div className="flex items-center gap-2">
-          <span className="text-sm font-semibold text-white">{homeName}</span>
+        <Link 
+          href={event?.homeTeam?.id ? `/team/${event.homeTeam.slug || "team"}/${event.homeTeam.id}` : "#"}
+          className="flex items-center gap-2 group"
+        >
+          <span className="text-sm font-semibold text-white group-hover:text-[#0aa674] transition-colors">{homeName}</span>
           {homeRating > 0 && (
             <span className="bg-yellow-500 text-black text-[10px] font-bold px-1.5 py-0.5 rounded">
               {homeRating.toFixed(2)}
             </span>
           )}
-        </div>
+        </Link>
         <div className="flex items-center gap-3 text-xs text-slate-400">
           <span className="font-semibold text-white">{homeFormation}</span>
           <span>—</span>
           <span className="font-semibold text-white">{awayFormation}</span>
         </div>
-        <div className="flex items-center gap-2">
+        <Link 
+          href={event?.awayTeam?.id ? `/team/${event.awayTeam.slug || "team"}/${event.awayTeam.id}` : "#"}
+          className="flex items-center gap-2 group"
+        >
           {awayRating > 0 && (
             <span className="bg-yellow-500 text-black text-[10px] font-bold px-1.5 py-0.5 rounded">
               {awayRating.toFixed(2)}
             </span>
           )}
-          <span className="text-sm font-semibold text-white">{awayName}</span>
-        </div>
+          <span className="text-sm font-semibold text-white group-hover:text-[#0aa674] transition-colors">{awayName}</span>
+        </Link>
       </div>
 
       {/* Pitch */}

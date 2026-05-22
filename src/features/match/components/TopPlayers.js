@@ -1,6 +1,8 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
+import { getArabicName } from "@/features/schedule/utils/mappers";
 
 const PAGE_SIZE = 5;
 
@@ -32,7 +34,7 @@ function PlayerRow({ rank, player, rating }) {
       />
       <div className="min-w-0 flex-1">
         <p className="text-sm font-semibold text-white truncate">
-          {player.name}
+          {getArabicName(player.name, player.fieldTranslations)}
         </p>
         <p className="text-xs text-slate-400">{posLabel}</p>
       </div>
@@ -45,7 +47,7 @@ function PlayerRow({ rank, player, rating }) {
   );
 }
 
-function TopPlayersColumn({ players, label }) {
+function TopPlayersColumn({ players, team }) {
   const [page, setPage] = useState(0);
 
   const sorted = [...players]
@@ -58,6 +60,18 @@ function TopPlayersColumn({ players, label }) {
 
   return (
     <div className="flex-1 min-w-0">
+      {team && (
+        <div className="flex justify-center mb-3">
+          <Link href={`/team/${team.slug || "team"}/${team.id}`}>
+            <img 
+              src={`/api/sofascore/team/${team.id}/image`}
+              alt={team.name}
+              className="w-8 h-8 object-contain hover:scale-110 transition-transform"
+              onError={(e) => { e.target.style.display = "none"; }}
+            />
+          </Link>
+        </div>
+      )}
       {slice.map((p, i) => (
         <PlayerRow
           key={p.player.id}
@@ -88,8 +102,7 @@ function TopPlayersColumn({ players, label }) {
             </svg>
           </button>
           <span className="text-xs text-slate-500">
-            {start + 1}-{Math.min(start + PAGE_SIZE, sorted.length)} of{" "}
-            {sorted.length}
+            {start + 1}-{Math.min(start + PAGE_SIZE, sorted.length)}
           </span>
           <button
             onClick={() => setPage((p) => Math.min(totalPages - 1, p + 1))}
@@ -116,7 +129,7 @@ function TopPlayersColumn({ players, label }) {
   );
 }
 
-export default function TopPlayers({ data }) {
+export default function TopPlayers({ data, event }) {
   if (!data?.home?.players && !data?.away?.players) return null;
 
   const homePlayers = data.home?.players || [];
@@ -127,12 +140,13 @@ export default function TopPlayers({ data }) {
   return (
     <div className="px-4 py-4 border-t border-slate-800/60">
       <h3 className="text-sm font-bold text-white text-center mb-3">
-        Top players
+        أفضل اللاعبين
       </h3>
       <div className="flex gap-4">
-        <TopPlayersColumn players={homePlayers} label="Home" />
-        <TopPlayersColumn players={awayPlayers} label="Away" />
+        <TopPlayersColumn players={homePlayers} team={event?.homeTeam} />
+        <TopPlayersColumn players={awayPlayers} team={event?.awayTeam} />
       </div>
     </div>
   );
 }
+

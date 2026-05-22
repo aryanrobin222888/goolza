@@ -31,7 +31,7 @@ export default function AttackMomentum({ data, event, incidents }) {
   return (
     <div className="px-4 py-4 border-t border-slate-800/60">
       <h3 className="text-base font-bold text-white text-center mb-6">
-        Attack Momentum
+        زخم الهجوم
       </h3>
       
       {/* Outer wrapper to place logos on the left and icons top/bottom */}
@@ -42,7 +42,8 @@ export default function AttackMomentum({ data, event, incidents }) {
             src={homeLogo} 
             alt="Home" 
             className="absolute left-1 top-[5px] w-7 h-7 object-contain"
-            style={{ top: "calc(50% - 35px)" }} // Centers vertically within top half
+            style={{ top: "calc(50% - 35px)" }}
+            onError={(e) => { e.target.style.display = "none"; }}
           />
         )}
         
@@ -52,7 +53,8 @@ export default function AttackMomentum({ data, event, incidents }) {
             src={awayLogo} 
             alt="Away" 
             className="absolute left-1 w-7 h-7 object-contain"
-            style={{ top: "calc(50% + 5px)" }} // Centers vertically within bottom half
+            style={{ top: "calc(50% + 5px)" }}
+            onError={(e) => { e.target.style.display = "none"; }}
           />
         )}
 

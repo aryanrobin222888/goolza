@@ -13,10 +13,10 @@ export default function MatchTabs({ eventId, isLive, isFinished }) {
   const tabs = [];
   
   if (isLive || isFinished) {
-    tabs.push({ id: "details", label: "Details" });
+    tabs.push({ id: "details", label: "التفاصيل" });
   }
-  tabs.push({ id: "lineups", label: "Lineups" });
-  tabs.push({ id: "statistics", label: "Statistics" });
+  tabs.push({ id: "lineups", label: "التشكيلات" });
+  tabs.push({ id: "statistics", label: "الإحصائيات" });
 
   return (
     <div className="space-y-0 rounded-2xl overflow-hidden border border-slate-800">

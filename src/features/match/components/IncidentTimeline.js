@@ -1,12 +1,13 @@
 "use client";
+import { getArabicName } from "@/features/schedule/utils/mappers";
 
 function GoalRow({ inc }) {
   const isHome = inc.isHome;
   const minute = inc.addedTime ? `${inc.time}+${inc.addedTime}'` : `${inc.time}'`;
   const isPenalty = inc.incidentClass === "penalty";
   const isOwnGoal = inc.incidentClass === "ownGoal";
-  const scorer = inc.player?.shortName || inc.player?.name || "";
-  const assist = inc.assist1?.shortName || inc.assist1?.name || "";
+  const scorer = getArabicName(inc.player?.shortName || inc.player?.name || "", inc.player?.fieldTranslations);
+  const assist = getArabicName(inc.assist1?.shortName || inc.assist1?.name || "", inc.assist1?.fieldTranslations);
   const score = `${inc.homeScore} - ${inc.awayScore}`;
 
   const content = (
@@ -51,7 +52,7 @@ function CardRow({ inc }) {
   const isHome = inc.isHome;
   const minute = `${inc.time}'`;
   const color = inc.incidentClass === "yellow" ? "bg-yellow-400" : inc.incidentClass === "yellowRed" ? "bg-gradient-to-b from-yellow-400 to-red-500" : "bg-red-500";
-  const name = inc.player?.shortName || inc.player?.name || inc.playerName || "";
+  const name = getArabicName(inc.player?.shortName || inc.player?.name || inc.playerName || "", inc.player?.fieldTranslations);
 
   const content = (
     <div className={`flex items-center gap-2 max-w-full ${isHome ? "flex-row" : "flex-row-reverse"}`}>
@@ -88,11 +89,11 @@ function SubRow({ inc }) {
     <div className={`flex flex-col min-w-0 ${isHome ? "items-start text-left" : "items-end text-right"}`}>
       <div className={`flex items-center gap-1 max-w-full ${isHome ? "flex-row" : "flex-row-reverse"}`}>
         <span className="text-emerald-400 text-[10px]">▲</span>
-        <span className="text-[11px] font-medium text-slate-300 truncate">{inc.playerIn?.shortName || ""}</span>
+        <span className="text-[11px] font-medium text-slate-300 truncate">{getArabicName(inc.playerIn?.shortName || inc.playerIn?.name || "", inc.playerIn?.fieldTranslations)}</span>
       </div>
       <div className={`flex items-center gap-1 max-w-full ${isHome ? "flex-row" : "flex-row-reverse"}`}>
         <span className="text-red-400 text-[10px]">▼</span>
-        <span className="text-[11px] text-slate-500 truncate">{inc.playerOut?.shortName || ""}</span>
+        <span className="text-[11px] text-slate-500 truncate">{getArabicName(inc.playerOut?.shortName || inc.playerOut?.name || "", inc.playerOut?.fieldTranslations)}</span>
       </div>
     </div>
   );

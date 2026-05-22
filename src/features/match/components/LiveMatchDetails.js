@@ -30,10 +30,10 @@ export default function LiveMatchDetails({ eventId }) {
       <AttackMomentum data={graphData} event={event} incidents={incidentsData?.incidents} />
 
       {/* Incident Timeline */}
-      <IncidentTimeline data={incidentsData} />
+      <IncidentTimeline data={incidentsData} event={event} />
 
       {/* Highest-Rated Players */}
-      <HighestRatedPlayers data={bestPlayersData} />
+      <HighestRatedPlayers data={bestPlayersData} event={event} />
 
       {/* Head to Head */}
       <HeadToHead data={h2hData} event={event} />

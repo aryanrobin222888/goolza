@@ -47,6 +47,8 @@ lerna-debug.log*
 
 # env files
 .env*
+# Google service account key — NEVER commit this
+google-indexing-key.json
 
 # typescript
 *.tsbuildinfo

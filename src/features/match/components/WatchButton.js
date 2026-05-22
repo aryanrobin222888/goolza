@@ -73,13 +73,52 @@ export default function WatchButton({ streamPageUrl, isFinished, isLive, matchTi
 
   // ── Finished state ──
   if (isFinished) {
+    const now = new Date();
+    let start = matchStartTime ? new Date(matchStartTime) : null;
+    if (!start || isNaN(start.getTime())) {
+      if (matchTime) {
+        const todayStr = now.toISOString().split("T")[0];
+        start = new Date(`${todayStr}T${matchTime}:00`);
+      }
+    }
+
+    let isWithin4Hours = false;
+    if (start && !isNaN(start.getTime())) {
+      const fourHoursLater = new Date(start.getTime() + 4 * 60 * 60 * 1000);
+      isWithin4Hours = now <= fourHoursLater;
+    }
+
+    // Keep the button active for up to 4 hours since kickoff if stream URL is present
+    if (isWithin4Hours && streamPageUrl) {
+      return (
+        <div className="flex flex-col items-center gap-4">
+          <Link
+            href={streamPageUrl}
+            target="_blank"
+            className="group/btn relative inline-flex items-center gap-3 bg-[#0aa674] hover:bg-[#08c285] text-white font-bold text-lg md:text-xl px-10 py-4 rounded-2xl shadow-lg shadow-[#0aa674]/30 hover:shadow-[#0aa674]/50 transition-all duration-300 hover:scale-105 active:scale-95 overflow-hidden"
+          >
+            {/* Shimmer sweep on hover */}
+            <span className="absolute inset-0 -translate-x-full group-hover/btn:translate-x-full transition-transform duration-700 bg-gradient-to-r from-transparent via-white/20 to-transparent skew-x-12 pointer-events-none" />
+            {/* Play icon */}
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6 flex-shrink-0 transition-transform duration-300 group-hover/btn:scale-110">
+              <path fillRule="evenodd" d="M4.5 5.653c0-1.427 1.529-2.33 2.779-1.643l11.54 6.347c1.295.712 1.295 2.573 0 3.286L7.28 19.99c-1.25.687-2.779-.217-2.779-1.643V5.653Z" clipRule="evenodd" />
+            </svg>
+            شاهد البث من هنا
+          </Link>
+          <p className="text-slate-400 text-sm text-center font-medium">
+            المباراة انتهت — البث ما زال متوفراً للمشاهدة
+          </p>
+        </div>
+      );
+    }
+
     return (
       <div className="flex flex-col items-center gap-4">
-        <div className="inline-flex items-center gap-3 bg-[#0aa674]/20 border border-[#0aa674]/30 text-[#0aa674] font-bold text-lg md:text-xl px-10 py-4 rounded-2xl cursor-default">
+        <div className="inline-flex items-center gap-3 bg-slate-800 border border-slate-700 text-slate-400 font-bold text-lg md:text-xl px-10 py-4 rounded-2xl cursor-default">
           <Tv className="w-6 h-6 flex-shrink-0" />
           انتهت المباراة
         </div>
-        <p className="text-[#0aa674]/70 text-sm text-center">
+        <p className="text-slate-500 text-sm text-center">
           انتهى البث، شكراً على المتابعة.
         </p>
       </div>
@@ -173,6 +212,7 @@ export default function WatchButton({ streamPageUrl, isFinished, isLive, matchTi
     <div className="flex flex-col items-center gap-4">
       <Link
         href={streamPageUrl}
+        target="_blank"
         className="group/btn relative inline-flex items-center gap-3 bg-[#0aa674] hover:bg-[#08c285] text-white font-bold text-lg md:text-xl px-10 py-4 rounded-2xl shadow-lg shadow-[#0aa674]/30 hover:shadow-[#0aa674]/50 transition-all duration-300 hover:scale-105 active:scale-95 overflow-hidden"
       >
         {/* Shimmer sweep on hover */}

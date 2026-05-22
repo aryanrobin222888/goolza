@@ -1,9 +1,10 @@
 "use client";
+import { getArabicName } from "@/features/schedule/utils/mappers";
 
 const TYPE_LABELS = {
-  missing: { text: "Out", color: "text-red-400", dot: "bg-red-500" },
-  doubtful: { text: "Doubtful", color: "text-yellow-400", dot: "bg-yellow-500" },
-  suspended: { text: "Suspended", color: "text-red-400", dot: "bg-red-500" },
+  missing: { text: "غائب", color: "text-red-400", dot: "bg-red-500" },
+  doubtful: { text: "مشكوك فيه", color: "text-yellow-400", dot: "bg-yellow-500" },
+  suspended: { text: "موقوف", color: "text-red-400", dot: "bg-red-500" },
 };
 
 function getTypeLabel(type, reason) {
@@ -28,7 +29,7 @@ function MissingPlayerRow({ mp }) {
       />
       <div className="min-w-0 flex-1">
         <p className="text-sm font-semibold text-white truncate">
-          {mp.player.name}
+          {getArabicName(mp.player.name, mp.player.fieldTranslations)}
         </p>
         <div className="flex items-center gap-1.5">
           <span className={`w-1.5 h-1.5 rounded-full ${label.dot}`} />
@@ -55,7 +56,7 @@ export default function InjuriesSuspensions({ data }) {
   return (
     <div className="px-4 py-4 border-t border-slate-800/60">
       <h3 className="text-sm font-bold text-white text-center mb-3">
-        Injuries and suspensions
+        الإصابات والإيقافات
       </h3>
       <div className="grid grid-cols-2 gap-4">
         <div className="space-y-0">

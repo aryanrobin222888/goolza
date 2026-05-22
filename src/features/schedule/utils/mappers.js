@@ -1,5 +1,10 @@
 export function getArabicName(original, translations) {
-  return translations?.nameTranslation?.ar || original;
+  let name = translations?.shortNameTranslation?.ar || translations?.nameTranslation?.ar || original;
+  if (typeof name === 'string') {
+    // Replace Arabic-Indic numbers with standard digits (0-9)
+    name = name.replace(/[٠-٩]/g, d => "٠١٢٣٤٥٦٧٨٩".indexOf(d));
+  }
+  return name;
 }
 
 export const mapEventToMatch = (event, league, tournamentId, tournament) => {
@@ -38,6 +43,7 @@ export const mapEventToMatch = (event, league, tournamentId, tournament) => {
       logo: event.homeTeam?.logo || "",
       score: event.homeScore?.display ?? null,
       id: event.homeTeam?.id,
+      slug: event.homeTeam?.slug,
     },
     away: {
       name: getArabicName(
@@ -47,6 +53,7 @@ export const mapEventToMatch = (event, league, tournamentId, tournament) => {
       logo: event.awayTeam?.logo || "",
       score: event.awayScore?.display ?? null,
       id: event.awayTeam?.id,
+      slug: event.awayTeam?.slug,
     },
     tournament: tournament || event.tournament,
     roundInfo: event.roundInfo,

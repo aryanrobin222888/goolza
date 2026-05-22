@@ -2,12 +2,11 @@ export default function robots() {
   return {
     rules: [
       {
-        userAgent: '*',
-        allow: '/',
-        disallow: ['/api/', '/_next/', '/private/'],
+        userAgent: "*",
+        allow: "/",
+        disallow: ["/api/", "/private/"],
       },
     ],
-    sitemap: 'https://goolza.com/sitemap.xml',
-    host: 'https://goolza.com',
+    sitemap: "https://goolza.com/sitemap.xml",
   };
 }
