@@ -249,7 +249,13 @@ export async function fetchFromSofaScore(url, opts = {}) {
       if (new Date() < new Date(cached.expiresAt)) {
         let returnData = cached.data;
         if (cached.dataType === 'binary' && cached.data) {
-          returnData = Buffer.isBuffer(cached.data) ? cached.data : Buffer.from(cached.data);
+          if (Buffer.isBuffer(cached.data)) {
+            returnData = cached.data;
+          } else if (cached.data.buffer && Buffer.isBuffer(cached.data.buffer)) {
+            returnData = cached.data.buffer;
+          } else {
+            returnData = Buffer.from(cached.data);
+          }
         }
         return {
           data: returnData,

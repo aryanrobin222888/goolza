@@ -96,14 +96,14 @@ async function getLeagueData(tournament) {
     }
   }
 
-  // SofaScore standings structure: data.standings[0].rows[]
-  const standingsRows = standingsData?.standings?.[0] ?? null;
+  // SofaScore standings structure: could be a single table or multiple groups
+  const standings = standingsData?.standings ?? null;
 
   // Statistics endpoint: data.results[] where each entry has
   // { player, team, goals, assists, ... } fields directly
   const scorers = scorersData?.results ?? [];
 
-  return { standingsRows, scorers, season };
+  return { standings, scorers, season };
 }
 
 // ─── Page ─────────────────────────────────────────────────────────────────────
@@ -113,7 +113,7 @@ export default async function LeaguePage({ params }) {
   const tournament = getTournamentBySlug(slug);
   if (!tournament) notFound();
 
-  const { standingsRows, scorers, season } = await getLeagueData(tournament);
+  const { standings, scorers, season } = await getLeagueData(tournament);
 
   // JSON-LD: FAQPage (from tournament seo.faq)
   const faqItems = tournament.seo?.faq ?? [];
@@ -212,17 +212,17 @@ export default async function LeaguePage({ params }) {
         <LeagueHeader tournament={tournament} season={season} />
 
         {/* Content Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-6">
           {/* Left: Standings */}
           <div>
             <h2 className="text-base font-bold text-white mb-3 flex items-center gap-2">
               <span className="w-1 h-5 bg-[#ff7a00] rounded-full inline-block" />
               جدول الترتيب
             </h2>
-            <StandingsTable standings={standingsRows} />
+            <StandingsTable standings={standings} />
 
             {/* No data fallback */}
-            {!standingsRows && (
+            {!standings && (
               <div className="rounded-2xl border border-slate-800 bg-slate-900/60 p-8 text-center text-slate-500 text-sm mt-2">
                 <p>بيانات الترتيب غير متاحة حالياً، يرجى المحاولة لاحقاً.</p>
               </div>

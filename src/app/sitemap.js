@@ -1,6 +1,5 @@
 import connectDB from "@/lib/db";
 import LiveMatch from "@/models/LiveMatch";
-import WCArticle from "@/models/WCArticle";
 import Article from "@/models/Article";
 import { generateMatchSlug } from "@/lib/matchSlug";
 import { TOURNAMENT_MAP } from "@/lib/tournamentConfig";
@@ -57,47 +56,9 @@ export default async function sitemap() {
     priority: 0.9,
   }));
 
-  // World Cup static routes
-  const wcRoutes = [
-    { url: `${baseUrl}/world-cup`, changeFrequency: "daily", priority: 0.95 },
-    {
-      url: `${baseUrl}/world-cup/matches`,
-      changeFrequency: "daily",
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/world-cup/groups`,
-      changeFrequency: "weekly",
-      priority: 0.85,
-    },
-    {
-      url: `${baseUrl}/world-cup/news`,
-      changeFrequency: "daily",
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/world-cup/stats`,
-      changeFrequency: "weekly",
-      priority: 0.8,
-    },
-  ].map((r) => ({ ...r, lastModified: now }));
-
   let dynamicRoutes = [];
-  let wcArticleRoutes = [];
   try {
     await connectDB();
-
-    // ── WC Articles ──────────────────────────────────────────────────────────
-    const wcArticles = await WCArticle.find({ status: "PUBLISHED" })
-      .select("slug publishedAt updatedAt")
-      .lean();
-
-    wcArticleRoutes = wcArticles.map((a) => ({
-      url: `${baseUrl}/world-cup/news/${a.slug}`,
-      lastModified: a.updatedAt || a.publishedAt || now,
-      changeFrequency: "weekly",
-      priority: 0.9,
-    }));
 
     // ── AI Match Articles ──────────────────────────────────────────────────
     // Fetch all published articles to ensure matches with articles are always in sitemap
@@ -186,8 +147,6 @@ export default async function sitemap() {
   return [
     ...staticRoutes,
     ...leagueRoutes,
-    ...wcRoutes,
-    ...wcArticleRoutes,
     ...dynamicRoutes,
   ];
 }

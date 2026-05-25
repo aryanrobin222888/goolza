@@ -9,7 +9,7 @@ const LEAGUE_LINKS = [
   { label: "الدوري الإنجليزي", href: "/league/premier-league" },
   { label: "الدوري الإسباني", href: "/league/la-liga" },
   { label: "الدوري الألماني", href: "/league/bundesliga" },
-  { label: "كأس العالم 2026", href: "/world-cup" },
+  { label: "كأس العالم 2026", href: "/league/world-cup" },
   { label: "الدوري الفرنسي", href: "/league/ligue-1" },
   { label: "دوري روشن السعودي", href: "/league/saudi-pro-league" },
   { label: "الدوري المصري", href: "/league/egypt-premier-league" },

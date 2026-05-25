@@ -31,6 +31,22 @@ const nextConfig = {
       },
     ],
   },
+
+  // ── Redirects ─────────────────────────────────────────────────────────────────
+  async redirects() {
+    return [
+      {
+        source: '/world-cup',
+        destination: '/league/world-cup',
+        permanent: true,
+      },
+      {
+        source: '/world-cup/:path*',
+        destination: '/league/world-cup',
+        permanent: true,
+      },
+    ];
+  },
 };
 
 export default nextConfig;
