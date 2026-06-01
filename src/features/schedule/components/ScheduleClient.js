@@ -7,7 +7,6 @@ import { m, LazyMotion, domAnimation, AnimatePresence } from "framer-motion";
 import { Zap, AlertCircle, Clock } from "lucide-react";
 import Logo from "@/components/ui/Logo";
 import Footer from "@/features/schedule/components/Footer";
-import MobileAdsCarousel from "@/components/MobileAdsCarousel";
 import {
   FacebookIcon,
   TelegramIcon,
@@ -188,9 +187,6 @@ export default function ScheduleClient({ initialMatches, children }) {
               </m.div>
             )}
           </AnimatePresence>
-
-          {/* Elegant Mobile Ads Carousel placed cleanly below matches schedule */}
-          <MobileAdsCarousel />
         </main>
 
         {/* ═══ Children (SEO Content) ═══ */}

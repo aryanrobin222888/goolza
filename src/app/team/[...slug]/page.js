@@ -23,11 +23,11 @@ export async function generateMetadata({ params }) {
   const { slug } = await params;
   const id = Array.isArray(slug) ? slug[slug.length - 1] : slug;
   const team = await getTeamInfo(id);
-  if (!team) return { title: "الفريق | جولزا يلا شوت" };
+  if (!team) return { title: "الفريق | يلا شوت" };
   const teamName = getArabicName(team.name, team.fieldTranslations);
   return {
-    title: `${teamName} - إحصائيات واللاعبون | جولزا يلا شوت`,
-    description: `تابع آخر إحصائيات نادي ${teamName} في الموسم الحالي. تشكيلة اللاعبين، نتائج المباريات السابقة، مواعيد اللقاءات القادمة، وترتيب الفريق في الدوري بالتفصيل على جولزا يلا شوت Goolza.`,
+    title: `${teamName} - إحصائيات واللاعبون | يلا شوت yallashoot`,
+    description: `تابع آخر إحصائيات نادي ${teamName} في الموسم الحالي. تشكيلة اللاعبين، نتائج المباريات السابقة، مواعيد اللقاءات القادمة، وترتيب الفريق في الدوري بالتفصيل على يلا شوت yallashoot.`,
     alternates: { canonical: `https://goolza.com/team/${team.slug}/${id}` },
   };
 }
