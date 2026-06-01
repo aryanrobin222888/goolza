@@ -12,7 +12,7 @@
  */
 
 const INDEXNOW_KEY =
-  process.env.INDEXNOW_KEY || "0a54166f64e0492eb7c27829b8dbfa76";
+  process.env.INDEXNOW_KEY || "acffc460524b4b87b8d526661e4f2689";
 const SITE_HOST = "goolza.com";
 const BING_ENDPOINT = "https://www.bing.com/indexnow";
 
