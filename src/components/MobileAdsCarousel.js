@@ -2,48 +2,49 @@
 
 import React from "react";
 import { Play, Sparkles, Trophy, TrendingUp } from "lucide-react";
+import { SMARTLINK } from "./GoolzaSmartlink";
 
 export default function MobileAdsCarousel() {
   const ads = [
     {
       type: "live",
       title: "البث المباشر Premium",
-      subtitle: "تابع المباريات بجودة FHD بدون تقطيع",
+      subtitle: "تابع المباريات بجودة FHD بدون تقطيع على موبايلك",
       cta: "شاهد البث الآن",
       icon: <Trophy className="w-5 h-5 text-orange-500" />,
       color: "from-orange-600 to-amber-500",
-      badge: " VIP مجاني",
-      link: "https://refpa3665.com/L?tag=d_5627564m_45415c_&site=5627564&ad=45415",
+      badge: "مجاني 100%",
+      link: SMARTLINK,
     },
     {
-      type: "bonus",
-      title: "مكافأة التسجيل الأولى",
-      subtitle: "ضاعف رصيدك بونص 200% كود برومو: 1x_4884027",
-      cta: "سجل الآن وضاعف رصيدك",
+      type: "quality",
+      title: "جودة HD على جميع الأجهزة",
+      subtitle: "موبايل، تابلت، كمبيوتر — المباريات في كل مكان",
+      cta: "جرب الآن مجاناً",
       icon: <Sparkles className="w-5 h-5 text-orange-500" />,
       color: "from-amber-500 to-orange-500",
-      badge: "200% بونص",
-      link: "https://reffpa.com/L?tag=d_5627581m_97c_&site=5627581&ad=97",
+      badge: "HD جودة عالية",
+      link: SMARTLINK,
     },
     {
-      type: "odds",
-      title: "توقعات المباريات الكبرى",
-      subtitle: "أعلى عوائد للمراهنات الكروية كود برومو: ml_2674066",
-      cta: "توقع واربح بونص",
+      type: "coverage",
+      title: "تغطية شاملة لكل البطولات",
+      subtitle: "دوري أبطال أوروبا، البريميرليغ، لاليغا والمزيد",
+      cta: "تصفح المباريات",
       icon: <TrendingUp className="w-5 h-5 text-orange-500" />,
       color: "from-orange-500 to-amber-500",
-      badge: "أعلى odds",
-      link: "https://refpa3665.com/L?tag=d_5627564m_45415c_&site=5627564&ad=45415",
+      badge: "كل البطولات",
+      link: SMARTLINK,
     },
     {
-      type: "melbet",
-      title: "Melbet Sports Betting",
-      subtitle: "المنصة الرسمية للبث المباشر وتوقعات الكرة العالمية كود برومو: ml_2674066",
-      cta: "احصل على العرض",
-      icon: <Trophy className="w-5 h-5 text-orange-500" />,
+      type: "speed",
+      title: "بث سريع بدون انقطاع",
+      subtitle: "سيرفرات متعددة تضمن استمرار البث حتى مع إنترنت ضعيف",
+      cta: "ابدأ المشاهدة",
+      icon: <Play className="w-5 h-5 text-orange-500" />,
       color: "from-amber-600 to-orange-600",
-      badge: "شريك رسمي",
-      link: "https://refpa3665.com/L?tag=d_5627564m_45415c_&site=5627564&ad=45415",
+      badge: "بدون تقطيع",
+      link: SMARTLINK,
     },
   ];
 
@@ -52,7 +53,7 @@ export default function MobileAdsCarousel() {
       <div className="flex items-center justify-between mb-4">
         <h3 className="text-base font-extrabold text-white flex items-center gap-2">
           <span className="w-2 h-2 rounded-full bg-orange-500 animate-pulse"></span>
-          <span>عروض ورعاة كورة</span>
+          <span>بث مباشر مميز</span>
         </h3>
         <span className="text-[10px] text-slate-400 font-sans">اسحب للمزيد ➔</span>
       </div>
