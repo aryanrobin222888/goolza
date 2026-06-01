@@ -27,7 +27,7 @@ export async function generateMetadata({ params }) {
   const teamName = getArabicName(team.name, team.fieldTranslations);
   return {
     title: `${teamName} - إحصائيات واللاعبون | يلا شوت yallashoot`,
-    description: `تابع آخر إحصائيات نادي ${teamName} في الموسم الحالي. تشكيلة اللاعبين، نتائج المباريات السابقة، مواعيد اللقاءات القادمة، وترتيب الفريق في الدوري بالتفصيل على يلا شوت yallashoot.`,
+    description: `إحصائيات نادي ${teamName} في الموسم الحالي. تشكيلة اللاعبين، نتائج المباريات، مواعيد اللقاءات وترتيب الفريق بالدوري على يلا شوت yallashoot.`,
     alternates: { canonical: `https://goolza.com/team/${team.slug}/${id}` },
   };
 }

@@ -96,7 +96,7 @@ export async function generateMetadata({ params }) {
   // ── Description: injects time + channel for keyword-rich snippet ──
   const timeStr = matchTime ? `الساعة ${matchTime}` : "اليوم";
   const channelStr = channel ? `على قناة ${channel}` : "عبر يلا شوت yallashoot";
-  const description = `شاهد مباراة ${home} ضد ${away} بث مباشر ${timeStr} ${channelStr} ضمن ${comp}. بث HD بدون تقطيع على يلا شوت yallashoot — أسرع بث مباشر مجاني للمباريات.`;
+  const description = `شاهد مباراة ${home} ضد ${away} بث مباشر ${timeStr} ${channelStr} في ${comp}. بث مباشر HD بدون تقطيع عبر يلا شوت yallashoot مجاناً.`;
   const ogDescription = `${home} ضد ${away} لايف ${timeStr} ${channelStr}. يلا شوت yallashoot — بث مباشر HD بدون تقطيع.`;
 
   const images = [];
@@ -254,7 +254,7 @@ export default async function MatchPage({ params }) {
   const channelStr = match.channel
     ? `على قناة ${match.channel}`
     : "عبر يلا شوت yallashoot";
-  const dynamicDescription = `شاهد مباراة ${home} ضد ${away} بث مباشر ${timeStr} ${channelStr} ضمن ${comp}. بث HD بدون تقطيع على يلا شوت yallashoot — أسرع بث مباشر مجاني للمباريات.`;
+  const dynamicDescription = `شاهد مباراة ${home} ضد ${away} بث مباشر ${timeStr} ${channelStr} في ${comp}. بث مباشر HD بدون تقطيع عبر يلا شوت yallashoot مجاناً.`;
 
   // ── JSON-LD SportsEvent Schema ── (isLiveBroadcast triggers LIVE badge in SERP)
   const jsonLd = {
