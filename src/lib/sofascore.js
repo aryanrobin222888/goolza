@@ -240,8 +240,17 @@ async function fetchFromSofaScoreRaw(url, opts, proxyUser, proxyPass) {
  * @param {object} opts - { responseType: 'json' | 'arraybuffer' }
  * @returns {Promise<{data: any, contentType: string}>}
  */
+/**
+ * Generic fetch from SofaScore with database caching and proxy batch racing.
+ *
+ * Flow:
+ *  1. Check shared MongoDB cache (yallashoot may have already cached this)
+ *  2. Cache miss → call yallashoot central proxy (avoids duplicate proxy usage)
+ *  3. Central fails → fallback to direct proxy batch racing
+ */
 export async function fetchFromSofaScore(url, opts = {}) {
-  // 1. Try to read from MongoDB cache first
+  // ── Step 1: Shared MongoDB cache ──────────────────────────────────────────
+  // Since all apps use yallatir_data, yallashoot's cached data is visible here
   try {
     await connectDB();
     const cached = await SofaCache.findOne({ url });
@@ -268,12 +277,47 @@ export async function fetchFromSofaScore(url, opts = {}) {
     console.error("[SofaScore Cache Read Error]", dbErr.message);
   }
 
-  // 2. Fetch using proxy batch racing on cache miss
+  // ── Step 2: Central proxy (yallashoot) ────────────────────────────────────
+  const centralUrl = process.env.CENTRAL_PROXY_URL;
+  const internalSecret = process.env.INTERNAL_API_SECRET;
+
+  if (centralUrl && internalSecret) {
+    try {
+      const pathPart = url.replace("https://api.sofascore.com/api/v1/", "");
+      const centralEndpoint = `${centralUrl}/api/sofascore/${pathPart}`;
+
+      const response = await fetch(centralEndpoint, {
+        headers: { "x-internal-secret": internalSecret },
+        signal: AbortSignal.timeout(9000),
+        cache: "no-store",
+      });
+
+      if (response.ok) {
+        const contentType = response.headers.get("content-type") || "application/json";
+
+        if (opts.responseType === "arraybuffer") {
+          const buffer = await response.arrayBuffer();
+          return { data: Buffer.from(buffer), contentType };
+        }
+
+        const data = await response.json();
+        console.log(`[SofaScore] ✓ Central proxy hit: ${pathPart}`);
+        return { data, contentType };
+      }
+
+      console.warn(`[SofaScore] Central proxy returned ${response.status}, falling back to direct proxy`);
+    } catch (centralErr) {
+      console.warn("[SofaScore] Central proxy unreachable, falling back:", centralErr.message);
+    }
+  }
+
+  // ── Step 3: Fallback — direct proxy batch racing ───────────────────────────
+  console.log("[SofaScore] Using direct proxy fallback");
   const proxyUser = process.env.PROXY_USER;
   const proxyPass = process.env.PROXY_PASS;
   const result = await fetchFromSofaScoreRaw(url, opts, proxyUser, proxyPass);
 
-  // 3. Write new data to MongoDB cache
+  // Save to shared MongoDB cache (for future requests from any app in ecosystem)
   try {
     const ttlSeconds = getCacheTTL(url);
     const expiresAt = new Date(Date.now() + ttlSeconds * 1000);
