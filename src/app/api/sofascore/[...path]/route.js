@@ -8,9 +8,10 @@ const proxyCache = new Map();
 const CACHE_TTL = 120 * 1000;
 
 export async function GET(req, { params }) {
+  let pathStr = "";
   try {
     const { path } = await params;
-    const pathStr = Array.isArray(path) ? path.join("/") : path;
+    pathStr = Array.isArray(path) ? path.join("/") : path;
     const sofaUrl = `https://api.sofascore.com/api/v1/${pathStr}`;
 
     // Check if this is an image request
@@ -45,12 +46,21 @@ export async function GET(req, { params }) {
       headers: { "Cache-Control": "public, max-age=120" },
     });
   } catch (error) {
-    console.error("[SofaScore Proxy]", error.message);
-    const is404 = error.message.includes("404");
-    return NextResponse.json(
-      { error: is404 ? "Not Found" : "Failed to fetch from SofaScore" },
-      { status: is404 ? 404 : 502 }
-    );
+    console.warn("[SofaScore Proxy Bypass]", error.message);
+    const isImage = pathStr.includes("/image") || pathStr.endsWith("/logo");
+    if (isImage) {
+      const transparentPng = Buffer.from(
+        "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=",
+        "base64"
+      );
+      return new NextResponse(transparentPng, {
+        headers: {
+          "Content-Type": "image/png",
+          "Cache-Control": "public, max-age=86400",
+        },
+      });
+    }
+    return NextResponse.json({}, { status: 200 });
   }
 
 }

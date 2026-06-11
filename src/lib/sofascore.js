@@ -277,67 +277,9 @@ export async function fetchFromSofaScore(url, opts = {}) {
     console.error("[SofaScore Cache Read Error]", dbErr.message);
   }
 
-  // ── Step 2: Central proxy (yallashoot) ────────────────────────────────────
-  const centralUrl = process.env.CENTRAL_PROXY_URL;
-  const internalSecret = process.env.INTERNAL_API_SECRET;
-
-  if (centralUrl && internalSecret) {
-    try {
-      const pathPart = url.replace("https://api.sofascore.com/api/v1/", "");
-      const centralEndpoint = `${centralUrl}/api/sofascore/${pathPart}`;
-
-      const response = await fetch(centralEndpoint, {
-        headers: { "x-internal-secret": internalSecret },
-        signal: AbortSignal.timeout(9000),
-        cache: "no-store",
-      });
-
-      if (response.ok) {
-        const contentType = response.headers.get("content-type") || "application/json";
-
-        if (opts.responseType === "arraybuffer") {
-          const buffer = await response.arrayBuffer();
-          return { data: Buffer.from(buffer), contentType };
-        }
-
-        const data = await response.json();
-        console.log(`[SofaScore] ✓ Central proxy hit: ${pathPart}`);
-        return { data, contentType };
-      }
-
-      console.warn(`[SofaScore] Central proxy returned ${response.status}, falling back to direct proxy`);
-    } catch (centralErr) {
-      console.warn("[SofaScore] Central proxy unreachable, falling back:", centralErr.message);
-    }
-  }
-
-  // ── Step 3: Fallback — direct proxy batch racing ───────────────────────────
-  console.log("[SofaScore] Using direct proxy fallback");
-  const proxyUser = process.env.PROXY_USER;
-  const proxyPass = process.env.PROXY_PASS;
-  const result = await fetchFromSofaScoreRaw(url, opts, proxyUser, proxyPass);
-
-  // Save to shared MongoDB cache (for future requests from any app in ecosystem)
-  try {
-    const ttlSeconds = getCacheTTL(url);
-    const expiresAt = new Date(Date.now() + ttlSeconds * 1000);
-    const dataType = Buffer.isBuffer(result.data) || opts.responseType === 'arraybuffer' ? 'binary' : 'json';
-
-    await SofaCache.findOneAndUpdate(
-      { url },
-      {
-        data: result.data,
-        dataType,
-        contentType: result.contentType,
-        expiresAt
-      },
-      { upsert: true }
-    );
-  } catch (dbErr) {
-    console.error("[SofaScore Cache Write Error]", dbErr.message);
-  }
-
-  return result;
+  // ── Step 2: Proxy requests are disabled to improve performance ───────────
+  console.log(`[SofaScore Proxy Bypass] Cache miss for ${url}. Proxy fetching is disabled.`);
+  throw new Error("SofaScore proxy fetching is disabled");
 }
 
 
@@ -346,16 +288,6 @@ const cache = new Map();
 const CACHE_TTL = 60 * 1000; // 60 seconds
 
 export async function fetchSofaScoreEvents(date) {
-  const now = Date.now();
-  const cached = cache.get(date);
-  if (cached && now - cached.timestamp < CACHE_TTL) {
-    console.log(`[SofaScore Fetch] Returning cached data for ${date}`);
-    return cached.data;
-  }
-
-  const url = `https://api.sofascore.com/api/v1/sport/football/scheduled-events/${date}`;
-  const { data } = await fetchFromSofaScore(url);
-
-  cache.set(date, { timestamp: now, data });
-  return data;
+  console.log(`[SofaScore Fetch Bypass] Returning empty events for ${date} on goolza.`);
+  return { events: [] };
 }
