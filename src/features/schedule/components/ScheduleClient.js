@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { format, addDays, subDays, startOfToday } from "date-fns";
 import { m, LazyMotion, domAnimation, AnimatePresence } from "framer-motion";
 import { Zap, AlertCircle, Clock } from "lucide-react";
@@ -16,14 +16,22 @@ import {
 import { useMatches } from "@/features/schedule/api/useMatches";
 import CompetitionGroup from "@/features/schedule/components/CompetitionGroup";
 
-export default function ScheduleClient({ initialMatches, children }) {
-  const [selectedDate, setSelectedDate] = useState(startOfToday());
-  const {
-    data: competitions,
-    isLoading,
-    error,
-  } = useMatches(selectedDate, initialMatches);
-  const today = startOfToday();
+export default function ScheduleClient({ initialMatches, serverDateStr, children }) {
+  const [mounted, setMounted] = useState(false);
+  const [selectedDate, setSelectedDate] = useState(() => new Date(serverDateStr));
+
+  const { data: competitions, isLoading, error } = useMatches(selectedDate, initialMatches, serverDateStr);
+
+  useEffect(() => {
+    setMounted(true);
+    const clientToday = startOfToday();
+    const serverDate = new Date(serverDateStr);
+    if (format(clientToday, "yyyy-MM-dd") !== format(serverDate, "yyyy-MM-dd")) {
+      setSelectedDate(clientToday);
+    }
+  }, [serverDateStr]);
+
+  const today = mounted ? startOfToday() : new Date(serverDateStr);
   const days = [
     { label: "الغد", date: addDays(today, 1) },
     { label: "اليوم", date: today },

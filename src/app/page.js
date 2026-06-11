@@ -71,10 +71,10 @@ const faqData = [
 
 export default async function SchedulePageV2() {
   let initialMatches = [];
+  const todayStr = format(startOfToday(), "yyyy-MM-dd");
 
   try {
     await connectDB();
-    const todayStr = format(startOfToday(), "yyyy-MM-dd");
     const liveMatches = await LiveMatch.findOne({ date: todayStr }).lean();
 
     if (liveMatches && liveMatches.matches) {
@@ -126,7 +126,7 @@ export default async function SchedulePageV2() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
 
-      <ScheduleClient initialMatches={initialMatches}>
+      <ScheduleClient initialMatches={initialMatches} serverDateStr={todayStr}>
         {/* ═══ SEO Content Section (server-rendered, crawlable) ═══ */}
         <section
           className="mt-4 pt-16 pb-20 border-t border-slate-800/80 px-6 max-w-4xl mx-auto w-full"

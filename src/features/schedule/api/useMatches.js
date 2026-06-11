@@ -5,10 +5,14 @@ import axios from "axios";
 import { format, startOfToday } from "date-fns";
 import { groupMatches } from "@/lib/matchUtils";
 
-export const useMatches = (date, initialData = null) => {
+export const useMatches = (date, initialData = null, serverDateStr) => {
   const formattedDate = format(date, "yyyy-MM-dd");
   const todayFormatted = format(startOfToday(), "yyyy-MM-dd");
   
+  const hasInitialData =
+    (serverDateStr ? formattedDate === serverDateStr : formattedDate === todayFormatted) &&
+    initialData?.length > 0;
+
   return useQuery({
     queryKey: ["matches", formattedDate],
     queryFn: async () => {
@@ -22,11 +26,7 @@ export const useMatches = (date, initialData = null) => {
 
       return groupMatches(response.data.matches);
     },
-    // Only use initialData if the date matches today and we actually have data
-    initialData:
-      formattedDate === todayFormatted && initialData?.length > 0
-        ? initialData
-        : undefined,
+    initialData: hasInitialData ? initialData : undefined,
     staleTime: 60 * 1000,
   });
 };
