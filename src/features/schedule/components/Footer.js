@@ -16,12 +16,12 @@ const LEAGUE_LINKS = [
 ];
 
 const TEAM_LINKS = [
-  { label: "ريال مدريد", href: "/team/real-madrid/2829" },
-  { label: "برشلونة", href: "/team/barcelona/2817" },
-  { label: "مانشستر سيتي", href: "/team/manchester-city/17" },
-  { label: "بايرن ميونخ", href: "/team/bayern-munchen/2672" },
-  { label: "باريس سان جيرمان", href: "/team/paris-saint-germain/1644" },
-  { label: "ليفربول", href: "/team/liverpool/44" },
+  { label: "ريال مدريد", href: "/team/real-madrid/541" },
+  { label: "برشلونة", href: "/team/barcelona/529" },
+  { label: "مانشستر سيتي", href: "/team/manchester-city/50" },
+  { label: "بايرن ميونخ", href: "/team/bayern-munchen/157" },
+  { label: "باريس سان جيرمان", href: "/team/paris-saint-germain/85" },
+  { label: "ليفربول", href: "/team/liverpool/40" },
 ];
 
 export default function Footer() {
