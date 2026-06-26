@@ -705,7 +705,8 @@ export default async function MatchPage({ params }) {
 
               {/* CTA Button with Countdown */}
               <WatchButton
-                streamPageUrl={match.streamPageUrl}
+                slug={slug}
+                hasStreamPageUrl={!!match.streamPageUrl && match.streamPageUrl.trim() !== ""}
                 isFinished={isFinished}
                 isLive={isLive}
                 matchTime={match.time}

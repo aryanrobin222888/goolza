@@ -35,7 +35,7 @@ function getSecondsUntilEnable(matchTime, matchStartTime) {
   return diff > 0 ? diff : 0;
 }
 
-export default function WatchButton({ streamPageUrl, isFinished, isLive, matchTime, matchStartTime }) {
+export default function WatchButton({ slug, hasStreamPageUrl, isFinished, isLive, matchTime, matchStartTime }) {
   const [secondsLeft, setSecondsLeft] = useState(() =>
     getSecondsUntilEnable(matchTime, matchStartTime)
   );
@@ -71,6 +71,13 @@ export default function WatchButton({ streamPageUrl, isFinished, isLive, matchTi
     return `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
   }, []);
 
+  const handlePlay = useCallback(() => {
+    if (!slug) return;
+    // Base64 encoded "/go/" is "L2dvLw=="
+    const path = atob("L2dvLw==") + slug;
+    window.open(path, "_blank", "noopener,noreferrer");
+  }, [slug]);
+
   // ── Finished state ──
   if (isFinished) {
     const now = new Date();
@@ -89,13 +96,12 @@ export default function WatchButton({ streamPageUrl, isFinished, isLive, matchTi
     }
 
     // Keep the button active for up to 4 hours since kickoff if stream URL is present
-    if (isWithin4Hours && streamPageUrl) {
+    if (isWithin4Hours && hasStreamPageUrl) {
       return (
         <div className="flex flex-col items-center gap-4">
-          <Link
-            href={streamPageUrl}
-            target="_blank"
-            className="group/btn relative inline-flex items-center gap-3 bg-[#ff7a00] hover:bg-[#08c285] text-white font-bold text-lg md:text-xl px-10 py-4 rounded-2xl shadow-lg shadow-[#ff7a00]/30 hover:shadow-[#ff7a00]/50 transition-all duration-300 hover:scale-105 active:scale-95 overflow-hidden"
+          <button
+            onClick={handlePlay}
+            className="group/btn relative inline-flex items-center gap-3 bg-[#ff7a00] hover:bg-[#08c285] text-white font-bold text-lg md:text-xl px-10 py-4 rounded-2xl shadow-lg shadow-[#ff7a00]/30 hover:shadow-[#ff7a00]/50 transition-all duration-300 hover:scale-105 active:scale-95 overflow-hidden cursor-pointer"
           >
             {/* Shimmer sweep on hover */}
             <span className="absolute inset-0 -translate-x-full group-hover/btn:translate-x-full transition-transform duration-700 bg-gradient-to-r from-transparent via-white/20 to-transparent skew-x-12 pointer-events-none" />
@@ -104,7 +110,7 @@ export default function WatchButton({ streamPageUrl, isFinished, isLive, matchTi
               <path fillRule="evenodd" d="M4.5 5.653c0-1.427 1.529-2.33 2.779-1.643l11.54 6.347c1.295.712 1.295 2.573 0 3.286L7.28 19.99c-1.25.687-2.779-.217-2.779-1.643V5.653Z" clipRule="evenodd" />
             </svg>
             شاهد البث من هنا
-          </Link>
+          </button>
           <p className="text-slate-400 text-sm text-center font-medium">
             المباراة انتهت — البث ما زال متوفراً للمشاهدة
           </p>
@@ -126,7 +132,7 @@ export default function WatchButton({ streamPageUrl, isFinished, isLive, matchTi
   }
 
   // ── No stream URL ──
-  if (!streamPageUrl) {
+  if (!hasStreamPageUrl) {
     return (
       <div className="flex flex-col items-center gap-4">
         <div className="inline-flex items-center gap-3 bg-[#ff7a00]/20 border border-[#ff7a00]/30 text-[#ff7a00] font-bold text-lg md:text-xl px-10 py-4 rounded-2xl cursor-default">
@@ -210,10 +216,9 @@ export default function WatchButton({ streamPageUrl, isFinished, isLive, matchTi
   // ── Ready (button enabled) ──
   return (
     <div className="flex flex-col items-center gap-4">
-      <Link
-        href={streamPageUrl}
-        target="_blank"
-        className="group/btn relative inline-flex items-center gap-3 bg-[#ff7a00] hover:bg-[#08c285] text-white font-bold text-lg md:text-xl px-10 py-4 rounded-2xl shadow-lg shadow-[#ff7a00]/30 hover:shadow-[#ff7a00]/50 transition-all duration-300 hover:scale-105 active:scale-95 overflow-hidden"
+      <button
+        onClick={handlePlay}
+        className="group/btn relative inline-flex items-center gap-3 bg-[#ff7a00] hover:bg-[#08c285] text-white font-bold text-lg md:text-xl px-10 py-4 rounded-2xl shadow-lg shadow-[#ff7a00]/30 hover:shadow-[#ff7a00]/50 transition-all duration-300 hover:scale-105 active:scale-95 overflow-hidden cursor-pointer"
       >
         {/* Shimmer sweep on hover */}
         <span className="absolute inset-0 -translate-x-full group-hover/btn:translate-x-full transition-transform duration-700 bg-gradient-to-r from-transparent via-white/20 to-transparent skew-x-12 pointer-events-none" />
@@ -222,7 +227,7 @@ export default function WatchButton({ streamPageUrl, isFinished, isLive, matchTi
           <path fillRule="evenodd" d="M4.5 5.653c0-1.427 1.529-2.33 2.779-1.643l11.54 6.347c1.295.712 1.295 2.573 0 3.286L7.28 19.99c-1.25.687-2.779-.217-2.779-1.643V5.653Z" clipRule="evenodd" />
         </svg>
         شاهد البث من هنا
-      </Link>
+      </button>
       <p className="text-slate-400 text-sm text-center">
         انقر للمشاهدة — بث مباشر بجودة عالية
       </p>
