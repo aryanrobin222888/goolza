@@ -277,8 +277,63 @@ export async function fetchFromSofaScore(url, opts = {}) {
     console.error("[SofaScore Cache Read Error]", dbErr.message);
   }
 
-  // ── Step 2: Proxy requests are disabled to improve performance ───────────
-  console.log(`[SofaScore Proxy Bypass] Cache miss for ${url}. Proxy fetching is disabled.`);
+  // ── Step 2: Call central proxy ─────────────────────────────────────────────
+  const centralProxyUrl = process.env.CENTRAL_PROXY_URL;
+  const internalSecret = process.env.INTERNAL_API_SECRET;
+
+  if (centralProxyUrl && internalSecret) {
+    try {
+      const pathStr = url.replace("https://api.sofascore.com/api/v1/", "");
+      const proxyFetchUrl = `${centralProxyUrl}/api/sofascore/${pathStr}`;
+
+      console.log(`[SofaScore Central Proxy] Cache miss for ${url}. Fetching from central proxy: ${proxyFetchUrl}`);
+
+      const response = await axios.get(proxyFetchUrl, {
+        headers: {
+          "x-internal-secret": internalSecret,
+        },
+        responseType: opts.responseType === "arraybuffer" ? "arraybuffer" : "json",
+        timeout: 15000,
+      });
+
+      // Cache the response in the shared MongoDB database
+      let dataToCache = response.data;
+      if (opts.responseType === "arraybuffer") {
+        dataToCache = Buffer.from(response.data);
+      }
+
+      try {
+        const ttl = getCacheTTL(url);
+        const expiresAt = new Date(Date.now() + ttl * 1000);
+        await connectDB();
+        await SofaCache.findOneAndUpdate(
+          { url },
+          {
+            url,
+            data: dataToCache,
+            dataType: opts.responseType === "arraybuffer" ? "binary" : "json",
+            contentType: response.headers["content-type"] || (opts.responseType === "arraybuffer" ? "image/png" : "application/json"),
+            expiresAt,
+          },
+          { upsert: true }
+        );
+      } catch (cacheWriteErr) {
+        console.error("[SofaScore Cache Write Error]", cacheWriteErr.message);
+      }
+
+      return {
+        data: response.data,
+        contentType: response.headers["content-type"] || (opts.responseType === "arraybuffer" ? "image/png" : "application/json"),
+      };
+    } catch (proxyErr) {
+      console.error(`[SofaScore Central Proxy Fail] for ${url}:`, proxyErr.message);
+    }
+  } else {
+    console.log(`[SofaScore Central Proxy Bypass] Missing CENTRAL_PROXY_URL or INTERNAL_API_SECRET.`);
+  }
+
+  // ── Step 3: Fallback ───────────────────────────────────────────────────────
+  console.log(`[SofaScore Proxy Bypass] Cache & Central Proxy miss/fail for ${url}.`);
   throw new Error("SofaScore proxy fetching is disabled");
 }
 
