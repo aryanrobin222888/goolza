@@ -40,27 +40,100 @@ async function getMatch(slug) {
       : { $or: [{ "matches.id": matchId }, { "matches.id": matchIdNum }] };
 
     const record = await LiveMatch.findOne(query).lean();
-    if (!record) return null;
+    let match = null;
 
-    let match = record.matches.find((m) => String(m.id) === String(matchId));
+    if (record) {
+      match = record.matches.find((m) => String(m.id) === String(matchId));
+    }
+
+    if (!match) {
+      // Try to fetch from SofaScore proxy fallback
+      try {
+        const { fetchFromSofaScore } = require("@/lib/sofascore");
+        const { getArabicTeamName } = require("@/lib/teamTranslations");
+        const sofaRes = await fetchFromSofaScore(`https://api.sofascore.com/api/v1/event/${matchId}`);
+        if (sofaRes && sofaRes.data && sofaRes.data.event) {
+          const event = sofaRes.data.event;
+          const isLive = event.status?.type === "inprogress";
+          const isFinished = ["finished", "ended"].includes(event.status?.type);
+
+          let status = "COMING_SOON";
+          if (isLive) status = "LIVE";
+          else if (isFinished) status = "ENDED";
+          else if (event.status?.type === "postponed") status = "postponed";
+          else if (event.status?.type === "canceled") status = "canceled";
+
+          const homeName = event.homeTeam?.fieldTranslations?.nameTranslation?.ar || getArabicTeamName(event.homeTeam?.name || event.homeTeam?.shortName);
+          const awayName = event.awayTeam?.fieldTranslations?.nameTranslation?.ar || getArabicTeamName(event.awayTeam?.name || event.awayTeam?.shortName);
+
+          const timeStr = event.startTimestamp
+            ? new Date(event.startTimestamp * 1000).toLocaleTimeString([], {
+                hour: "2-digit",
+                minute: "2-digit",
+                hour12: false,
+              })
+            : null;
+
+          const startTimeISO = event.startTimestamp
+            ? new Date(event.startTimestamp * 1000).toISOString()
+            : null;
+
+          match = {
+            id: String(event.id),
+            status,
+            time: timeStr,
+            startTime: startTimeISO,
+            home: {
+              id: event.homeTeam?.id,
+              name: homeName,
+              logo: `/api/sofascore/team/${event.homeTeam?.id}/image`,
+              score: event.homeScore?.display ?? event.homeScore?.current ?? 0
+            },
+            away: {
+              id: event.awayTeam?.id,
+              name: awayName,
+              logo: `/api/sofascore/team/${event.awayTeam?.id}/image`,
+              score: event.awayScore?.display ?? event.awayScore?.current ?? 0
+            },
+            tournament: {
+              id: event.tournament?.uniqueTournament?.id,
+              name: event.tournament?.uniqueTournament?.fieldTranslations?.nameTranslation?.ar || event.tournament?.uniqueTournament?.name,
+              uniqueTournament: {
+                id: event.tournament?.uniqueTournament?.id,
+                name: event.tournament?.uniqueTournament?.fieldTranslations?.nameTranslation?.ar || event.tournament?.uniqueTournament?.name
+              }
+            },
+            venue: event.venue?.name || "",
+            channel: "غير محدد",
+            streamUrl: "",
+            streamPageUrl: "",
+          };
+        }
+      } catch (err) {
+        console.error("Failed to fetch match from SofaScore fallback:", err.message);
+      }
+    }
+
     if (!match) return null;
 
     // ====== MERGE SOFASCORE DATA (LIVE SYNC) ======
-    try {
-      const todayStr = record.date || format(new Date(), "yyyy-MM-dd");
-      const sofaData = await fetchSofaScoreEvents(todayStr);
-      const events = sofaData.events || [];
-      const event = events.find(
-        (e) => e.id?.toString() === match.id?.toString(),
-      );
-      if (event) {
-        syncMatchWithSofaScore(match, event);
+    if (record) {
+      try {
+        const todayStr = record.date || format(new Date(), "yyyy-MM-dd");
+        const sofaData = await fetchSofaScoreEvents(todayStr);
+        const events = sofaData.events || [];
+        const event = events.find(
+          (e) => e.id?.toString() === match.id?.toString(),
+        );
+        if (event) {
+          syncMatchWithSofaScore(match, event);
+        }
+      } catch (err) {
+        console.warn(
+          "Failed to fetch fresh sofascore data for match details:",
+          err.message,
+        );
       }
-    } catch (err) {
-      console.warn(
-        "Failed to fetch fresh sofascore data for match details:",
-        err.message,
-      );
     }
     // ==============================================
 

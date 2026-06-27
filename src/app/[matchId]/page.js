@@ -18,12 +18,40 @@ async function getMatch(matchIdStr) {
       : { $or: [{ "matches.id": matchIdStr }, { "matches.id": matchIdNum }] };
 
     const record = await LiveMatch.findOne(query).lean();
-    if (!record) return null;
+    let match = null;
+    if (record) {
+      match = record.matches.find(
+        (m) => String(m.id) === String(matchIdStr),
+      );
+    }
 
-    // Extract the specific match
-    const match = record.matches.find(
-      (m) => String(m.id) === String(matchIdStr),
-    );
+    if (!match) {
+      // Try to fetch from SofaScore proxy fallback
+      try {
+        const { fetchFromSofaScore } = require("@/lib/sofascore");
+        const { getArabicTeamName } = require("@/lib/teamTranslations");
+        const sofaRes = await fetchFromSofaScore(`https://api.sofascore.com/api/v1/event/${matchIdStr}`);
+        if (sofaRes && sofaRes.data && sofaRes.data.event) {
+          const event = sofaRes.data.event;
+          const homeName = event.homeTeam?.fieldTranslations?.nameTranslation?.ar || getArabicTeamName(event.homeTeam?.name || event.homeTeam?.shortName);
+          const awayName = event.awayTeam?.fieldTranslations?.nameTranslation?.ar || getArabicTeamName(event.awayTeam?.name || event.awayTeam?.shortName);
+          
+          match = {
+            id: String(event.id),
+            slug: event.slug,
+            home: {
+              name: homeName
+            },
+            away: {
+              name: awayName
+            }
+          };
+        }
+      } catch (err) {
+        console.error("Failed to fetch match from SofaScore fallback in legacy route:", err.message);
+      }
+    }
+
     return match;
   } catch (error) {
     console.error("Error fetching match:", error);
