@@ -23,6 +23,9 @@ import { syncMatchWithSofaScore } from "@/lib/matchSync";
 import { format } from "date-fns";
 import MatchTabs from "@/features/match/components/MatchTabs";
 import WatchButton from "@/features/match/components/WatchButton";
+import HeadToHeadWidget from "@/features/match/components/HeadToHeadWidget";
+import PredictionsWidget from "@/features/match/components/PredictionsWidget";
+import OddsWidget from "@/features/match/components/OddsWidget";
 
 export const dynamic = "force-dynamic";
 
@@ -257,6 +260,27 @@ export default async function MatchPage({ params }) {
   const { slug } = await params;
   const match = await getMatch(slug);
   if (!match) notFound();
+
+  // Fetch H2H, Predictions, and Odds data
+  let h2hData = null;
+  let predictionsData = null;
+  let oddsData = null;
+  if (match.home?.id && match.away?.id) {
+    try {
+      const { fetchFromApiFootball } = require("@/lib/apiFootball");
+      h2hData = await fetchFromApiFootball("fixtures/headtohead", {
+        h2h: `${match.home.id}-${match.away.id}`
+      });
+      predictionsData = await fetchFromApiFootball("predictions", {
+        fixture: match.id
+      });
+      oddsData = await fetchFromApiFootball("odds", {
+        fixture: match.id
+      });
+    } catch (err) {
+      console.error("Failed to fetch API-Football data in MatchPage:", err.message);
+    }
+  }
 
   // Fetch AI generated article if it exists
   let article = null;
@@ -791,6 +815,15 @@ export default async function MatchPage({ params }) {
 
         {/* ── Match Tabs (Live Details / Lineups / Stats) ── */}
         <MatchTabs eventId={match.id} isLive={isLive} isFinished={isFinished} />
+
+        {/* ── Head to Head Widget ── */}
+        <HeadToHeadWidget h2hData={h2hData} homeTeam={match.home} awayTeam={match.away} />
+
+        {/* ── Predictions and Odds Widgets ── */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full">
+          <PredictionsWidget predictionsData={predictionsData} homeTeam={match.home} awayTeam={match.away} />
+          <OddsWidget oddsData={oddsData} homeTeam={match.home} awayTeam={match.away} />
+        </div>
 
         {/* ── SEO Content Article (server-rendered, crawlable) ── */}
         <article
